@@ -17,10 +17,11 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_photo = db.Column(db.String)
     bio = db.Column(db.Text)
-    created_at = db.Column(db.Datetime, nullable=False, default=datetime.datetime.utcnow)
-    updated_at = db.Column(db.Datetime, nullable=False, default=datetime.datetime.utcnow)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
     followers = db.relationship('User', secondary=follows, primaryjoin=(follows.c.follower_id == id), secondaryjoin=(follows.c.followed_id == id), lazy="dynamic")
+    cheeps = db.relationship('Cheep')
 
     @property
     def password(self):
