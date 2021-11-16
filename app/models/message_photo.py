@@ -11,4 +11,4 @@ class MessagePhoto(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
-    message = db.relationship("Message", backref="photos")
+    message = db.relationship("Message", back_populates="photos")

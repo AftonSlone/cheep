@@ -23,9 +23,9 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
     followers = db.relationship('User', secondary=follows, primaryjoin=(follows.c.follower_id == id), secondaryjoin=(follows.c.followed_id == id), lazy="dynamic")
-    cheeps = db.relationship('Cheep')
-    replies = db.relationship('Reply')
-    messages = db.relationship("Message")
+    cheeps = db.relationship('Cheep', back_populates='user')
+    replies = db.relationship('Reply', back_populates='user')
+    messages = db.relationship("Message", back_populates='user')
     likes = db.relationship("Cheep", secondary=cheep_likes, backref="likes")
     recheeps = db.relationship("Cheep", secondary=cheep_likes, backref="recheeps")
 

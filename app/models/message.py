@@ -12,5 +12,5 @@ class Message(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
-    user = db.relationship("User", backref="messages")
-    photos = db.relationship("MessagePhoto")
+    user = db.relationship("User", back_populates='messages')
+    photos = db.relationship("MessagePhoto", back_populates='message')

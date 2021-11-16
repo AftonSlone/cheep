@@ -13,8 +13,8 @@ class Cheep(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
-    user = db.relationship("User", backref="cheeps")
-    photos = db.relationship("CheepPhoto")
-    replies = db.relationship("Reply")
-    likes = db.relationship("User", secondary=cheep_likes)
-    recheeps = db.relationship("User", secondary=cheep_likes)
+    user = db.relationship("User", back_populates="cheeps")
+    photos = db.relationship("CheepPhoto", back_populates="cheep")
+    replies = db.relationship("Reply", back_populates="cheep")
+    # likes = db.relationship("User", secondary=cheep_likes)
+    # recheeps = db.relationship("User", secondary=cheep_likes)

@@ -11,4 +11,4 @@ class ReplyPhoto(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
-    reply = db.relationship("Reply", backref="photos")
+    reply = db.relationship("Reply", back_populates="photos")

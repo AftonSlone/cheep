@@ -11,4 +11,4 @@ class CheepPhoto(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
-    cheep = db.relationship("Cheep", backref="photos")
+    cheep = db.relationship("Cheep", back_populates="photos")

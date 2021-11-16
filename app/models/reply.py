@@ -13,6 +13,6 @@ class Reply(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
-    cheep = db.relationship("Cheep", backref="replies")
-    user = db.relationship("User", backref="replies")
-    photos = db.relationship("ReplyPhoto")
+    cheep = db.relationship("Cheep", back_populates="replies")
+    user = db.relationship("User", back_populates='replies')
+    photos = db.relationship("ReplyPhoto", back_populates="reply")
