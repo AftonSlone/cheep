@@ -8,5 +8,5 @@ from .reply import Reply
 from .reply_photo import ReplyPhoto
 from .cheep_like import cheep_likes
 from .recheep import Recheeps
-from .follow import follows
+from .follow import Follow
 from .recheep import Recheeps

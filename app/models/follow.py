@@ -1,9 +1,9 @@
 from .db import db
 
 
+class Follow(db.Model):
+    __tablename__ = 'follows'
 
-follows = db.Table(
-    "follows",
-    db.Column("follower_id", db.Integer, db.ForeignKey("users.id")),
-    db.Column("followed_id", db.Integer, db.ForeignKey("users.id"))
- )
+    id = db.Column(db.Integer, primary_key=True)
+    follower_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    followed_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
