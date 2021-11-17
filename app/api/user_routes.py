@@ -1,6 +1,8 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, request
 from flask_login import login_required
-from app.models import User
+from app.models import db, User
+from app.forms.edit_user_form import EditUserForm
+from app.validators import validation_errors_to_error_messages
 
 user_routes = Blueprint('users', __name__)
 
@@ -31,3 +33,11 @@ def update_user(id):
         db.session.commit()
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+@user_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_user(id):
+    user = User.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+    return "success"
