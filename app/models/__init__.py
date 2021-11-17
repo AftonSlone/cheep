@@ -6,7 +6,7 @@ from .message_photo import MessagePhoto
 from .cheep_photo import CheepPhoto
 from .reply import Reply
 from .reply_photo import ReplyPhoto
-from .cheep_like import cheep_likes
+from .cheep_like import CheepLikes
 from .recheep import Recheeps
-from .follow import follows
-from .recheep import Recheeps
+from .follow import Follow
+

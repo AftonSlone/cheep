@@ -1,9 +1,15 @@
 from .db import db
 
 
+class Follow(db.Model):
+    __tablename__ = 'follows'
 
-follows = db.Table(
-    "follows",
-    db.Column("follower_id", db.Integer, db.ForeignKey("users.id")),
-    db.Column("followed_id", db.Integer, db.ForeignKey("users.id"))
- )
+    follower_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, primary_key=True)
+    followed_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, primary_key=True)
+
+
+    def to_dict(self):
+        return {
+            'follower_id': self.follower_id,
+            'followed_id': self.followed_id
+            }

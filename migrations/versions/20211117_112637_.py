@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 119a349077e1
+Revision ID: 28afc179fee1
 Revises: 
-Create Date: 2021-11-16 14:06:51.091497
+Create Date: 2021-11-17 11:26:37.090401
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '119a349077e1'
+revision = '28afc179fee1'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -35,24 +35,34 @@ def upgrade():
     op.create_table('cheeps',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('content', sa.String(), nullable=False),
+    sa.Column('content', sa.String(length=280), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.Column('updated_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('follows',
-    sa.Column('follower_id', sa.Integer(), nullable=True),
-    sa.Column('followed_id', sa.Integer(), nullable=True),
+    sa.Column('follower_id', sa.Integer(), nullable=False),
+    sa.Column('followed_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['followed_id'], ['users.id'], ),
-    sa.ForeignKeyConstraint(['follower_id'], ['users.id'], )
+    sa.ForeignKeyConstraint(['follower_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('follower_id', 'followed_id')
+    )
+    op.create_table('messages',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('content', sa.String(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), nullable=False),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('cheep_likes',
-    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('cheep_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['cheep_id'], ['cheeps.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('user_id', 'cheep_id')
+    sa.PrimaryKeyConstraint('cheep_id', 'user_id')
     )
     op.create_table('cheep_photos',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -61,6 +71,15 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.Column('updated_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['cheep_id'], ['cheeps.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('message_photos',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('message_id', sa.Integer(), nullable=False),
+    sa.Column('photo_url', sa.String(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), nullable=False),
+    sa.ForeignKeyConstraint(['message_id'], ['messages.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('recheeps',
@@ -74,7 +93,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('cheep_id', sa.Integer(), nullable=False),
-    sa.Column('content', sa.String(), nullable=False),
+    sa.Column('content', sa.String(length=280), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.Column('updated_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['cheep_id'], ['cheeps.id'], ),
@@ -98,8 +117,10 @@ def downgrade():
     op.drop_table('reply_photos')
     op.drop_table('replies')
     op.drop_table('recheeps')
+    op.drop_table('message_photos')
     op.drop_table('cheep_photos')
     op.drop_table('cheep_likes')
+    op.drop_table('messages')
     op.drop_table('follows')
     op.drop_table('cheeps')
     op.drop_table('users')
