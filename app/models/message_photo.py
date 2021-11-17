@@ -12,3 +12,22 @@ class MessagePhoto(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
     message = db.relationship("Message", back_populates="photos")
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'message_id': self.message_id,
+            'photo_url': self.photo_url,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+            'reply': self.reply.to_simple_dict()
+        }
+
+    def to_simple_dict(self):
+        return {
+            'id': self.id,
+            'message_id': self.message_id,
+            'photo_url': self.photo_url,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+        }

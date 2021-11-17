@@ -71,7 +71,7 @@ def react_root(path):
         return app.send_static_file('favicon.ico')
     return app.send_static_file('index.html')
 
-@app.route('/')
-def index():
-    user = User.query.get(1)
-    return user.to_dict()
+# @app.route('/')
+# def index():
+#     user = User.query.get(1)
+#     return user.to_dict()

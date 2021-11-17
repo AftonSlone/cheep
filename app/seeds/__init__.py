@@ -4,6 +4,7 @@ from .users import seed_users, undo_users
 from .follows import seed_follows, undo_follows
 from .cheeps import seed_cheeps, undo_cheeps
 from .cheep_likes import seed_likes, undo_likes
+from .replies import seed_replies, undo_replies
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
@@ -17,6 +18,7 @@ def seed():
     seed_follows()
     seed_cheeps()
     seed_likes()
+    seed_replies()
     # Add other seed functions here
 
 
@@ -27,4 +29,5 @@ def undo():
     undo_follows()
     undo_cheeps()
     undo_likes()
+    undo_replies()
     # Add other undo functions here

@@ -4,7 +4,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 import datetime
 from .follow import Follow
-from .cheep_like import CheepLikes
 
 
 
@@ -27,8 +26,8 @@ class User(db.Model, UserMixin):
     cheeps = db.relationship('Cheep', back_populates='user')
     replies = db.relationship('Reply', back_populates='user')
     messages = db.relationship("Message", back_populates='user')
-    likes = db.relationship("Cheep")
-    # recheeps = db.relationship("Cheep")
+    likes = db.relationship("CheepLikes")
+    recheeps = db.relationship("Recheeps")
 
     @property
     def password(self):
@@ -45,10 +44,15 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
+            'name': self.name,
             'email': self.email,
             'profile_photo': self.profile_photo,
             'bio': self.bio,
             'following': [follow.to_dict() for follow in self.following],
+            'likes': [like.to_dict() for like in self.likes],
+            'cheeps': [cheep.to_simple_dict() for cheep in self.cheeps],
+            'replies': [reply.to_simple_dict() for reply in self.replies],
+            'messages': [message.to_simple_dict() for message in self.messages],
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
@@ -57,7 +61,18 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
+            'name': self.name,
             'email': self.email,
             'profile_photo': self.profile_photo,
-            'bio': self.bio
+            'bio': self.bio,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
         }
+
+    def update(self, username=None, email=None, name=None, bio=None, profile_photo=None,  **kwargs):
+        self.username = username if username else self.username
+        self.email = email if email else self.email
+        self.full_name = name if name else self.name
+        self.bio = bio if bio else self.bio
+        self.profile_photo = profile_photo if profile_photo else self.profile_photo
+        return self

@@ -12,3 +12,22 @@ class CheepPhoto(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
     cheep = db.relationship("Cheep", back_populates="photos")
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'cheep_id': self.cheep_id,
+            'photo_url': self.photo_url,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+            'reply': self.reply.to_simple_dict()
+        }
+
+    def to_simple_dict(self):
+        return {
+            'id': self.id,
+            'cheep_id': self.cheep_id,
+            'photo_url': self.photo_url,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+        }

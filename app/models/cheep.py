@@ -1,6 +1,4 @@
-from sqlalchemy.orm import backref
 from .db import db
-from .cheep_like import CheepLikes
 import datetime
 
 
@@ -9,7 +7,7 @@ class Cheep(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    content = db.Column(db.String, nullable=False)
+    content = db.Column(db.String(280), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
@@ -17,4 +15,27 @@ class Cheep(db.Model):
     photos = db.relationship("CheepPhoto", back_populates="cheep")
     replies = db.relationship("Reply", back_populates="cheep")
     likes = db.relationship("CheepLikes")
-    # recheeps = db.relationship("User", secondary=cheep_likes)
+    recheeps = db.relationship("Recheeps")
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'content': self.content,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+            'user': self.user.to_dict(),
+            'photos': [photo.to_simple_dict() for photo in self.photos],
+            'replies': [reply.to_simple_dict() for reply in self.replies],
+            'likes': [like.to_dict() for like in self.likes],
+            'recheeps': [recheep.to_dict() for recheep in self.recheeps]
+        }
+
+    def to_simple_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'content': self.content,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+        }

@@ -1,4 +1,4 @@
-from app.models import cheep_like, db, CheepLikes
+from app.models import db, CheepLikes
 
 
 # Adds a demo user, you can add other users here if you want
