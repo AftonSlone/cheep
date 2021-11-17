@@ -45,5 +45,19 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'profile_photo': self.profile_photo,
+            'bio': self.bio,
+            'following': [follow.to_dict() for follow in self.following],
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
+        }
+
+    def to_simple_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'profile_photo': self.profile_photo,
+            'bio': self.bio
         }
