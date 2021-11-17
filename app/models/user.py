@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 import datetime
 from .follow import Follow
-from .cheep_like import cheep_likes
+from .cheep_like import CheepLikes
 
 
 
@@ -27,8 +27,8 @@ class User(db.Model, UserMixin):
     cheeps = db.relationship('Cheep', back_populates='user')
     replies = db.relationship('Reply', back_populates='user')
     messages = db.relationship("Message", back_populates='user')
-    likes = db.relationship("Cheep", secondary=cheep_likes, backref="likes")
-    recheeps = db.relationship("Cheep", secondary=cheep_likes, backref="recheeps")
+    likes = db.relationship("Cheep")
+    # recheeps = db.relationship("Cheep")
 
     @property
     def password(self):

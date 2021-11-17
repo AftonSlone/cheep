@@ -1,12 +1,15 @@
-from app.models import db, Follow
+from app.models import cheep_like, db, CheepLikes
 
 
 # Adds a demo user, you can add other users here if you want
-def seed_follows():
+def seed_likes():
     for i in range(10):
-        new_follower = Follow(follower_id=1, followed_id=i+2)
-        db.session.add(new_follower)
+        new_like = CheepLikes(user_id=i+2, cheep_id=i+1)
+        db.session.add(new_like)
 
+    for j in range(10):
+        new_like = CheepLikes(user_id=21-j, cheep_id=j+1)
+        db.session.add(new_like)
 
     db.session.commit()
 
@@ -16,6 +19,6 @@ def seed_follows():
 # TRUNCATE Removes all the data from the table, and RESET IDENTITY
 # resets the auto incrementing primary key, CASCADE deletes any
 # dependent entities
-def undo_follows():
-    db.session.execute('TRUNCATE follows RESTART IDENTITY CASCADE;')
+def undo_likes():
+    db.session.execute('TRUNCATE cheep_likes RESTART IDENTITY CASCADE;')
     db.session.commit()

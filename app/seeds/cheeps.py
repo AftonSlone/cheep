@@ -1,12 +1,16 @@
-from app.models import db, Follow
+from app.models import db, Cheep
+from faker import Faker
 
+fake = Faker()
+def random_cheeps():
+    new_cheep = Cheep(user_id=1, content=fake.text())
+    db.session.add(new_cheep)
 
 # Adds a demo user, you can add other users here if you want
-def seed_follows():
-    for i in range(10):
-        new_follower = Follow(follower_id=1, followed_id=i+2)
-        db.session.add(new_follower)
+def seed_cheeps():
 
+    for _ in range(10):
+        random_cheeps()
 
     db.session.commit()
 
@@ -16,6 +20,6 @@ def seed_follows():
 # TRUNCATE Removes all the data from the table, and RESET IDENTITY
 # resets the auto incrementing primary key, CASCADE deletes any
 # dependent entities
-def undo_follows():
-    db.session.execute('TRUNCATE follows RESTART IDENTITY CASCADE;')
+def undo_cheeps():
+    db.session.execute('TRUNCATE cheeps RESTART IDENTITY CASCADE;')
     db.session.commit()

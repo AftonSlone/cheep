@@ -1,6 +1,6 @@
 from sqlalchemy.orm import backref
 from .db import db
-from .cheep_like import cheep_likes
+from .cheep_like import CheepLikes
 import datetime
 
 
@@ -16,5 +16,5 @@ class Cheep(db.Model):
     user = db.relationship("User", back_populates="cheeps")
     photos = db.relationship("CheepPhoto", back_populates="cheep")
     replies = db.relationship("Reply", back_populates="cheep")
-    # likes = db.relationship("User", secondary=cheep_likes)
+    likes = db.relationship("CheepLikes")
     # recheeps = db.relationship("User", secondary=cheep_likes)

@@ -1,6 +1,9 @@
+from re import S
 from flask.cli import AppGroup
 from .users import seed_users, undo_users
 from .follows import seed_follows, undo_follows
+from .cheeps import seed_cheeps, undo_cheeps
+from .cheep_likes import seed_likes, undo_likes
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
@@ -12,6 +15,8 @@ seed_commands = AppGroup('seed')
 def seed():
     seed_users()
     seed_follows()
+    seed_cheeps()
+    seed_likes()
     # Add other seed functions here
 
 
@@ -20,4 +25,6 @@ def seed():
 def undo():
     undo_users()
     undo_follows()
+    undo_cheeps()
+    undo_likes()
     # Add other undo functions here
