@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom';
-import { signUp } from '../../store/session';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { signUp } from "../../store/session";
+import { SignupFormContainer } from "../../Styles/Auth/SignupFormContainer.style";
 
-const SignUpForm = () => {
+const SignUpForm = ({ setSignupModal }) => {
   const [errors, setErrors] = useState([]);
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
-  const user = useSelector(state => state.session.user);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+  const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
 
   const onSignUp = async (e) => {
@@ -17,7 +18,7 @@ const SignUpForm = () => {
     if (password === repeatPassword) {
       const data = await dispatch(signUp(username, email, password));
       if (data) {
-        setErrors(data)
+        setErrors(data);
       }
     }
   };
@@ -39,11 +40,12 @@ const SignUpForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to="/" />;
   }
 
   return (
-    <form onSubmit={onSignUp}>
+    <SignupFormContainer onSubmit={onSignUp}>
+      <div onClick={() => setSignupModal(false)}>X</div>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
@@ -52,8 +54,8 @@ const SignUpForm = () => {
       <div>
         <label>User Name</label>
         <input
-          type='text'
-          name='username'
+          type="text"
+          name="username"
           onChange={updateUsername}
           value={username}
         ></input>
@@ -61,8 +63,8 @@ const SignUpForm = () => {
       <div>
         <label>Email</label>
         <input
-          type='text'
-          name='email'
+          type="text"
+          name="email"
           onChange={updateEmail}
           value={email}
         ></input>
@@ -70,8 +72,8 @@ const SignUpForm = () => {
       <div>
         <label>Password</label>
         <input
-          type='password'
-          name='password'
+          type="password"
+          name="password"
           onChange={updatePassword}
           value={password}
         ></input>
@@ -79,15 +81,15 @@ const SignUpForm = () => {
       <div>
         <label>Repeat Password</label>
         <input
-          type='password'
-          name='repeat_password'
+          type="password"
+          name="repeat_password"
           onChange={updateRepeatPassword}
           value={repeatPassword}
           required={true}
         ></input>
       </div>
-      <button type='submit'>Sign Up</button>
-    </form>
+      <button type="submit">Sign Up</button>
+    </SignupFormContainer>
   );
 };
 

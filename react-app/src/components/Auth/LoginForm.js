@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { login } from '../../store/session';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { login } from "../../store/session";
+import { LoginFormContainer } from "../../Styles/Auth/LoginFormContainer.style";
 
-const LoginForm = () => {
+const LoginForm = ({ setLoginModal }) => {
   const [errors, setErrors] = useState([]);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const user = useSelector(state => state.session.user);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
 
   const onLogin = async (e) => {
@@ -27,38 +28,41 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to="/" />;
   }
 
   return (
-    <form onSubmit={onLogin}>
+    <LoginFormContainer onSubmit={onLogin}>
+      <div>
+        <div onClick={ () => setLoginModal(false)}>X</div>
+      </div>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
         ))}
       </div>
       <div>
-        <label htmlFor='email'>Email</label>
+        <label htmlFor="email">Email</label>
         <input
-          name='email'
-          type='text'
-          placeholder='Email'
+          name="email"
+          type="text"
+          placeholder="Email"
           value={email}
           onChange={updateEmail}
         />
       </div>
       <div>
-        <label htmlFor='password'>Password</label>
+        <label htmlFor="password">Password</label>
         <input
-          name='password'
-          type='password'
-          placeholder='Password'
+          name="password"
+          type="password"
+          placeholder="Password"
           value={password}
           onChange={updatePassword}
         />
-        <button type='submit'>Login</button>
+        <button type="submit">Login</button>
       </div>
-    </form>
+    </LoginFormContainer>
   );
 };
 
