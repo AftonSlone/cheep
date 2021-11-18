@@ -14,7 +14,7 @@ const Index = () => {
         <h1>Happening now</h1>
         <h2>Join Cheep Today.</h2>
         <IndexButton>Sign up</IndexButton>
-        <IndexButton>Log In</IndexButton>
+        <IndexButton backgroundColor="#14171A">Log In</IndexButton>
       </IndexRight>
     </IndexContainer>
   );

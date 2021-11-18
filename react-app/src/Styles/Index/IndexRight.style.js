@@ -4,7 +4,7 @@ export const IndexRight = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: black;
+  background-color: #14171A;
   height: 100%;
   width: 50%;
   h1 {
@@ -19,5 +19,5 @@ export const IndexRight = styled.div`
     padding: 2%;
   }
 
-  
+
 `;
