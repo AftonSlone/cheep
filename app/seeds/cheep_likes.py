@@ -1,15 +1,17 @@
 from app.models import db, CheepLikes
+from random import randint
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_likes():
-    for i in range(10):
-        new_like = CheepLikes(user_id=i+2, cheep_id=i+1)
-        db.session.add(new_like)
 
-    for j in range(10):
-        new_like = CheepLikes(user_id=21-j, cheep_id=j+1)
-        db.session.add(new_like)
+    for i in range(210):
+        for j in range(21):
+            new_like = CheepLikes(user_id=j+1, cheep_id=i+1)
+            db.session.add(new_like)
+
+
+
 
     db.session.commit()
 

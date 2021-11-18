@@ -2,15 +2,16 @@ from app.models import db, Cheep
 from faker import Faker
 
 fake = Faker()
-def random_cheeps():
-    new_cheep = Cheep(user_id=1, content=fake.text())
+def random_cheeps(id):
+    new_cheep = Cheep(user_id=id, content=fake.text())
     db.session.add(new_cheep)
 
 # Adds a demo user, you can add other users here if you want
 def seed_cheeps():
 
-    for _ in range(10):
-        random_cheeps()
+    for i in range(21):
+        for _ in range(10):
+            random_cheeps(i + 1)
 
     db.session.commit()
 
