@@ -15,13 +15,13 @@ def users():
 
 
 @user_routes.route('/<int:id>')
-@login_required
+# @login_required
 def user(id):
     user = User.query.get(id)
     return user.to_dict()
 
 @user_routes.route('/<int:id>', methods=['PUT'])
-@login_required
+# @login_required
 def update_user(id):
     form = EditUserForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -35,7 +35,7 @@ def update_user(id):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 @user_routes.route('/<int:id>', methods=['DELETE'])
-@login_required
+# @login_required
 def delete_user(id):
     user = User.query.get(id)
     db.session.delete(user)
