@@ -22,6 +22,7 @@ export const ProfileButtonContainer = styled.div`
     width: 55px;
     height: 55px;
     border-radius: 50%;
+    object-fit: fill;
     display: block;
   }
 
