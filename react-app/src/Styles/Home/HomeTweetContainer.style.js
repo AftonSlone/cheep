@@ -35,22 +35,37 @@ export const HomeTweetContainer = styled.div`
 
     div:nth-child(2) {
       width: 100%;
-      height: 30%;
+      height: 60px;
       background-color: black;
-      color: #1DA1F2;
+      color: #1da1f2;
       display: flex;
       flex-direction: row;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
-
+      
       div {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 10%;
-          height: 90%;
-          font-size: 40px;
-          border-bottom: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 10%;
+        height: 90%;
+        font-size: 40px;
+        border-bottom: none;
+        cursor: pointer;
+      }
+
+      div:nth-child(3) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        width: 30%;
+        height: 80%;
+        font-size: 30px;
+        border-bottom: none;
+        background-color: #1da1f2;
+        border-radius: 30px;
+        cursor: pointer;
       }
     }
   }

@@ -13,6 +13,7 @@ import { BsTwitter } from "react-icons/bs";
 import { HomeButton } from "../../Styles/Home/HomeButton.style";
 import ProfileButton from "./ProfileButton";
 import TweetComposer from "./CheepComposer";
+import CheepCard from "./CheepCard";
 
 export default function Home() {
   return (
@@ -38,6 +39,7 @@ export default function Home() {
       </HomeLeft>
       <HomeCenter>
         <TweetComposer />
+        <CheepCard />
       </HomeCenter>
       <HomeRight></HomeRight>
     </HomeContainer>
