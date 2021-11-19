@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const SignupFormContainer = styled.form`
-  background-color: red;
+  background-color: #14171a;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,5 +22,22 @@ export const SignupFormContainer = styled.form`
     height: 30px;
     background-color: rgba(0, 0, 0, 0);
     cursor: pointer;
+  }
+
+  input {
+    width: 80%;
+    height: 30px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    outline: none;
+    border: none;
+    background-color: #14171a;
+
+    &:focus {
+      outline: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
   }
 `;
