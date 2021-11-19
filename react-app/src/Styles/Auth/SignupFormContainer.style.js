@@ -25,19 +25,21 @@ export const SignupFormContainer = styled.form`
   }
 
   input {
-    width: 80%;
+    width: 60%;
     height: 30px;
     margin-top: 2%;
     margin-bottom: 2%;
     outline: none;
-    border: none;
     background-color: #14171a;
+    color: #1da1f2;
+    border-bottom: 1px solid #1da1f2;
 
     &:focus {
       outline: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
+    }
+
+    &::placeholder {
+      color: white;
     }
   }
 `;

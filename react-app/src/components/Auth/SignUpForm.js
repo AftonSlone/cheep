@@ -57,15 +57,23 @@ const SignUpForm = ({ setSignupModal }) => {
         name="username"
         onChange={updateUsername}
         value={username}
+        placeholder="Username"
       />
 
-      <input type="text" name="email" onChange={updateEmail} value={email} />
+      <input
+        type="text"
+        name="email"
+        onChange={updateEmail}
+        value={email}
+        placeholder="Email"
+      />
 
       <input
         type="password"
         name="password"
         onChange={updatePassword}
         value={password}
+        placeholder="Password"
       />
 
       <input
@@ -74,6 +82,7 @@ const SignUpForm = ({ setSignupModal }) => {
         onChange={updateRepeatPassword}
         value={repeatPassword}
         required={true}
+        placeholder="Confirm Password"
       />
 
       <button type="submit">Sign Up</button>

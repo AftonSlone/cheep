@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../store/session";
+import { AuthButton } from "../../Styles/Auth/AuthButton.style";
 import { LoginFormContainer } from "../../Styles/Auth/LoginFormContainer.style";
 
 const LoginForm = ({ setLoginModal }) => {
@@ -12,6 +13,7 @@ const LoginForm = ({ setLoginModal }) => {
   const dispatch = useDispatch();
 
   const onLogin = async (e) => {
+    console.log("run");
     e.preventDefault();
     const data = await dispatch(login(email, password));
     if (data) {
@@ -32,7 +34,7 @@ const LoginForm = ({ setLoginModal }) => {
   }
 
   return (
-    <LoginFormContainer onSubmit={onLogin}>
+    <LoginFormContainer>
       <div>
         <div onClick={() => setLoginModal(false)}>X</div>
       </div>
@@ -57,7 +59,7 @@ const LoginForm = ({ setLoginModal }) => {
         value={password}
         onChange={updatePassword}
       />
-      <button type="submit">Login</button>
+      <AuthButton onClick={onLogin}>Login</AuthButton>
     </LoginFormContainer>
   );
 };

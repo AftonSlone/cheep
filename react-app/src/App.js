@@ -6,6 +6,7 @@ import SignUpForm from "./components/Auth/SignUpForm";
 import Index from "./components/Index/Index";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import { authenticate } from "./store/session";
+import Home from "./components/Home/Home";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -25,23 +26,17 @@ function App() {
   return (
     <BrowserRouter>
       <Index />
-      {/* <Switch>
-        <Route path='/login' exact={true}>
+      <Switch>
+        <Route path="/login" exact={true}>
           <LoginForm />
         </Route>
-        <Route path='/sign-up' exact={true}>
+        <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
+        <ProtectedRoute path="/" exact={true}>
+          <Home />
         </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
-        </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
-          <h1>My Home Page</h1>
-        </ProtectedRoute>
-      </Switch> */}
+      </Switch>
     </BrowserRouter>
   );
 }
