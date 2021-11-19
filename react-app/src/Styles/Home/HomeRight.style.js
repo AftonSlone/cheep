@@ -7,4 +7,5 @@ export const HomeRight = styled.div`
   background-color: black;
   width: 30%;
   height: 100%;
+  border-left: 1px solid rgba(245, 248, 250, 0.3);
 `;

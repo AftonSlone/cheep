@@ -12,9 +12,9 @@ import {
 import { BsTwitter } from "react-icons/bs";
 import { HomeButton } from "../../Styles/Home/HomeButton.style";
 import ProfileButton from "./ProfileButton";
+import TweetComposer from "./CheepComposer";
 
 export default function Home() {
-
   return (
     <HomeContainer>
       <HomeLeft>
@@ -33,10 +33,12 @@ export default function Home() {
         <a href="/home">
           <MdPersonOutline /> Profile
         </a>
-        <HomeButton>Tweet</HomeButton>
-        <ProfileButton  />
+        <HomeButton>Cheep</HomeButton>
+        <ProfileButton />
       </HomeLeft>
-      <HomeCenter></HomeCenter>
+      <HomeCenter>
+        <TweetComposer />
+      </HomeCenter>
       <HomeRight></HomeRight>
     </HomeContainer>
   );
