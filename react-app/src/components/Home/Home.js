@@ -3,11 +3,36 @@ import { HomeCenter } from "../../Styles/Home/HomeCenter.style";
 import { HomeContainer } from "../../Styles/Home/HomeContainer.style";
 import { HomeLeft } from "../../Styles/Home/HomeLeft.style";
 import { HomeRight } from "../../Styles/Home/HomeRight.style";
+import {
+  MdHome,
+  MdAlternateEmail,
+  MdMailOutline,
+  MdPersonOutline,
+} from "react-icons/md";
+import { BsTwitter } from "react-icons/bs";
+import { HomeButton } from "../../Styles/Home/HomeButton.style";
 
 export default function Home() {
   return (
     <HomeContainer>
-      <HomeLeft></HomeLeft>
+      <HomeLeft>
+        <a href="/home">
+          <BsTwitter />
+        </a>
+        <a href="/home">
+          <MdHome /> Home
+        </a>
+        <a>
+          <MdAlternateEmail /> Mentions
+        </a>
+        <a href="/home">
+          <MdMailOutline /> Messages
+        </a>
+        <a href="/home">
+          <MdPersonOutline /> Profile
+        </a>
+        <HomeButton>Tweet</HomeButton>
+      </HomeLeft>
       <HomeCenter></HomeCenter>
       <HomeRight></HomeRight>
     </HomeContainer>
