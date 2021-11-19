@@ -9,6 +9,11 @@ export const HomeLeft = styled.div`
   height: 100%;
   color: white;
 
+  /* div {
+      position: absolute;
+      bottom: 0;
+  } */
+
   a {
     display: flex;
     justify-content: center;

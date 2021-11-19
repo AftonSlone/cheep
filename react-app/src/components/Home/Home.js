@@ -11,6 +11,7 @@ import {
 } from "react-icons/md";
 import { BsTwitter } from "react-icons/bs";
 import { HomeButton } from "../../Styles/Home/HomeButton.style";
+import ProfileButton from "./ProfileButton";
 
 export default function Home() {
   return (
@@ -32,6 +33,7 @@ export default function Home() {
           <MdPersonOutline /> Profile
         </a>
         <HomeButton>Tweet</HomeButton>
+        <ProfileButton />
       </HomeLeft>
       <HomeCenter></HomeCenter>
       <HomeRight></HomeRight>
