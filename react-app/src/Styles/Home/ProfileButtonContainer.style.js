@@ -14,13 +14,13 @@ export const ProfileButtonContainer = styled.div`
   border-radius: 35px;
 
   &:hover {
-      background-color: #14171A;
-      cursor: pointer;
+    background-color: #14171a;
+    cursor: pointer;
   }
 
   img {
-    width: 30%;
-    height: 80%;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     display: block;
   }
