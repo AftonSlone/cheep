@@ -14,6 +14,7 @@ import { HomeButton } from "../../Styles/Home/HomeButton.style";
 import ProfileButton from "./ProfileButton";
 
 export default function Home() {
+
   return (
     <HomeContainer>
       <HomeLeft>
@@ -23,7 +24,7 @@ export default function Home() {
         <a href="/home">
           <MdHome /> Home
         </a>
-        <a>
+        <a href="/home">
           <MdAlternateEmail /> Mentions
         </a>
         <a href="/home">
@@ -33,7 +34,7 @@ export default function Home() {
           <MdPersonOutline /> Profile
         </a>
         <HomeButton>Tweet</HomeButton>
-        <ProfileButton />
+        <ProfileButton  />
       </HomeLeft>
       <HomeCenter></HomeCenter>
       <HomeRight></HomeRight>

@@ -13,9 +13,16 @@ const LoginForm = ({ setLoginModal }) => {
   const dispatch = useDispatch();
 
   const onLogin = async (e) => {
-    console.log("run");
     e.preventDefault();
     const data = await dispatch(login(email, password));
+    if (data) {
+      setErrors(data);
+    }
+  };
+
+  const demoLogin = async (e) => {
+    e.preventDefault();
+    const data = await dispatch(login("demo@aa.io", "password"));
     if (data) {
       setErrors(data);
     }
@@ -30,7 +37,7 @@ const LoginForm = ({ setLoginModal }) => {
   };
 
   if (user) {
-    return <Redirect to="/" />;
+    return <Redirect to="/home" />;
   }
 
   return (
@@ -60,6 +67,7 @@ const LoginForm = ({ setLoginModal }) => {
         onChange={updatePassword}
       />
       <AuthButton onClick={onLogin}>Login</AuthButton>
+      <AuthButton onClick={demoLogin}>Demo Login</AuthButton>
     </LoginFormContainer>
   );
 };
