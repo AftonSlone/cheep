@@ -3,10 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../store/session";
 import { AuthButton } from "../../Styles/Auth/AuthButton.style";
+import { ErrorContainer } from "../../Styles/Auth/ErrorContainer.style";
 import { LoginFormContainer } from "../../Styles/Auth/LoginFormContainer.style";
 
 const LoginForm = ({ setLoginModal }) => {
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const user = useSelector((state) => state.session.user);
@@ -42,14 +43,16 @@ const LoginForm = ({ setLoginModal }) => {
 
   return (
     <LoginFormContainer>
-      <div>
-        <div onClick={() => setLoginModal(false)}>X</div>
-      </div>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
+      <span>
+        <span onClick={() => setLoginModal(false)}>X</span>
+      </span>
+      {errors && (
+        <ErrorContainer>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </ErrorContainer>
+      )}
 
       <input
         name="email"

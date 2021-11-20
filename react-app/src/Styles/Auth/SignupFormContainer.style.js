@@ -10,7 +10,8 @@ export const SignupFormContainer = styled.form`
   width: 40%;
   height: 40%;
   border-radius: 25px;
-  div:nth-child(1) {
+
+  span {
     display: flex;
     justify-content: center;
     align-items: center;

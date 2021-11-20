@@ -2,17 +2,14 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import { ProfileButtonContainer } from "../../Styles/Home/ProfileButtonContainer.style";
-import { Loader } from "../../Styles/Modal/Loader.style";
+// import { Loader } from "../../Styles/Modal/Loader.style";
 
 export default function ProfileButton() {
-  const loading = useSelector((state) => state.loading.loading);
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const onLogout = async (e) => {
     await dispatch(logout());
   };
-
-
 
   return (
     <ProfileButtonContainer onClick={onLogout}>

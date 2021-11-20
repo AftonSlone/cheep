@@ -11,7 +11,7 @@ export const LoginFormContainer = styled.form`
   height: 40%;
   border-radius: 25px;
 
-  div:nth-child(1) {
+  span {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,6 +24,8 @@ export const LoginFormContainer = styled.form`
     background-color: rgba(0, 0, 0, 0);
     cursor: pointer;
   }
+
+  
 
   input {
     width: 60%;
