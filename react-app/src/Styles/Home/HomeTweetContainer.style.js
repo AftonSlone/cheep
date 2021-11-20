@@ -42,7 +42,7 @@ export const HomeTweetContainer = styled.div`
       flex-direction: row;
       justify-content: space-around;
       align-items: center;
-      
+
       div {
         display: flex;
         justify-content: center;
@@ -71,8 +71,8 @@ export const HomeTweetContainer = styled.div`
   }
 
   img {
-    width: 80%;
-    height: 40%;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     margin-top: 10px;
   }

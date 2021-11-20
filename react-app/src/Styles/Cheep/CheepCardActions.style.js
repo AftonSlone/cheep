@@ -4,7 +4,7 @@ export const CheepCardActions = styled.div`
 display: flex;
 width: 100%;
 justify-content: space-around;
-background-color: navy;
+
 
 div {
     display: flex;
