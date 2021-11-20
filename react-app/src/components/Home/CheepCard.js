@@ -88,7 +88,7 @@ export default function CheepCard({ cheepId }) {
         <img src={cheep.user.profile_photo} alt="" />
       </CheepCardProfilePhoto>
       <CheepCardContentContainer>
-        <CheepCardUsername>{`@${cheep.user.username}`}</CheepCardUsername>
+        <CheepCardUsername>{`@${cheep.user.username}`} <div>. . .</div></CheepCardUsername>
         <CheepCardContent>{cheep.content}</CheepCardContent>
         <CheepCardActions>
           <div>
