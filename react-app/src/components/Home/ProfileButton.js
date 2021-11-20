@@ -12,12 +12,7 @@ export default function ProfileButton() {
     await dispatch(logout());
   };
 
-  if (loading) return;
-  <ProfileButtonContainer>
-    <Loader>
-      <div />
-    </Loader>
-  </ProfileButtonContainer>;
+
 
   return (
     <ProfileButtonContainer onClick={onLogout}>

@@ -8,11 +8,9 @@ export const HomeLeft = styled.div`
   width: 30%;
   height: 100%;
   color: white;
+  border-right: 1px solid rgba(245, 248, 250, 0.3);
 
-  /* div {
-      position: absolute;
-      bottom: 0;
-  } */
+
 
   a {
     display: flex;
