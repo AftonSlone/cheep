@@ -4,8 +4,7 @@ export const CheepCardActions = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-around;
-  position: absolute;
-  bottom: 0;
+
 
   div {
     display: flex;
