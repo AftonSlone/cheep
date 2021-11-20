@@ -22,4 +22,4 @@ def timeline(id):
     for id in following:
         result = Cheep.query.filter(Cheep.user_id == id).all()
         results = [*results, *result]
-    return {'data': [result.to_simple_dict() for result in results]}
+    return {'data': [result.to_dict() for result in results]}

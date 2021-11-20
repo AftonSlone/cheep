@@ -17,14 +17,21 @@ import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
 export default function CheepCard({ cheep }) {
   const loading = useSelector((state) => state.loading.loading);
   const user = useSelector((state) => state.session.user);
+
+  if (loading)
+    return (
+      <CheepCardContainer>
+        <Loader />
+      </CheepCardContainer>
+    );
   return (
     <CheepCardContainer>
       <CheepCardProfilePhoto>
-        <img src={user.profile_photo} alt="" />
+        <img src={cheep.user.profile_photo} alt="" />
       </CheepCardProfilePhoto>
       <CheepCardContentContainer>
-        <CheepCardUsername>Name + Username</CheepCardUsername>
-        <CheepCardContent>Content</CheepCardContent>
+        <CheepCardUsername>{cheep.username}</CheepCardUsername>
+        <CheepCardContent>{cheep.content}</CheepCardContent>
         <CheepCardActions>
           <div>
             <MdOutlineChatBubbleOutline />

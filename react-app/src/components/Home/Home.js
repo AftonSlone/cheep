@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { HomeCenter } from "../../Styles/Home/HomeCenter.style";
 import { HomeContainer } from "../../Styles/Home/HomeContainer.style";
 import { HomeLeft } from "../../Styles/Home/HomeLeft.style";
@@ -11,11 +12,32 @@ import {
 } from "react-icons/md";
 import { BsTwitter } from "react-icons/bs";
 import { HomeButton } from "../../Styles/Home/HomeButton.style";
+import { Loader } from "../../Styles/Modal/Loader.style";
 import ProfileButton from "./ProfileButton";
 import TweetComposer from "./CheepComposer";
 import CheepCard from "./CheepCard";
+import { isLoading } from "../../store/loading";
 
 export default function Home() {
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.loading.loading);
+  const user = useSelector((state) => state.session.user);
+  const [cheeps, setCheeps] = useState([]);
+
+  useEffect(async () => {
+    if (user) {
+      await dispatch(isLoading(true))
+      const res = await fetch(`/api/cheeps/user/${user.id}/timeline`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      setCheeps(data.data);
+      dispatch(isLoading(false))
+    }
+  }, [user]);
+
   return (
     <HomeContainer>
       <HomeLeft>
@@ -39,7 +61,13 @@ export default function Home() {
       </HomeLeft>
       <HomeCenter>
         <TweetComposer />
-        <CheepCard />
+        {loading && (
+          <Loader>
+            <div />
+          </Loader>
+        )}
+        {cheeps &&
+          cheeps.map((cheep) => <CheepCard cheep={cheep} key={cheep.id} />)}
       </HomeCenter>
       <HomeRight></HomeRight>
     </HomeContainer>
