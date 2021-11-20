@@ -9,8 +9,8 @@ def random_replies(i):
 
 # Adds a demo user, you can add other users here if you want
 def seed_replies():
-    for _ in range(210):
-        for i in range(5):
+    for i in range(210):
+        for _ in range(5):
             random_replies(i)
 
     db.session.commit()

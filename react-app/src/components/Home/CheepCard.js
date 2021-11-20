@@ -14,9 +14,58 @@ import { CheepCardContentContainer } from "../../Styles/Cheep/CheepCardContentCo
 import { CheepCardContent } from "../../Styles/Cheep/CheepCardContent.style";
 import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
 
-export default function CheepCard({ cheep }) {
+export default function CheepCard({ cheep, update, setUpdate }) {
   const loading = useSelector((state) => state.loading.loading);
   const user = useSelector((state) => state.session.user);
+  
+
+  const handleLikes = async (e, cheep_id) => {
+    e.stopPropagation();
+    const id = Number(e.currentTarget.id);
+    if (id > 0) {
+      await fetch(`/api/likes/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: user.id,
+          cheep_id: cheep_id,
+        }),
+      });
+      setUpdate(!update)
+      return;
+    }
+    await fetch(`/api/likes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        cheep_id: cheep_id,
+      }),
+    });
+    setUpdate(!update)
+    return;
+  };
+
+  const userLiked = () => {
+    if (cheep.likes) {
+      for (const like of cheep.likes) {
+        if (like.user_id === user.id)
+          return (
+            <MdFavorite
+              id={`${user.id}`}
+              onClick={(e) => handleLikes(e, cheep.id)}
+            />
+          );
+      }
+    }
+    return (
+      <MdFavoriteBorder id="0" onClick={(e) => handleLikes(e, cheep.id)} />
+    );
+  };
 
   if (loading)
     return (
@@ -34,13 +83,20 @@ export default function CheepCard({ cheep }) {
         <CheepCardContent>{cheep.content}</CheepCardContent>
         <CheepCardActions>
           <div>
-            <MdOutlineChatBubbleOutline />
+            <div>
+              <MdOutlineChatBubbleOutline />
+            </div>
+            <div>{cheep.replies.length}</div>
           </div>
           <div>
-            <MdOutlineCached />
+            <div>
+              <MdOutlineCached />
+            </div>
+            <div>{cheep.recheeps.length}</div>
           </div>
           <div>
-            <MdFavoriteBorder />
+            <div>{userLiked()}</div>
+            <div>{cheep.likes.length}</div>
           </div>
         </CheepCardActions>
       </CheepCardContentContainer>

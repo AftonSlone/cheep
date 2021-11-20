@@ -22,6 +22,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading.loading);
   const user = useSelector((state) => state.session.user);
+  const [update, setUpdate] = useState(false)
   const [cheeps, setCheeps] = useState([]);
 
   useEffect(async () => {
@@ -36,7 +37,8 @@ export default function Home() {
       setCheeps(data.data);
       dispatch(isLoading(false))
     }
-  }, [user]);
+    console.log(cheeps)
+  }, [user, update]);
 
   return (
     <HomeContainer>
@@ -67,7 +69,7 @@ export default function Home() {
           </Loader>
         )}
         {cheeps &&
-          cheeps.map((cheep) => <CheepCard cheep={cheep} key={cheep.id} />)}
+          cheeps.map((cheep) => <CheepCard cheep={cheep} key={cheep.id} update={update} setUpdate={setUpdate} />)}
       </HomeCenter>
       <HomeRight></HomeRight>
     </HomeContainer>

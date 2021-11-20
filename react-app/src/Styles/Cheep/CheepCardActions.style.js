@@ -13,8 +13,18 @@ export const CheepCardActions = styled.div`
     align-items: center;
     color: #1da1f2;
     font-size: 30px;
-    width: 8%;
+    width: 20%;
     height: 30px;
-    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 10px;
+
+    div:nth-child(1) {
+      border-radius: 50%;
+      width: 30%;
+      &:hover {
+        background-color: #14171a;
+        color: #1da1f2;
+      }
+    }
   }
 `;
