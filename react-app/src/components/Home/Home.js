@@ -16,18 +16,15 @@ import { Loader } from "../../Styles/Modal/Loader.style";
 import ProfileButton from "./ProfileButton";
 import TweetComposer from "./CheepComposer";
 import CheepCard from "./CheepCard";
-import { isLoading } from "../../store/loading";
 
 export default function Home() {
-  const dispatch = useDispatch();
-  const loading = useSelector((state) => state.loading.loading);
+  const [loading, setLoading] = useState(false)
   const user = useSelector((state) => state.session.user);
-  const [update, setUpdate] = useState(false)
   const [cheeps, setCheeps] = useState([]);
 
   useEffect(async () => {
     if (user) {
-      await dispatch(isLoading(true))
+      setLoading(true)
       const res = await fetch(`/api/cheeps/user/${user.id}/timeline`, {
         headers: {
           "Content-Type": "application/json",
@@ -35,10 +32,10 @@ export default function Home() {
       });
       const data = await res.json();
       setCheeps(data.data);
-      dispatch(isLoading(false))
+      setLoading(false)
     }
     console.log(cheeps)
-  }, [user, update]);
+  }, [user]);
 
   return (
     <HomeContainer>
@@ -69,7 +66,7 @@ export default function Home() {
           </Loader>
         )}
         {cheeps &&
-          cheeps.map((cheep) => <CheepCard cheep={cheep} key={cheep.id} update={update} setUpdate={setUpdate} />)}
+          cheeps.map((cheep) => <CheepCard cheepId={cheep.id} key={cheep.id}  />)}
       </HomeCenter>
       <HomeRight></HomeRight>
     </HomeContainer>

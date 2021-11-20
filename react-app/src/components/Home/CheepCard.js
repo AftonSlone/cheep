@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Loader } from "../../Styles/Modal/Loader.style";
 import { CheepCardContainer } from "../../Styles/Cheep/CheepCardContainer.style";
 import {
@@ -14,10 +14,16 @@ import { CheepCardContentContainer } from "../../Styles/Cheep/CheepCardContentCo
 import { CheepCardContent } from "../../Styles/Cheep/CheepCardContent.style";
 import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
 
-export default function CheepCard({ cheep, update, setUpdate }) {
-  const loading = useSelector((state) => state.loading.loading);
+export default function CheepCard({ cheepId }) {
   const user = useSelector((state) => state.session.user);
-  
+  const [update, setUpdate] = useState(false);
+  const [cheep, setCheep] = useState(null);
+
+  useEffect(async () => {
+    const res = await fetch(`/api/cheeps/${cheepId}`);
+    const data = await res.json();
+    setCheep(data);
+  }, [update]);
 
   const handleLikes = async (e, cheep_id) => {
     e.stopPropagation();
@@ -33,7 +39,7 @@ export default function CheepCard({ cheep, update, setUpdate }) {
           cheep_id: cheep_id,
         }),
       });
-      setUpdate(!update)
+      setUpdate(!update);
       return;
     }
     await fetch(`/api/likes`, {
@@ -46,7 +52,7 @@ export default function CheepCard({ cheep, update, setUpdate }) {
         cheep_id: cheep_id,
       }),
     });
-    setUpdate(!update)
+    setUpdate(!update);
     return;
   };
 
@@ -67,12 +73,13 @@ export default function CheepCard({ cheep, update, setUpdate }) {
     );
   };
 
-  if (loading)
+  if (!cheep)
     return (
       <CheepCardContainer>
         <Loader />
       </CheepCardContainer>
     );
+
   return (
     <CheepCardContainer>
       <CheepCardProfilePhoto>

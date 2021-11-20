@@ -9,9 +9,15 @@ cheep_routes = Blueprint('cheeps', __name__)
 
 @cheep_routes.route('/')
 # @login_required
-def users():
+def cheeps():
     cheeps = Cheep.query.all()
     return {'Cheeps': [cheep.to_dict() for cheep in cheeps]}
+
+@cheep_routes.route('/<int:id>')
+# @login_required
+def single_cheep(id):
+    cheep = Cheep.query.get(id)
+    return cheep.to_dict()
 
 @cheep_routes.route('/user/<int:id>/timeline')
 # @login_required
