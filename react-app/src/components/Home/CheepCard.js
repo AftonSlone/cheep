@@ -19,11 +19,13 @@ export default function CheepCard({ cheepId }) {
   const [update, setUpdate] = useState(false);
   const [cheep, setCheep] = useState(null);
 
-  useEffect(async () => {
-    const res = await fetch(`/api/cheeps/${cheepId}`);
-    const data = await res.json();
-    setCheep(data);
-  }, [update]);
+  useEffect(() => {
+    (async () => {
+      const res = await fetch(`/api/cheeps/${cheepId}`);
+      const data = await res.json();
+      setCheep(data);
+    })();
+  }, [update, cheepId]);
 
   const handleLikes = async (e, cheep_id) => {
     e.stopPropagation();

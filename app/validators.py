@@ -31,6 +31,12 @@ def user_exists(form, field):
     if not user:
         raise ValidationError('Email provided not found.')
 
+def signup_user_exists(form, field):
+    email = field.data
+    user = User.query.filter(User.email == email).first()
+    if user:
+        raise ValidationError('Email is already in use.')
+
 
 def password_matches(form, field):
     password = field.data

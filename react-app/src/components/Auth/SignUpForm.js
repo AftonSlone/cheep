@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { signUp } from "../../store/session";
+import { AuthButton } from "../../Styles/Auth/AuthButton.style";
+import { ErrorContainer } from "../../Styles/Auth/ErrorContainer.style";
 import { SignupFormContainer } from "../../Styles/Auth/SignupFormContainer.style";
 
 const SignUpForm = ({ setSignupModal }) => {
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState(null);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,17 +42,19 @@ const SignUpForm = ({ setSignupModal }) => {
   };
 
   if (user) {
-    return <Redirect to="/" />;
+    return <Redirect to="/home" />;
   }
 
   return (
-    <SignupFormContainer onSubmit={onSignUp}>
-      <div onClick={() => setSignupModal(false)}>X</div>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
+    <SignupFormContainer>
+      <span onClick={() => setSignupModal(false)}>X</span>
+      {errors && (
+        <ErrorContainer>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </ErrorContainer>
+      )}
 
       <input
         type="text"
@@ -84,8 +88,7 @@ const SignUpForm = ({ setSignupModal }) => {
         required={true}
         placeholder="Confirm Password"
       />
-
-      <button type="submit">Sign Up</button>
+      <AuthButton onClick={onSignUp}>Sign up</AuthButton>
     </SignupFormContainer>
   );
 };
