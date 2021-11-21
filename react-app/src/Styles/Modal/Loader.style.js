@@ -8,11 +8,11 @@ export const Loader = styled.div`
   align-items: center;
   background-color: black;
   div {
-    border: 16px solid #e1e8ed; /* Light grey */
-    border-top: 16px solid #1da1f2; /* Blue */
+    border: 1.6rem solid #e1e8ed; /* Light grey */
+    border-top: 1.6rem solid #1da1f2; /* Blue */
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
+    width: 12rem;
+    height: 12rem;
     animation: spin 2s linear infinite;
 
     @keyframes spin {

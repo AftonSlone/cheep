@@ -11,11 +11,11 @@ export const CheepCardActions = styled.div`
     justify-content: center;
     align-items: center;
     color: #1da1f2;
-    font-size: 30px;
+    font-size: 3rem;
     width: 20%;
-    height: 30px;
+    height: 3rem;
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: 1rem;
 
     div:nth-child(1) {
       border-radius: 50%;

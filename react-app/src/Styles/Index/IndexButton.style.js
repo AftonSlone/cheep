@@ -13,6 +13,6 @@ export const IndexButton = styled.div`
   margin-top: 1%;
   margin-bottom: 1%;
   border: 1px solid ${(props) => props.borderColor || "#1DA1F2"};
-  border-radius: 25px;
+  border-radius: 2.5rem;
   cursor: pointer;
 `;

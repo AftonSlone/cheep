@@ -19,8 +19,8 @@ export const HomeLeft = styled.div`
     justify-content: space-evenly;
     width: 30%;
     height: 5%;
-    border-radius: 25px;
-    font-size: 25px;
+    border-radius: 2.5rem;
+    font-size: 2.5rem;
     background-color: black;
     margin-right: 20%;
     margin-top: 1%;

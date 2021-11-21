@@ -9,7 +9,7 @@ export const LoginFormContainer = styled.form`
   position: relative;
   width: 40%;
   height: 40%;
-  border-radius: 25px;
+  border-radius: 2.5rem;
 
   span {
     display: flex;
@@ -17,15 +17,15 @@ export const LoginFormContainer = styled.form`
     align-items: center;
     position: absolute;
     color: white;
-    top: 10px;
-    left: 10px;
-    width: 30px;
-    height: 30px;
+    top: 1rem;
+    left: 1rem;
+    width: 3rem;
+    height: 3rem;
     background-color: rgba(0, 0, 0, 0);
     cursor: pointer;
   }
 
-  
+
 
   input {
     width: 60%;

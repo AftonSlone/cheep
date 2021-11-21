@@ -8,10 +8,10 @@ export const ProfileButtonContainer = styled.div`
   width: 15%;
   height: 8%;
   position: absolute;
-  bottom: 20px;
+  bottom: 2rem;
   background-color: black;
   margin-right: 1%;
-  border-radius: 35px;
+  border-radius: 3.5rem;
 
   &:hover {
     background-color: #14171a;
@@ -19,8 +19,8 @@ export const ProfileButtonContainer = styled.div`
   }
 
   img {
-    width: 55px;
-    height: 55px;
+    width: 5.5rem;
+    height: 5.5rem;
     border-radius: 50%;
     object-fit: fill;
     display: block;
