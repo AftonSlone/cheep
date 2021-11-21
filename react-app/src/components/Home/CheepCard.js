@@ -13,11 +13,14 @@ import { CheepCardUsername } from "../../Styles/Cheep/CheepCardUsername.style";
 import { CheepCardContentContainer } from "../../Styles/Cheep/CheepCardContentContainer.style";
 import { CheepCardContent } from "../../Styles/Cheep/CheepCardContent.style";
 import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
+import { Modal } from "../Modal/Modal";
+import CheepOptions from "./CheepOptions";
 
 export default function CheepCard({ cheepId }) {
   const user = useSelector((state) => state.session.user);
   const [update, setUpdate] = useState(false);
   const [cheep, setCheep] = useState(null);
+  const [actionsModal, setActionsModal] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -88,7 +91,10 @@ export default function CheepCard({ cheepId }) {
         <img src={cheep.user.profile_photo} alt="" />
       </CheepCardProfilePhoto>
       <CheepCardContentContainer>
-        <CheepCardUsername>{`@${cheep.user.username}`} <div>. . .</div></CheepCardUsername>
+        <CheepCardUsername>
+          {`@${cheep.user.username}`}{" "}
+          <div onClick={() => setActionsModal(true)}>. . .</div>
+        </CheepCardUsername>
         <CheepCardContent>{cheep.content}</CheepCardContent>
         <CheepCardActions>
           <div>
@@ -109,6 +115,11 @@ export default function CheepCard({ cheepId }) {
           </div>
         </CheepCardActions>
       </CheepCardContentContainer>
+      {actionsModal && (
+        <Modal type="edit">
+          <CheepOptions setActionsModal={setActionsModal} />
+        </Modal>
+      )}
     </CheepCardContainer>
   );
 }

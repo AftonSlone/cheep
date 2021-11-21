@@ -8,7 +8,8 @@ import { IndexRight } from "../../Styles/Index/IndexRight.style";
 import { Loader } from "../../Styles/Modal/Loader.style";
 import LoginForm from "../Auth/LoginForm";
 import SignUpForm from "../Auth/SignUpForm";
-import Modal from "../Modal/Modal";
+// import Modal from "../Modal/Modal";
+import { Modal } from "../Modal/Modal";
 
 const Index = () => {
   const [loginModal, setLoginModal] = useState(false);
@@ -50,10 +51,14 @@ const Index = () => {
         </IndexButton>
       </IndexRight>
       {loginModal && (
-        <Modal component={LoginForm} setLoginModal={setLoginModal} />
+        <Modal type="edit">
+          <LoginForm component={LoginForm} setLoginModal={setLoginModal} />
+        </Modal>
       )}
       {signupModal && (
-        <Modal component={SignUpForm} setSignupModal={setSignupModal} />
+        <Modal type="edit">
+          <SignUpForm setSignupModal={setSignupModal} />
+        </Modal>
       )}
     </IndexContainer>
   );
