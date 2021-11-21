@@ -11,8 +11,14 @@ export const CheepCardUsername = styled.div`
 
   div {
     display: flex;
-    align-items: center;
     justify-content: center;
     cursor: pointer;
+    width: 3rem;
+    height: 3rem;
+
+    &:hover {
+      background-color: #14171a;
+      border-radius: 1rem;
+    }
   }
 `;
