@@ -36,7 +36,7 @@ export default function Home() {
         setLoading(false);
       }
     })();
-  }, [user]);
+  }, []);
 
   return (
     <HomeContainer>

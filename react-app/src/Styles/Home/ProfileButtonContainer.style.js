@@ -7,6 +7,7 @@ export const ProfileButtonContainer = styled.div`
   color: white;
   width: 15%;
   height: 8%;
+  font-size: 1.5rem;
   position: absolute;
   bottom: 2rem;
   background-color: black;

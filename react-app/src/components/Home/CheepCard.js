@@ -117,7 +117,7 @@ export default function CheepCard({ cheepId }) {
       </CheepCardContentContainer>
       {actionsModal && (
         <Modal type="edit">
-          <CheepOptions setActionsModal={setActionsModal} />
+          <CheepOptions cheep={cheep} setActionsModal={setActionsModal} update={update} setUpdate={setUpdate} />
         </Modal>
       )}
     </CheepCardContainer>

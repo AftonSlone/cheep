@@ -5,6 +5,7 @@ export const AuthButton = styled.div`
   color: ${(props) => props.color || "white"};
   height: 10%;
   width: 40%;
+  font-size: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
