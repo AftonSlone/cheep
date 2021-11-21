@@ -69,6 +69,13 @@ export const logout = () => async (dispatch) => {
   }
 };
 
+export const fetchUser = (id) => async (dispatch) => {
+  const res = await fetch(`api/users/${id}`)
+  const data = await res.json()
+  console.log(data)
+  dispatch(setUser(data))
+}
+
 
 export const signUp = (username, email, password) => async (dispatch) => {
   const response = await fetch('/api/auth/signup', {

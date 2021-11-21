@@ -5,6 +5,7 @@ export const IndexButton = styled.div`
   color: ${(props) => props.color || "white"};
   height: 5%;
   width: 40%;
+  font-size: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,6 +14,6 @@ export const IndexButton = styled.div`
   margin-top: 1%;
   margin-bottom: 1%;
   border: 1px solid ${(props) => props.borderColor || "#1DA1F2"};
-  border-radius: 25px;
+  border-radius: 2.5rem;
   cursor: pointer;
 `;

@@ -3,6 +3,7 @@ from flask_login import login_required
 from app.models import db, Cheep, User
 from app.forms.edit_user_form import EditUserForm
 from app.validators import validation_errors_to_error_messages
+import maya
 
 cheep_routes = Blueprint('cheeps', __name__)
 
@@ -28,4 +29,6 @@ def timeline(id):
     for id in following:
         result = Cheep.query.filter(Cheep.user_id == id).all()
         results = [*results, *result]
-    return {'data': [result.to_dict() for result in results]}
+    timeline = [result.to_dict() for result in results]
+    timeline.sort(key = lambda date: maya.parse(date['updated_at']))
+    return {'data': timeline}

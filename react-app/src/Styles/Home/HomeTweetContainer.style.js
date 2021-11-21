@@ -35,7 +35,7 @@ export const HomeTweetContainer = styled.div`
 
     div:nth-child(2) {
       width: 100%;
-      height: 60px;
+      height: 6rem;
       background-color: black;
       color: #1da1f2;
       display: flex;
@@ -49,7 +49,7 @@ export const HomeTweetContainer = styled.div`
         align-items: center;
         width: 10%;
         height: 90%;
-        font-size: 40px;
+        font-size: 4rem;
         border-bottom: none;
         cursor: pointer;
       }
@@ -61,20 +61,20 @@ export const HomeTweetContainer = styled.div`
         color: white;
         width: 30%;
         height: 80%;
-        font-size: 30px;
+        font-size: 3rem;
         border-bottom: none;
         background-color: #1da1f2;
-        border-radius: 30px;
+        border-radius: 3rem;
         cursor: pointer;
       }
     }
   }
 
   img {
-    width: 80px;
-    height: 80px;
+    width: 8rem;
+    height: 8rem;
     border-radius: 50%;
-    margin-top: 10px;
+    margin-top: 1rem;
   }
 
   textarea {
@@ -83,7 +83,7 @@ export const HomeTweetContainer = styled.div`
     resize: none;
     background-color: black;
     color: white;
-    font-size: 20px;
+    font-size: 2rem;
 
     &:focus {
       outline: none;
