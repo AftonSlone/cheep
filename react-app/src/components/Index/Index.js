@@ -14,7 +14,6 @@ import { Modal } from "../Modal/Modal";
 const Index = () => {
   const [loginModal, setLoginModal] = useState(false);
   const [signupModal, setSignupModal] = useState(false);
-  const loading = useSelector((state) => state.loading.loading);
   const user = useSelector((state) => state.session.user);
 
   if (user) {
@@ -28,12 +27,7 @@ const Index = () => {
   const signup = () => {
     setSignupModal(true);
   };
-  if (loading)
-    return (
-      <Loader>
-        <div />
-      </Loader>
-    );
+ 
   return (
     <IndexContainer>
       <IndexLeft>

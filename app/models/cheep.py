@@ -12,10 +12,10 @@ class Cheep(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
 
     user = db.relationship("User", back_populates="cheeps")
-    photos = db.relationship("CheepPhoto", back_populates="cheep")
-    replies = db.relationship("Reply", back_populates="cheep")
-    likes = db.relationship("CheepLikes")
-    recheeps = db.relationship("Recheeps")
+    photos = db.relationship("CheepPhoto", back_populates="cheep", cascade = 'all, delete')
+    replies = db.relationship("Reply", back_populates="cheep", cascade = 'all, delete')
+    likes = db.relationship("CheepLikes", cascade = 'all, delete')
+    recheeps = db.relationship("Recheeps", cascade = 'all, delete')
 
     def to_dict(self):
         return {
@@ -39,3 +39,8 @@ class Cheep(db.Model):
             'created_at': self.created_at,
             'updated_at': self.updated_at,
         }
+
+    def update(self, content=None, updated_at=None, **kwargs):
+        self.content = content if content else self.content
+        self.updated_at = updated_at if updated_at else self.updated_at
+        return self

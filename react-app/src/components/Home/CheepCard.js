@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../../Styles/Modal/Loader.style";
 import { CheepCardContainer } from "../../Styles/Cheep/CheepCardContainer.style";
 import {
@@ -15,9 +15,15 @@ import { CheepCardContent } from "../../Styles/Cheep/CheepCardContent.style";
 import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
 import { Modal } from "../Modal/Modal";
 import CheepOptions from "./CheepOptions";
+import EditCheep from "./EditCheep";
+import { actionsMenu, singleCheep } from "../../store/cheep";
 
-export default function CheepCard({ cheepId }) {
+export default function CheepCard({
+  cheepId,
+}) {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  // const timeline = useSelector((state) => state.cheep.updateTimeline)
   const [update, setUpdate] = useState(false);
   const [cheep, setCheep] = useState(null);
   const [actionsModal, setActionsModal] = useState(false);
@@ -78,6 +84,11 @@ export default function CheepCard({ cheepId }) {
     );
   };
 
+  const openActionsMenu = () => {
+    dispatch(singleCheep(cheep));
+    dispatch(actionsMenu(true));
+  };
+
   if (!cheep)
     return (
       <CheepCardContainer>
@@ -93,7 +104,7 @@ export default function CheepCard({ cheepId }) {
       <CheepCardContentContainer>
         <CheepCardUsername>
           {`@${cheep.user.username}`}{" "}
-          <div onClick={() => setActionsModal(true)}>. . .</div>
+          <div onClick={openActionsMenu}>. . .</div>
         </CheepCardUsername>
         <CheepCardContent>{cheep.content}</CheepCardContent>
         <CheepCardActions>
@@ -115,11 +126,7 @@ export default function CheepCard({ cheepId }) {
           </div>
         </CheepCardActions>
       </CheepCardContentContainer>
-      {actionsModal && (
-        <Modal type="edit">
-          <CheepOptions cheep={cheep} setActionsModal={setActionsModal} update={update} setUpdate={setUpdate} />
-        </Modal>
-      )}
+
     </CheepCardContainer>
   );
 }

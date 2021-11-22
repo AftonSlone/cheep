@@ -1,19 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  actionsMenu,
+  editCheep,
+  singleCheep,
+  updateTimeline,
+} from "../../store/cheep";
 import { fetchUser } from "../../store/session";
 import { CheepCardOptionsContainer } from "../../Styles/Cheep/CheepCardOptionsContainer.style";
 import { Loader } from "../../Styles/Modal/Loader.style";
+import { Modal } from "../Modal/Modal";
+import EditCheep from "./EditCheep";
 
-export default function CheepOptions({
-  setActionsModal,
-  cheep,
-  update,
-  setUpdate,
-}) {
+export default function CheepOptions({ setActionsModal, update, setUpdate }) {
   const user = useSelector((state) => state.session.user);
+  const cheep = useSelector((state) => state.cheep.singleCheep);
+  const timeline = useSelector((state) => state.cheep.updateTimeline);
+  const [editCheepModal, setEditCheepModal] = useState(false);
   const dispatch = useDispatch();
 
   const following = () => {
+    if (user.id === cheep.user_id) return null;
     for (const follower of user.following) {
       if (follower.followed_id === cheep.user_id)
         return (
@@ -35,7 +42,7 @@ export default function CheepOptions({
       }),
     });
     dispatch(fetchUser(user.id));
-    setActionsModal(false);
+    dispatch(actionsMenu(false));
     return;
   };
 
@@ -51,8 +58,26 @@ export default function CheepOptions({
       }),
     });
     dispatch(fetchUser(user.id));
-    setActionsModal(false);
+    dispatch(actionsMenu(false));
     return;
+  };
+
+  const deleteCheep = async () => {
+    await fetch(`/api/cheeps/${cheep.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    dispatch(updateTimeline(!timeline));
+    dispatch(actionsMenu(false));
+    return;
+  };
+
+  const updateCheep = () => {
+    dispatch(singleCheep(cheep));
+    dispatch(editCheep(true));
+    dispatch(actionsMenu(false));
   };
 
   if (!user)
@@ -64,9 +89,10 @@ export default function CheepOptions({
 
   return (
     <CheepCardOptionsContainer>
-      <span onClick={() => setActionsModal(false)}>X</span>
+      <span onClick={() => dispatch(actionsMenu(false))}>X</span>
       {following()}
-      {user.id === cheep.user_id && <div>Delete</div>}
+      {user.id === cheep.user_id && <div onClick={deleteCheep}>Delete</div>}
+      {user.id === cheep.user_id && <div onClick={updateCheep}>Update</div>}
     </CheepCardOptionsContainer>
   );
 }
