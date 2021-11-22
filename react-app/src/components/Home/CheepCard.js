@@ -16,7 +16,11 @@ import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
 import { Modal } from "../Modal/Modal";
 import CheepOptions from "./CheepOptions";
 
-export default function CheepCard({ cheepId }) {
+export default function CheepCard({
+  cheepId,
+  updateTimeline,
+  setUpdateTimeline,
+}) {
   const user = useSelector((state) => state.session.user);
   const [update, setUpdate] = useState(false);
   const [cheep, setCheep] = useState(null);
@@ -117,7 +121,14 @@ export default function CheepCard({ cheepId }) {
       </CheepCardContentContainer>
       {actionsModal && (
         <Modal type="edit">
-          <CheepOptions cheep={cheep} setActionsModal={setActionsModal} update={update} setUpdate={setUpdate} />
+          <CheepOptions
+            cheep={cheep}
+            setActionsModal={setActionsModal}
+            update={update}
+            setUpdate={setUpdate}
+            updateTimeline={updateTimeline}
+            setUpdateTimeline={setUpdateTimeline}
+          />
         </Modal>
       )}
     </CheepCardContainer>

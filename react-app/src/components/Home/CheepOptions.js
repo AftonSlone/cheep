@@ -9,11 +9,14 @@ export default function CheepOptions({
   cheep,
   update,
   setUpdate,
+  updateTimline,
+  setUpdateTimeline,
 }) {
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
 
   const following = () => {
+    if (user.id === cheep.user_id) return null;
     for (const follower of user.following) {
       if (follower.followed_id === cheep.user_id)
         return (
@@ -55,6 +58,18 @@ export default function CheepOptions({
     return;
   };
 
+  const deleteCheep = async () => {
+    await fetch(`/api/cheeps/${cheep.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    setUpdateTimeline(cheep.id);
+    setActionsModal(false);
+    return;
+  };
+
   if (!user)
     return (
       <CheepCardOptionsContainer>
@@ -66,7 +81,7 @@ export default function CheepOptions({
     <CheepCardOptionsContainer>
       <span onClick={() => setActionsModal(false)}>X</span>
       {following()}
-      {user.id === cheep.user_id && <div>Delete</div>}
+      {user.id === cheep.user_id && <div onClick={deleteCheep}>Delete</div>}
     </CheepCardOptionsContainer>
   );
 }

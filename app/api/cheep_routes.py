@@ -20,6 +20,14 @@ def single_cheep(id):
     cheep = Cheep.query.get(id)
     return cheep.to_dict()
 
+@cheep_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_cheep(id):
+    cheep = Cheep.query.get(id)
+    db.session.delete(cheep)
+    db.session.commit()
+    return "success"
+
 @cheep_routes.route('/user/<int:id>/timeline')
 # @login_required
 def timeline(id):
@@ -30,5 +38,6 @@ def timeline(id):
         result = Cheep.query.filter(Cheep.user_id == id).all()
         results = [*results, *result]
     timeline = [result.to_dict() for result in results]
+    timeline = [*timeline, *user['cheeps']]
     timeline.sort(key = lambda date: maya.parse(date['updated_at']))
     return {'data': timeline}

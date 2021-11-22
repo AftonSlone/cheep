@@ -20,6 +20,7 @@ import CheepCard from "./CheepCard";
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.session.user);
+  const [updateTimeline, setUpdateTimeline] = useState(false);
   const [cheeps, setCheeps] = useState([]);
 
   useEffect(() => {
@@ -36,7 +37,7 @@ export default function Home() {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [updateTimeline]);
 
   return (
     <HomeContainer>
@@ -68,7 +69,12 @@ export default function Home() {
         )}
         {cheeps &&
           cheeps.map((cheep) => (
-            <CheepCard cheepId={cheep.id} key={cheep.id} />
+            <CheepCard
+              cheepId={cheep.id}
+              key={cheep.id}
+              updateTimeline={updateTimeline}
+              setUpdateTimeline={setUpdateTimeline}
+            />
           ))}
       </HomeCenter>
       <HomeRight></HomeRight>

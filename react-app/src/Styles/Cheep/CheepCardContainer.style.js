@@ -10,8 +10,8 @@ export const CheepCardContainer = styled.div`
   margin-bottom: 1rem;
 
   img {
-    width: 8rem;
-    height: 8rem;
+    width: 7rem;
+    height: 7rem;
     border-radius: 50%;
     margin-top: 1rem;
   }
