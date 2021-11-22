@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { actionsMenu, editCheep, singleCheep } from "../../store/cheep";
 import { fetchUser } from "../../store/session";
 import { CheepCardOptionsContainer } from "../../Styles/Cheep/CheepCardOptionsContainer.style";
 import { Loader } from "../../Styles/Modal/Loader.style";
+import EditCheep from "./EditCheep";
 
 export default function CheepOptions({
   setActionsModal,
@@ -70,6 +72,12 @@ export default function CheepOptions({
     return;
   };
 
+  const updateCheep = () => {
+    setActionsModal(false);
+    dispatch(singleCheep(cheep));
+    dispatch(editCheep(true));
+  };
+
   if (!user)
     return (
       <CheepCardOptionsContainer>
@@ -82,6 +90,7 @@ export default function CheepOptions({
       <span onClick={() => setActionsModal(false)}>X</span>
       {following()}
       {user.id === cheep.user_id && <div onClick={deleteCheep}>Delete</div>}
+      {user.id === cheep.user_id && <div onClick={updateCheep}>Update</div>}
     </CheepCardOptionsContainer>
   );
 }

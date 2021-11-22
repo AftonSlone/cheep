@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required
 from app.models import db, Cheep, User
-from app.forms.edit_user_form import EditUserForm
+from app.forms.edit_cheep_form import EditCheepForm
 from app.validators import validation_errors_to_error_messages
 import maya
 
@@ -27,6 +27,18 @@ def delete_cheep(id):
     db.session.delete(cheep)
     db.session.commit()
     return "success"
+
+@cheep_routes.route('/<int:id>', methods=['PUT'])
+# @login_required
+def edit_cheep(id):
+    form = EditCheepForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        cheep = Cheep.query.get(id)
+        cheep.update(**form.data)
+        db.session.add(cheep)
+        db.session.commit()
+        return "success"
 
 @cheep_routes.route('/user/<int:id>/timeline')
 # @login_required

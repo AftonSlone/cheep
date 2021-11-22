@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../../Styles/Modal/Loader.style";
 import { CheepCardContainer } from "../../Styles/Cheep/CheepCardContainer.style";
 import {
@@ -15,16 +15,20 @@ import { CheepCardContent } from "../../Styles/Cheep/CheepCardContent.style";
 import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
 import { Modal } from "../Modal/Modal";
 import CheepOptions from "./CheepOptions";
+import EditCheep from "./EditCheep";
+import { actionsMenu, singleCheep } from "../../store/cheep";
 
 export default function CheepCard({
   cheepId,
   updateTimeline,
   setUpdateTimeline,
 }) {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  const editCheepModal = useSelector((state) => state.cheep.editCheep);
   const [update, setUpdate] = useState(false);
   const [cheep, setCheep] = useState(null);
-  const [actionsModal, setActionsModal] = useState(false);
+  const [actionsModal, setActionsModal] = useState(false)
 
   useEffect(() => {
     (async () => {
@@ -82,6 +86,12 @@ export default function CheepCard({
     );
   };
 
+  const openActionsMenu = (e) => {
+    e.stopPropagation();
+    dispatch(singleCheep(cheep));
+    dispatch(actionsMenu(true));
+  };
+
   if (!cheep)
     return (
       <CheepCardContainer>
@@ -97,7 +107,7 @@ export default function CheepCard({
       <CheepCardContentContainer>
         <CheepCardUsername>
           {`@${cheep.user.username}`}{" "}
-          <div onClick={() => setActionsModal(true)}>. . .</div>
+          <div onClick={(e) => setActionsModal(true)}>. . .</div>
         </CheepCardUsername>
         <CheepCardContent>{cheep.content}</CheepCardContent>
         <CheepCardActions>
@@ -122,13 +132,19 @@ export default function CheepCard({
       {actionsModal && (
         <Modal type="edit">
           <CheepOptions
-            cheep={cheep}
-            setActionsModal={setActionsModal}
+          cheep={cheep}
             update={update}
             setUpdate={setUpdate}
             updateTimeline={updateTimeline}
             setUpdateTimeline={setUpdateTimeline}
+            setActionsModal={setActionsModal}
           />
+        </Modal>
+      )}
+
+      {editCheepModal && (
+        <Modal type="edit">
+          <EditCheep />
         </Modal>
       )}
     </CheepCardContainer>
