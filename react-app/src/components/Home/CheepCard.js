@@ -20,15 +20,13 @@ import { actionsMenu, singleCheep } from "../../store/cheep";
 
 export default function CheepCard({
   cheepId,
-  updateTimeline,
-  setUpdateTimeline,
 }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  const editCheepModal = useSelector((state) => state.cheep.editCheep);
+  // const timeline = useSelector((state) => state.cheep.updateTimeline)
   const [update, setUpdate] = useState(false);
   const [cheep, setCheep] = useState(null);
-  const [actionsModal, setActionsModal] = useState(false)
+  const [actionsModal, setActionsModal] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -86,8 +84,7 @@ export default function CheepCard({
     );
   };
 
-  const openActionsMenu = (e) => {
-    e.stopPropagation();
+  const openActionsMenu = () => {
     dispatch(singleCheep(cheep));
     dispatch(actionsMenu(true));
   };
@@ -107,7 +104,7 @@ export default function CheepCard({
       <CheepCardContentContainer>
         <CheepCardUsername>
           {`@${cheep.user.username}`}{" "}
-          <div onClick={(e) => setActionsModal(true)}>. . .</div>
+          <div onClick={openActionsMenu}>. . .</div>
         </CheepCardUsername>
         <CheepCardContent>{cheep.content}</CheepCardContent>
         <CheepCardActions>
@@ -129,24 +126,7 @@ export default function CheepCard({
           </div>
         </CheepCardActions>
       </CheepCardContentContainer>
-      {actionsModal && (
-        <Modal type="edit">
-          <CheepOptions
-          cheep={cheep}
-            update={update}
-            setUpdate={setUpdate}
-            updateTimeline={updateTimeline}
-            setUpdateTimeline={setUpdateTimeline}
-            setActionsModal={setActionsModal}
-          />
-        </Modal>
-      )}
 
-      {editCheepModal && (
-        <Modal type="edit">
-          <EditCheep />
-        </Modal>
-      )}
     </CheepCardContainer>
   );
 }

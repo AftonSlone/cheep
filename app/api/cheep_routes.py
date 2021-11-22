@@ -4,6 +4,7 @@ from app.models import db, Cheep, User
 from app.forms.edit_cheep_form import EditCheepForm
 from app.validators import validation_errors_to_error_messages
 import maya
+import datetime
 
 cheep_routes = Blueprint('cheeps', __name__)
 
@@ -38,7 +39,7 @@ def edit_cheep(id):
         cheep.update(**form.data)
         db.session.add(cheep)
         db.session.commit()
-        return "success"
+        return cheep.to_dict()
 
 @cheep_routes.route('/user/<int:id>/timeline')
 # @login_required
@@ -51,5 +52,5 @@ def timeline(id):
         results = [*results, *result]
     timeline = [result.to_dict() for result in results]
     timeline = [*timeline, *user['cheeps']]
-    timeline.sort(key = lambda date: maya.parse(date['updated_at']))
+    timeline.sort(reverse = True, key = lambda date: maya.parse(date['updated_at']))
     return {'data': timeline}

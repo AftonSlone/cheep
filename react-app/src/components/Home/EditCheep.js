@@ -3,14 +3,29 @@ import { EditCheepContainer } from "../../Styles/Cheep/EditCheepContainer.style"
 import { useDispatch, useSelector } from "react-redux";
 // import { Loader } from "../../Styles/Modal/Loader.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
-import { editCheep } from "../../store/cheep";
+import { editCheep, updateTimeline } from "../../store/cheep";
 
-export default function EditCheep(setEditCheepModal) {
+export default function EditCheep() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const cheep = useSelector((state) => state.cheep.singleCheep);
+  const timeline = useSelector((state) => state.cheep.updateTimeline)
   const [content, setContent] = useState(cheep.content);
-  console.log(content)
+
+  const updateCheep = async () => {
+    const res = await fetch(`api/cheeps/${cheep.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content: content,
+      }),
+    });
+    const data = await res.json();
+    dispatch(editCheep(false));
+    dispatch(updateTimeline(!timeline)) ;
+  };
   return (
     <EditCheepContainer>
       <div>
@@ -20,6 +35,7 @@ export default function EditCheep(setEditCheepModal) {
       <div>
         <div>
           <textarea
+            name="content"
             placeholder="What's happening?"
             value={content}
             onChange={(e) => setContent(e.target.value)}
@@ -32,7 +48,7 @@ export default function EditCheep(setEditCheepModal) {
           <div>
             <MdOutlineGif />
           </div>
-          <div>Update</div>
+          <div onClick={updateCheep}>Update</div>
         </div>
       </div>
     </EditCheepContainer>

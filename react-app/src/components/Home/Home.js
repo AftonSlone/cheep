@@ -13,14 +13,19 @@ import {
 import { BsTwitter } from "react-icons/bs";
 import { HomeButton } from "../../Styles/Home/HomeButton.style";
 import { Loader } from "../../Styles/Modal/Loader.style";
+import { Modal } from "../Modal/Modal";
 import ProfileButton from "./ProfileButton";
 import TweetComposer from "./CheepComposer";
 import CheepCard from "./CheepCard";
+import EditCheep from "./EditCheep";
+import CheepOptions from "./CheepOptions";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.session.user);
-  const [updateTimeline, setUpdateTimeline] = useState(false);
+  const actionsModal = useSelector((state) => state.cheep.actionsMenu);
+  const editCheepModal = useSelector((state) => state.cheep.editCheep);
+  const timeline = useSelector((state) => state.cheep.updateTimeline);
   const [cheeps, setCheeps] = useState([]);
 
   useEffect(() => {
@@ -37,7 +42,7 @@ export default function Home() {
         setLoading(false);
       }
     })();
-  }, [updateTimeline]);
+  }, [timeline]);
 
   return (
     <HomeContainer>
@@ -72,10 +77,21 @@ export default function Home() {
             <CheepCard
               cheepId={cheep.id}
               key={cheep.id}
-              updateTimeline={updateTimeline}
-              setUpdateTimeline={setUpdateTimeline}
             />
           ))}
+
+        {editCheepModal && (
+          <Modal type="edit">
+            <EditCheep />
+          </Modal>
+        )}
+
+        {actionsModal && (
+          <Modal type="edit">
+            <CheepOptions
+            />
+          </Modal>
+        )}
       </HomeCenter>
       <HomeRight></HomeRight>
     </HomeContainer>
