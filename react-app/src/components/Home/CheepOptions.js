@@ -42,7 +42,7 @@ export default function CheepOptions({ setActionsModal, update, setUpdate }) {
       }),
     });
     dispatch(fetchUser(user.id));
-    setActionsModal(false);
+    dispatch(actionsMenu(false));
     return;
   };
 
@@ -58,7 +58,7 @@ export default function CheepOptions({ setActionsModal, update, setUpdate }) {
       }),
     });
     dispatch(fetchUser(user.id));
-    setActionsModal(false);
+    dispatch(actionsMenu(false));
     return;
   };
 
@@ -70,7 +70,7 @@ export default function CheepOptions({ setActionsModal, update, setUpdate }) {
       },
     });
     dispatch(updateTimeline(!timeline));
-    setActionsModal(false);
+    dispatch(actionsMenu(false));
     return;
   };
 
