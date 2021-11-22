@@ -24,9 +24,11 @@ export default function ReplyCheepCard() {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`/api/cheeps/${cheep.Id}`);
-      const data = await res.json();
-      dispatch(singleCheep(data));
+      if (cheep) {
+        const res = await fetch(`/api/cheeps/${cheep.Id}`);
+        const data = await res.json();
+        dispatch(singleCheep(data));
+      }
     })();
   }, [update]);
 
@@ -34,6 +36,7 @@ export default function ReplyCheepCard() {
     e.stopPropagation();
     const id = Number(e.currentTarget.id);
     if (id > 0) {
+      console.log(id);
       await fetch(`/api/likes/${id}`, {
         method: "DELETE",
         headers: {
@@ -85,7 +88,7 @@ export default function ReplyCheepCard() {
 
   const openReplyMenu = () => {
     dispatch(singleCheep(cheep));
-    dispatch(updateReplyModal(true));
+    dispatch(updateReplyModal(false));
   };
 
   if (!cheep)

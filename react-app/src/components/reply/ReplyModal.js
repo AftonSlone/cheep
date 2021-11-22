@@ -17,6 +17,7 @@ export default function ReplyModal() {
   const cheep = useSelector((state) => state.cheep.singleCheep);
   return (
     <ReplyModalContainer>
+      <span onClick={() => dispatch(updateReplyModal(false))}>X</span>
       <ReplyCheepCard />
     </ReplyModalContainer>
   );
