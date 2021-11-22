@@ -82,7 +82,7 @@ export default function Home() {
 
         {editCheepModal && (
           <Modal type="edit">
-            <EditCheep />
+            <EditCheep setCheeps={setCheeps}/>
           </Modal>
         )}
 

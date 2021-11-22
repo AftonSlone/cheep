@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
 import { editCheep, updateTimeline } from "../../store/cheep";
 
-export default function EditCheep() {
+export default function EditCheep({ setCheeps }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const cheep = useSelector((state) => state.cheep.singleCheep);
-  const timeline = useSelector((state) => state.cheep.updateTimeline)
+  const timeline = useSelector((state) => state.cheep.updateTimeline);
   const [content, setContent] = useState(cheep.content);
 
   const updateCheep = async () => {
@@ -24,7 +24,8 @@ export default function EditCheep() {
     });
     const data = await res.json();
     dispatch(editCheep(false));
-    dispatch(updateTimeline(!timeline)) ;
+    setCheeps([]);
+    dispatch(updateTimeline(!timeline));
   };
   return (
     <EditCheepContainer>
