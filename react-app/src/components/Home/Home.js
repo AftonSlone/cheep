@@ -15,16 +15,18 @@ import { HomeButton } from "../../Styles/Home/HomeButton.style";
 import { Loader } from "../../Styles/Modal/Loader.style";
 import { Modal } from "../Modal/Modal";
 import ProfileButton from "./ProfileButton";
-import TweetComposer from "./CheepComposer";
+import CheepComposer from "./CheepComposer";
 import CheepCard from "./CheepCard";
 import EditCheep from "./EditCheep";
 import CheepOptions from "./CheepOptions";
+import ReplyModal from "../reply/ReplyModal";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.session.user);
   const actionsModal = useSelector((state) => state.cheep.actionsMenu);
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
+  const replyModal = useSelector((state) => state.reply.replyModal);
   const timeline = useSelector((state) => state.cheep.updateTimeline);
   const [cheeps, setCheeps] = useState([]);
 
@@ -66,7 +68,7 @@ export default function Home() {
         <ProfileButton />
       </HomeLeft>
       <HomeCenter>
-        <TweetComposer />
+        <CheepComposer setCheeps={setCheeps} />
         {loading && (
           <Loader>
             <div />
@@ -74,22 +76,24 @@ export default function Home() {
         )}
         {cheeps &&
           cheeps.map((cheep) => (
-            <CheepCard
-              cheepId={cheep.id}
-              key={cheep.id}
-            />
+            <CheepCard cheepId={cheep.id} key={cheep.id} />
           ))}
 
         {editCheepModal && (
           <Modal type="edit">
-            <EditCheep setCheeps={setCheeps}/>
+            <EditCheep setCheeps={setCheeps} />
           </Modal>
         )}
 
         {actionsModal && (
           <Modal type="edit">
-            <CheepOptions
-            />
+            <CheepOptions />
+          </Modal>
+        )}
+
+        {replyModal && (
+          <Modal type="edit">
+            <ReplyModal />
           </Modal>
         )}
       </HomeCenter>

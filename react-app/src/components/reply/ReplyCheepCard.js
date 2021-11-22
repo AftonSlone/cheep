@@ -13,27 +13,22 @@ import { CheepCardUsername } from "../../Styles/Cheep/CheepCardUsername.style";
 import { CheepCardContentContainer } from "../../Styles/Cheep/CheepCardContentContainer.style";
 import { CheepCardContent } from "../../Styles/Cheep/CheepCardContent.style";
 import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
-import { Modal } from "../Modal/Modal";
-import CheepOptions from "./CheepOptions";
-import EditCheep from "./EditCheep";
 import { actionsMenu, singleCheep } from "../../store/cheep";
 import { updateReplyModal, updateSingleReply } from "../../store/reply";
 
-export default function CheepCard({ cheepId }) {
+export default function ReplyCheepCard() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  // const timeline = useSelector((state) => state.cheep.updateTimeline)
+  const cheep = useSelector((state) => state.cheep.singleCheep);
   const [update, setUpdate] = useState(false);
-  const [cheep, setCheep] = useState(null);
-  const [actionsModal, setActionsModal] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`/api/cheeps/${cheepId}`);
+      const res = await fetch(`/api/cheeps/${cheep.Id}`);
       const data = await res.json();
-      setCheep(data);
+      dispatch(singleCheep(data));
     })();
-  }, [update, cheepId]);
+  }, [update]);
 
   const handleLikes = async (e, cheep_id) => {
     e.stopPropagation();

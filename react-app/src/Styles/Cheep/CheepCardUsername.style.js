@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const CheepCardUsername = styled.div`
-  width: 95%;
+  width: 99%;
   color: white;
   font-size: 2rem;
   margin-bottom: 1rem;

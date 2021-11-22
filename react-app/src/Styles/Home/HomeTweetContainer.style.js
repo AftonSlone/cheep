@@ -3,10 +3,11 @@ import styled from "styled-components";
 export const HomeTweetContainer = styled.div`
   background-color: black;
   width: 100%;
-  height: 20%;
+  min-height: 20%;
   display: flex;
   border-top: 1px solid rgba(245, 248, 250, 0.3);
   border-bottom: 1px solid rgba(245, 248, 250, 0.3);
+  margin-bottom: 1rem;
 
   div:nth-child(1) {
     display: flex;

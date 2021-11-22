@@ -9,11 +9,21 @@ import datetime
 cheep_routes = Blueprint('cheeps', __name__)
 
 
-@cheep_routes.route('/')
+@cheep_routes.route('')
 # @login_required
 def cheeps():
     cheeps = Cheep.query.all()
     return {'Cheeps': [cheep.to_dict() for cheep in cheeps]}
+
+@cheep_routes.route('', methods=['POST'])
+@login_required
+def new_cheep():
+        data = request.json
+        new_cheep = Cheep(**data)
+        db.session.add(new_cheep)
+        db.session.commit()
+        return new_cheep.to_dict()
+
 
 @cheep_routes.route('/<int:id>')
 # @login_required
