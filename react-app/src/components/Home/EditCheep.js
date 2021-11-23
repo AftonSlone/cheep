@@ -13,7 +13,7 @@ export default function EditCheep({ setCheeps }) {
   const [content, setContent] = useState(cheep.content);
 
   const updateCheep = async () => {
-    const res = await fetch(`api/cheeps/${cheep.id}`, {
+    await fetch(`api/cheeps/${cheep.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -22,7 +22,6 @@ export default function EditCheep({ setCheeps }) {
         content: content,
       }),
     });
-    const data = await res.json();
     dispatch(editCheep(false));
     setCheeps([]);
     dispatch(updateTimeline(!timeline));

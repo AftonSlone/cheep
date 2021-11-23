@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { HomeTweetContainer } from "../../Styles/Home/HomeTweetContainer.style";
-// import { Loader } from "../../Styles/Modal/Loader.style";
+import { ReplyCheepContainer } from "../../Styles/Reply/ReplyCheepContainer.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
 import { updateTimeline } from "../../store/cheep";
+import { updateReplyModal } from "../../store/reply";
 
-export default function CheepComposer({ setCheeps }) {
+export default function ReplyComposer({ setCheeps }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const timeline = useSelector((state) => state.cheep.updateTimeline);
+  const cheep = useSelector((state) => state.cheep.singleCheep);
   const [content, setContent] = useState("");
 
-  const newCheep = () => {
-    fetch("api/cheeps", {
+  const newReply = () => {
+    fetch("api/replies", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,14 +21,16 @@ export default function CheepComposer({ setCheeps }) {
       body: JSON.stringify({
         content: content,
         user_id: user.id,
+        cheep_id: cheep.id,
       }),
     });
     setCheeps([]);
+    dispatch(updateReplyModal(false));
     dispatch(updateTimeline(!timeline));
   };
 
   return (
-    <HomeTweetContainer>
+    <ReplyCheepContainer>
       <div>
         <img src={user.profile_photo} alt="" />
       </div>
@@ -47,9 +50,9 @@ export default function CheepComposer({ setCheeps }) {
           <div>
             <MdOutlineGif />
           </div>
-          <div onClick={newCheep}>Cheep</div>
+          <div onClick={newReply}>Reply</div>
         </div>
       </div>
-    </HomeTweetContainer>
+    </ReplyCheepContainer>
   );
 }

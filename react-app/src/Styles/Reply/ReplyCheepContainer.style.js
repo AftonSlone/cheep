@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export const HomeTweetContainer = styled.div`
+export const ReplyCheepContainer = styled.div`
   background-color: black;
   width: 100%;
-  min-height: 20%;
+  min-height: 25rem;
   display: flex;
   border-top: 1px solid rgba(245, 248, 250, 0.3);
-  border-bottom: 1px solid rgba(245, 248, 250, 0.3);
+  margin-top: 8rem;
   margin-bottom: 1rem;
 
   div:nth-child(1) {
@@ -14,7 +14,7 @@ export const HomeTweetContainer = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 100%;
+    min-height: 100%;
     width: 15%;
   }
 
@@ -23,20 +23,19 @@ export const HomeTweetContainer = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 100%;
+    height: 18rem;
     width: 85%;
-    background-color: black;
+
 
     div:nth-child(1) {
       width: 100%;
       height: 70%;
-      background-color: black;
       border-bottom: 1px solid rgba(29, 161, 242, 0.3);
     }
 
     div:nth-child(2) {
       width: 100%;
-      height: 6rem;
+      height: 7rem;
       background-color: black;
       color: #1da1f2;
       display: flex;
@@ -61,7 +60,7 @@ export const HomeTweetContainer = styled.div`
         align-items: center;
         color: white;
         width: 30%;
-        height: 80%;
+        height: 95%;
         font-size: 3rem;
         border-bottom: none;
         background-color: #1da1f2;
@@ -79,7 +78,7 @@ export const HomeTweetContainer = styled.div`
   }
 
   textarea {
-    width: 100%;
+    width: 99%;
     height: 100%;
     resize: none;
     background-color: black;

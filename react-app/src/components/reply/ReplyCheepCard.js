@@ -14,26 +14,30 @@ import { CheepCardContentContainer } from "../../Styles/Cheep/CheepCardContentCo
 import { CheepCardContent } from "../../Styles/Cheep/CheepCardContent.style";
 import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
 import { actionsMenu, singleCheep } from "../../store/cheep";
-import { updateReplyModal} from "../../store/reply";
+import { updateReplyModal } from "../../store/reply";
 
-export default function CheepCard({ cheepId }) {
+export default function ReplyCheepCard() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  const cheep = useSelector((state) => state.cheep.singleCheep);
   const [update, setUpdate] = useState(false);
-  const [cheep, setCheep] = useState(null);
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`/api/cheeps/${cheepId}`);
-      const data = await res.json();
-      setCheep(data);
+      if (cheep) {
+        console.log(cheep.id);
+        const res = await fetch(`/api/cheeps/${cheep.id}`);
+        const data = await res.json();
+        await dispatch(singleCheep(data));
+      }
     })();
-  }, [update, cheepId]);
+  }, [update, cheep, dispatch]);
 
   const handleLikes = async (e, cheep_id) => {
     e.stopPropagation();
     const id = Number(e.currentTarget.id);
     if (id > 0) {
+      console.log(id);
       await fetch(`/api/likes/${id}`, {
         method: "DELETE",
         headers: {
@@ -85,7 +89,7 @@ export default function CheepCard({ cheepId }) {
 
   const openReplyMenu = () => {
     dispatch(singleCheep(cheep));
-    dispatch(updateReplyModal(true));
+    dispatch(updateReplyModal(false));
   };
 
   if (!cheep)
