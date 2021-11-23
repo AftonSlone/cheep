@@ -21,6 +21,8 @@ import { singleCheep } from "../../store/cheep";
 import CheepOptions from "../Home/CheepOptions";
 import EditCheep from "../Home/EditCheep";
 import { Modal } from "../Modal/Modal";
+import ReplyCard from "./ReplyCard";
+import ReplyOptions from "./ReplyOptions";
 
 export default function ReplyHome() {
   const dispatch = useDispatch();
@@ -74,6 +76,11 @@ export default function ReplyHome() {
         )}
         {id && <CheepCard cheepId={id} />}
 
+        {replies &&
+          replies.replies.map((reply) => (
+            <ReplyCard key={reply.id} cheep={reply} />
+          ))}
+
         {/* {editCheepModal && (
           <Modal type="edit">
             <EditCheep setCheeps={setCheeps} />
@@ -82,7 +89,7 @@ export default function ReplyHome() {
 
         {actionsModal && (
           <Modal type="edit">
-            <CheepOptions />
+           <ReplyOptions />
           </Modal>
         )}
 

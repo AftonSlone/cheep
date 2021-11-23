@@ -21,7 +21,6 @@ import EditCheep from "./EditCheep";
 import CheepOptions from "./CheepOptions";
 import ReplyModal from "../reply/ReplyModal";
 
-
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.session.user);
@@ -32,22 +31,26 @@ export default function Home() {
   const [cheeps, setCheeps] = useState([]);
 
   useEffect(() => {
-    (async () => {
-      if (user) {
-        setLoading(true);
-        const res = await fetch(`/api/cheeps/user/${user.id}/timeline`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const data = await res.json();
-        setCheeps(data.data);
-        setLoading(false);
-      }
-    })();
+    let mounted = true;
+    if (mounted) {
+      (async () => {
+        if (user) {
+          setLoading(true);
+          const res = await fetch(`/api/cheeps/user/${user.id}/timeline`, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          const data = await res.json();
+          setCheeps(data.data);
+          setLoading(false);
+        }
+      })();
+    }
+    return () => {
+      mounted = false;
+    };
   }, [timeline, user]);
-
-
 
   return (
     <HomeContainer>
@@ -79,10 +82,7 @@ export default function Home() {
         )}
         {cheeps &&
           cheeps.map((cheep) => (
-            <CheepCard
-              cheepId={cheep.id}
-              key={cheep.id}
-            />
+            <CheepCard cheepId={cheep.id} key={cheep.id} />
           ))}
 
         {editCheepModal && (

@@ -26,13 +26,13 @@ export default function CheepCard({ cheepId }) {
 
   useEffect(() => {
     let mounted = true;
-    if (mounted) {
-      (async () => {
-        const res = await fetch(`/api/cheeps/${cheepId}`);
-        const data = await res.json();
-        setCheep(data);
-      })();
-    }
+
+    (async () => {
+      const res = await fetch(`/api/cheeps/${cheepId}`);
+      const data = await res.json();
+      if (mounted) setCheep(data);
+    })();
+
     return () => {
       mounted = false;
     };
@@ -106,7 +106,7 @@ export default function CheepCard({ cheepId }) {
   if (!cheep)
     return (
       <CheepCardContainer>
-        <Loader />
+        <Loader><div/></Loader>
       </CheepCardContainer>
     );
 
