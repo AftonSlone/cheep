@@ -1,40 +1,40 @@
 import React, { useState } from "react";
+import { EditCheepContainer } from "../../Styles/Cheep/EditCheepContainer.style";
 import { useDispatch, useSelector } from "react-redux";
-import { HomeTweetContainer } from "../../Styles/Home/HomeTweetContainer.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
-import { updateTimeline } from "../../store/cheep";
+import { editCheep, updateTimeline } from "../../store/cheep";
 
-export default function CheepComposer({ setCheeps }) {
+export default function EditReply({ update, setUpdate }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  const cheep = useSelector((state) => state.reply.singleReply);
   const timeline = useSelector((state) => state.cheep.updateTimeline);
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(cheep.content);
 
-  const newCheep = () => {
-    fetch("api/cheeps", {
-      method: "POST",
+  const updateCheep = async () => {
+    await fetch(`/api/replies/${cheep.id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         content: content,
-        user_id: user.id,
       }),
     });
-    setCheeps([]);
-    dispatch(updateTimeline(!timeline));
+    dispatch(editCheep(false));
+    setUpdate(!update);
   };
-
   return (
-    <HomeTweetContainer>
+    <EditCheepContainer>
       <div>
+        <span onClick={() => dispatch(editCheep(false))}>X</span>
         <img src={user.profile_photo} alt="" />
       </div>
       <div>
         <div>
           <textarea
-            placeholder="What's happening?"
             name="content"
+            placeholder="What's happening?"
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
@@ -46,9 +46,9 @@ export default function CheepComposer({ setCheeps }) {
           <div>
             <MdOutlineGif />
           </div>
-          <div onClick={newCheep}>Cheep</div>
+          <div onClick={updateCheep}>Update</div>
         </div>
       </div>
-    </HomeTweetContainer>
+    </EditCheepContainer>
   );
 }

@@ -5,14 +5,14 @@ import {
   singleCheep,
   updateTimeline,
 } from "../../store/cheep";
+import { updateSingleReply } from "../../store/reply";
 import { fetchUser } from "../../store/session";
 import { CheepCardOptionsContainer } from "../../Styles/Cheep/CheepCardOptionsContainer.style";
 import { Loader } from "../../Styles/Modal/Loader.style";
-;
 
-export default function CheepOptions({ setActionsModal, update, setUpdate }) {
+export default function ReplyOptions({update, setUpdate}) {
   const user = useSelector((state) => state.session.user);
-  const cheep = useSelector((state) => state.cheep.singleCheep);
+  const cheep = useSelector((state) => state.reply.singleReply);
   const timeline = useSelector((state) => state.cheep.updateTimeline);
   const dispatch = useDispatch();
 
@@ -28,6 +28,7 @@ export default function CheepOptions({ setActionsModal, update, setUpdate }) {
   };
 
   const deleteFollow = async () => {
+    console.log(cheep);
     await fetch(`/api/follows/delete`, {
       method: "DELETE",
       headers: {
@@ -60,19 +61,19 @@ export default function CheepOptions({ setActionsModal, update, setUpdate }) {
   };
 
   const deleteCheep = async () => {
-    await fetch(`/api/cheeps/${cheep.id}`, {
+    await fetch(`/api/replies/${cheep.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
     });
-    dispatch(updateTimeline(!timeline));
+    setUpdate(!update)
     dispatch(actionsMenu(false));
     return;
   };
 
   const updateCheep = () => {
-    dispatch(singleCheep(cheep));
+    dispatch(updateSingleReply(cheep));
     dispatch(editCheep(true));
     dispatch(actionsMenu(false));
   };
@@ -80,7 +81,9 @@ export default function CheepOptions({ setActionsModal, update, setUpdate }) {
   if (!user)
     return (
       <CheepCardOptionsContainer>
-        <Loader><div/></Loader>
+        <Loader>
+          <div />
+        </Loader>
       </CheepCardOptionsContainer>
     );
 

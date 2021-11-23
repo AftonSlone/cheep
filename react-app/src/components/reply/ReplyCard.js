@@ -14,29 +14,14 @@ import { CheepCardContentContainer } from "../../Styles/Cheep/CheepCardContentCo
 import { CheepCardContent } from "../../Styles/Cheep/CheepCardContent.style";
 import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
 import { actionsMenu, singleCheep } from "../../store/cheep";
-import { updateReplyModal } from "../../store/reply";
+import { updateReplyModal, updateSingleReply } from "../../store/reply";
 import { useHistory } from "react-router";
 
-export default function CheepCard({ cheepId }) {
+export default function ReplyCard({ cheep }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const [update, setUpdate] = useState(false);
-  const [cheep, setCheep] = useState(null);
-
-  useEffect(() => {
-    let mounted = true;
-
-    (async () => {
-      const res = await fetch(`/api/cheeps/${cheepId}`);
-      const data = await res.json();
-      if (mounted) setCheep(data);
-    })();
-
-    return () => {
-      mounted = false;
-    };
-  }, [update, cheepId]);
 
   const handleLikes = async (e, cheep_id) => {
     e.stopPropagation();
@@ -88,7 +73,7 @@ export default function CheepCard({ cheepId }) {
 
   const openActionsMenu = (e) => {
     e.stopPropagation();
-    dispatch(singleCheep(cheep));
+    dispatch(updateSingleReply(cheep));
     dispatch(actionsMenu(true));
   };
 
@@ -106,7 +91,7 @@ export default function CheepCard({ cheepId }) {
   if (!cheep)
     return (
       <CheepCardContainer>
-        <Loader><div/></Loader>
+        <Loader />
       </CheepCardContainer>
     );
 
@@ -120,24 +105,7 @@ export default function CheepCard({ cheepId }) {
           {`@${cheep.user.username}`} <div onClick={openActionsMenu}>. . .</div>
         </CheepCardUsername>
         <CheepCardContent>{cheep.content}</CheepCardContent>
-        <CheepCardActions>
-          <div>
-            <div>
-              <MdOutlineChatBubbleOutline onClick={openReplyMenu} />
-            </div>
-            <div>{cheep.replies.length}</div>
-          </div>
-          <div>
-            <div>
-              <MdOutlineCached />
-            </div>
-            <div>{cheep.recheeps.length}</div>
-          </div>
-          <div>
-            <div>{userLiked()}</div>
-            <div>{cheep.likes.length}</div>
-          </div>
-        </CheepCardActions>
+        <CheepCardActions></CheepCardActions>
       </CheepCardContentContainer>
     </CheepCardContainer>
   );

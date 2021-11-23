@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import SignUpForm from "./components/Auth/SignUpForm";
 import Index from "./components/Index/Index";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import { authenticate } from "./store/session";
 import Home from "./components/Home/Home";
+import ReplyHome from "./components/reply/ReplyHome";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -26,12 +26,9 @@ function App() {
     <BrowserRouter>
       <Index />
       <Switch>
-        {/* <Route path="/login" exact={true}>
-          <LoginForm />
-        </Route> */}
-        <Route path="/sign-up" exact={true}>
-          <SignUpForm />
-        </Route>
+        <ProtectedRoute path="/cheep/:id">
+          <ReplyHome />
+        </ProtectedRoute>
         <ProtectedRoute path="/home" exact={true}>
           <Home />
         </ProtectedRoute>

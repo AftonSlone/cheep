@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { HomeButton } from "../../Styles/Home/HomeButton.style";
 import { HomeCenter } from "../../Styles/Home/HomeCenter.style";
 import { HomeContainer } from "../../Styles/Home/HomeContainer.style";
 import { HomeLeft } from "../../Styles/Home/HomeLeft.style";
 import { HomeRight } from "../../Styles/Home/HomeRight.style";
+import { Loader } from "../../Styles/Modal/Loader.style";
 import {
   MdHome,
   MdAlternateEmail,
@@ -11,46 +13,41 @@ import {
   MdPersonOutline,
 } from "react-icons/md";
 import { BsTwitter } from "react-icons/bs";
-import { HomeButton } from "../../Styles/Home/HomeButton.style";
-import { Loader } from "../../Styles/Modal/Loader.style";
+import ProfileButton from "../Home/ProfileButton";
+import CheepCard from "../Home/CheepCard";
+import { useDispatch, useSelector } from "react-redux";
+import ReplyCheepCard from "./ReplyCheepCard";
+import { singleCheep } from "../../store/cheep";
+import CheepOptions from "../Home/CheepOptions";
+import EditCheep from "../Home/EditCheep";
 import { Modal } from "../Modal/Modal";
-import ProfileButton from "./ProfileButton";
-import CheepComposer from "./CheepComposer";
-import CheepCard from "./CheepCard";
-import EditCheep from "./EditCheep";
-import CheepOptions from "./CheepOptions";
-import ReplyModal from "../reply/ReplyModal";
+import ReplyCard from "./ReplyCard";
+import ReplyOptions from "./ReplyOptions";
+import EditReply from "./EditReply";
 
-export default function Home() {
+export default function ReplyHome() {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const user = useSelector((state) => state.session.user);
+  const [update, setUpdate] = useState(false);
   const actionsModal = useSelector((state) => state.cheep.actionsMenu);
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
   const replyModal = useSelector((state) => state.reply.replyModal);
-  const timeline = useSelector((state) => state.cheep.updateTimeline);
-  const [cheeps, setCheeps] = useState([]);
+  const replies = useSelector((state) => state.cheep.singleCheep);
+  const { id } = useParams();
 
   useEffect(() => {
     let mounted = true;
     if (mounted) {
       (async () => {
-        if (user) {
-          setLoading(true);
-          const res = await fetch(`/api/cheeps/user/${user.id}/timeline`, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          const data = await res.json();
-          setCheeps(data.data);
-          setLoading(false);
-        }
+        const res = await fetch(`/api/cheeps/${id}`);
+        const data = await res.json();
+        dispatch(singleCheep(data));
       })();
     }
     return () => {
       mounted = false;
     };
-  }, [timeline, user]);
+  }, [update]);
 
   return (
     <HomeContainer>
@@ -74,34 +71,35 @@ export default function Home() {
         <ProfileButton />
       </HomeLeft>
       <HomeCenter>
-        <CheepComposer setCheeps={setCheeps} />
         {loading && (
           <Loader>
             <div />
           </Loader>
         )}
-        {cheeps &&
-          cheeps.map((cheep) => (
-            <CheepCard cheepId={cheep.id} key={cheep.id} />
+        {id && <CheepCard cheepId={id} />}
+
+        {replies &&
+          replies.replies.map((reply) => (
+            <ReplyCard key={reply.id} cheep={reply} />
           ))}
 
         {editCheepModal && (
           <Modal type="edit">
-            <EditCheep setCheeps={setCheeps} />
+            <EditReply update={update} setUpdate={setUpdate} />
           </Modal>
         )}
 
         {actionsModal && (
           <Modal type="edit">
-            <CheepOptions />
+            <ReplyOptions update={update} setUpdate={setUpdate} />
           </Modal>
         )}
 
-        {replyModal && (
+        {/* {replyModal && (
           <Modal type="edit">
             <ReplyModal setCheeps={setCheeps} />
           </Modal>
-        )}
+        )} */}
       </HomeCenter>
       <HomeRight></HomeRight>
     </HomeContainer>
