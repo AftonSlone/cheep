@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { HomeCenter } from "../../Styles/Home/HomeCenter.style";
 import { HomeContainer } from "../../Styles/Home/HomeContainer.style";
 import { HomeLeft } from "../../Styles/Home/HomeLeft.style";
@@ -20,13 +20,17 @@ import CheepCard from "./CheepCard";
 import EditCheep from "./EditCheep";
 import CheepOptions from "./CheepOptions";
 import ReplyModal from "../reply/ReplyModal";
+import CheepModal from "./CheepModal";
+import { updateNewCheep } from "../../store/cheep";
 
 export default function Home() {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.session.user);
   const actionsModal = useSelector((state) => state.cheep.actionsMenu);
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
   const replyModal = useSelector((state) => state.reply.replyModal);
+  const cheepModal = useSelector((state) => state.cheep.newCheep);
   const timeline = useSelector((state) => state.cheep.updateTimeline);
   const [cheeps, setCheeps] = useState([]);
 
@@ -70,7 +74,9 @@ export default function Home() {
         <a href="/home">
           <MdPersonOutline /> Profile
         </a>
-        <HomeButton>Cheep</HomeButton>
+        <HomeButton onClick={() => dispatch(updateNewCheep(true))}>
+          Cheep
+        </HomeButton>
         <ProfileButton />
       </HomeLeft>
       <HomeCenter>
@@ -100,6 +106,12 @@ export default function Home() {
         {replyModal && (
           <Modal type="edit">
             <ReplyModal setCheeps={setCheeps} />
+          </Modal>
+        )}
+
+        {cheepModal && (
+          <Modal type="edit">
+            <CheepModal setCheeps={setCheeps} />
           </Modal>
         )}
       </HomeCenter>

@@ -16,10 +16,7 @@ import { BsTwitter } from "react-icons/bs";
 import ProfileButton from "../Home/ProfileButton";
 import CheepCard from "../Home/CheepCard";
 import { useDispatch, useSelector } from "react-redux";
-import ReplyCheepCard from "./ReplyCheepCard";
 import { singleCheep } from "../../store/cheep";
-import CheepOptions from "../Home/CheepOptions";
-import EditCheep from "../Home/EditCheep";
 import { Modal } from "../Modal/Modal";
 import ReplyCard from "./ReplyCard";
 import ReplyOptions from "./ReplyOptions";
@@ -27,11 +24,10 @@ import EditReply from "./EditReply";
 
 export default function ReplyHome() {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const [update, setUpdate] = useState(false);
   const actionsModal = useSelector((state) => state.cheep.actionsMenu);
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
-  const replyModal = useSelector((state) => state.reply.replyModal);
   const replies = useSelector((state) => state.cheep.singleCheep);
   const { id } = useParams();
 
@@ -95,11 +91,6 @@ export default function ReplyHome() {
           </Modal>
         )}
 
-        {/* {replyModal && (
-          <Modal type="edit">
-            <ReplyModal setCheeps={setCheeps} />
-          </Modal>
-        )} */}
       </HomeCenter>
       <HomeRight></HomeRight>
     </HomeContainer>
