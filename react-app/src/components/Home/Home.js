@@ -20,8 +20,10 @@ import CheepCard from "./CheepCard";
 import EditCheep from "./EditCheep";
 import CheepOptions from "./CheepOptions";
 import ReplyModal from "../reply/ReplyModal";
+import { useHistory } from "react-router";
 
 export default function Home() {
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.session.user);
   const actionsModal = useSelector((state) => state.cheep.actionsMenu);
@@ -45,6 +47,10 @@ export default function Home() {
       }
     })();
   }, [timeline, user]);
+
+  const link = (id) => {
+    history.push(`/cheep/${id}`);
+  };
 
   return (
     <HomeContainer>
@@ -76,7 +82,11 @@ export default function Home() {
         )}
         {cheeps &&
           cheeps.map((cheep) => (
-            <CheepCard cheepId={cheep.id} key={cheep.id} />
+            <CheepCard
+              cheepId={cheep.id}
+              key={cheep.id}
+              onClick={() => link(cheep.id)}
+            />
           ))}
 
         {editCheepModal && (
