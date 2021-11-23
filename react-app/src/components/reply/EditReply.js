@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
 import { editCheep, updateTimeline } from "../../store/cheep";
 
-export default function EditReply({ setCheeps }) {
+export default function EditReply({ update, setUpdate }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const cheep = useSelector((state) => state.reply.singleReply);
@@ -22,8 +22,7 @@ export default function EditReply({ setCheeps }) {
       }),
     });
     dispatch(editCheep(false));
-    // setCheeps([]);
-    dispatch(updateTimeline(!timeline));
+    setUpdate(!update);
   };
   return (
     <EditCheepContainer>

@@ -28,6 +28,7 @@ import EditReply from "./EditReply";
 export default function ReplyHome() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [update, setUpdate] = useState(false);
   const actionsModal = useSelector((state) => state.cheep.actionsMenu);
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
   const replyModal = useSelector((state) => state.reply.replyModal);
@@ -46,7 +47,7 @@ export default function ReplyHome() {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [update]);
 
   return (
     <HomeContainer>
@@ -84,13 +85,13 @@ export default function ReplyHome() {
 
         {editCheepModal && (
           <Modal type="edit">
-            <EditReply  />
+            <EditReply update={update} setUpdate={setUpdate} />
           </Modal>
         )}
 
         {actionsModal && (
           <Modal type="edit">
-           <ReplyOptions />
+            <ReplyOptions update={update} setUpdate={setUpdate} />
           </Modal>
         )}
 

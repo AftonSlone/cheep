@@ -10,7 +10,7 @@ import { fetchUser } from "../../store/session";
 import { CheepCardOptionsContainer } from "../../Styles/Cheep/CheepCardOptionsContainer.style";
 import { Loader } from "../../Styles/Modal/Loader.style";
 
-export default function ReplyOptions() {
+export default function ReplyOptions({update, setUpdate}) {
   const user = useSelector((state) => state.session.user);
   const cheep = useSelector((state) => state.reply.singleReply);
   const timeline = useSelector((state) => state.cheep.updateTimeline);
@@ -67,7 +67,7 @@ export default function ReplyOptions() {
         "Content-Type": "application/json",
       },
     });
-    dispatch(updateTimeline(!timeline));
+    setUpdate(!update)
     dispatch(actionsMenu(false));
     return;
   };
