@@ -37,7 +37,7 @@ export default function ReplyComposer({ setCheeps }) {
       <div>
         <div>
           <textarea
-            placeholder="What's happening?"
+            placeholder="Cheep your reply..."
             name="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
