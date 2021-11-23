@@ -14,20 +14,28 @@ import { CheepCardContentContainer } from "../../Styles/Cheep/CheepCardContentCo
 import { CheepCardContent } from "../../Styles/Cheep/CheepCardContent.style";
 import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
 import { actionsMenu, singleCheep } from "../../store/cheep";
-import { updateReplyModal} from "../../store/reply";
+import { updateReplyModal } from "../../store/reply";
+import { useHistory } from "react-router";
 
 export default function CheepCard({ cheepId }) {
+  const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const [update, setUpdate] = useState(false);
   const [cheep, setCheep] = useState(null);
 
   useEffect(() => {
-    (async () => {
-      const res = await fetch(`/api/cheeps/${cheepId}`);
-      const data = await res.json();
-      setCheep(data);
-    })();
+    let mounted = true;
+    if (mounted) {
+      (async () => {
+        const res = await fetch(`/api/cheeps/${cheepId}`);
+        const data = await res.json();
+        setCheep(data);
+      })();
+    }
+    return () => {
+      mounted = false;
+    };
   }, [update, cheepId]);
 
   const handleLikes = async (e, cheep_id) => {
@@ -78,14 +86,21 @@ export default function CheepCard({ cheepId }) {
     );
   };
 
-  const openActionsMenu = () => {
+  const openActionsMenu = (e) => {
+    e.stopPropagation();
     dispatch(singleCheep(cheep));
     dispatch(actionsMenu(true));
   };
 
-  const openReplyMenu = () => {
+  const openReplyMenu = (e) => {
+    e.stopPropagation();
     dispatch(singleCheep(cheep));
     dispatch(updateReplyModal(true));
+  };
+
+  const link = (e, id) => {
+    e.stopPropagation();
+    history.push(`/cheep/${id}`);
   };
 
   if (!cheep)
@@ -96,7 +111,7 @@ export default function CheepCard({ cheepId }) {
     );
 
   return (
-    <CheepCardContainer>
+    <CheepCardContainer onClick={(e) => link(e, cheep.id)}>
       <CheepCardProfilePhoto>
         <img src={cheep.user.profile_photo} alt="" />
       </CheepCardProfilePhoto>
