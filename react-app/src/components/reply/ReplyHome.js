@@ -23,6 +23,7 @@ import EditCheep from "../Home/EditCheep";
 import { Modal } from "../Modal/Modal";
 import ReplyCard from "./ReplyCard";
 import ReplyOptions from "./ReplyOptions";
+import EditReply from "./EditReply";
 
 export default function ReplyHome() {
   const dispatch = useDispatch();
@@ -81,11 +82,11 @@ export default function ReplyHome() {
             <ReplyCard key={reply.id} cheep={reply} />
           ))}
 
-        {/* {editCheepModal && (
+        {editCheepModal && (
           <Modal type="edit">
-            <EditCheep setCheeps={setCheeps} />
+            <EditReply  />
           </Modal>
-        )} */}
+        )}
 
         {actionsModal && (
           <Modal type="edit">

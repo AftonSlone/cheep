@@ -5,6 +5,7 @@ import {
   singleCheep,
   updateTimeline,
 } from "../../store/cheep";
+import { updateSingleReply } from "../../store/reply";
 import { fetchUser } from "../../store/session";
 import { CheepCardOptionsContainer } from "../../Styles/Cheep/CheepCardOptionsContainer.style";
 import { Loader } from "../../Styles/Modal/Loader.style";
@@ -72,7 +73,7 @@ export default function ReplyOptions() {
   };
 
   const updateCheep = () => {
-    dispatch(singleCheep(cheep));
+    dispatch(updateSingleReply(cheep));
     dispatch(editCheep(true));
     dispatch(actionsMenu(false));
   };
