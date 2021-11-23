@@ -25,19 +25,17 @@ export default function ReplyCheepCard() {
   useEffect(() => {
     (async () => {
       if (cheep) {
-        console.log(cheep.id);
         const res = await fetch(`/api/cheeps/${cheep.id}`);
         const data = await res.json();
         await dispatch(singleCheep(data));
       }
     })();
-  }, [update, cheep, dispatch]);
+  }, [update, dispatch]);
 
   const handleLikes = async (e, cheep_id) => {
     e.stopPropagation();
     const id = Number(e.currentTarget.id);
     if (id > 0) {
-      console.log(id);
       await fetch(`/api/likes/${id}`, {
         method: "DELETE",
         headers: {
