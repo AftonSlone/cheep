@@ -39,3 +39,8 @@ class Reply(db.Model):
             'updated_at': self.updated_at,
             'user': self.user.to_simple_dict()
         }
+
+    def update(self, content=None, updated_at=None, **kwargs):
+        self.content = content if content else self.content
+        self.updated_at = updated_at if updated_at else self.updated_at
+        return self

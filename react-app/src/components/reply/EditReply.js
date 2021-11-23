@@ -12,7 +12,7 @@ export default function EditReply({ setCheeps }) {
   const [content, setContent] = useState(cheep.content);
 
   const updateCheep = async () => {
-    await fetch(`api/cheeps/${cheep.id}`, {
+    await fetch(`/api/replies/${cheep.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -61,7 +61,7 @@ export default function ReplyOptions() {
   };
 
   const deleteCheep = async () => {
-    await fetch(`/api/cheeps/${cheep.id}`, {
+    await fetch(`/api/replies/${cheep.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
