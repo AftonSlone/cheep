@@ -93,7 +93,7 @@ export default function Home() {
 
         {replyModal && (
           <Modal type="edit">
-            <ReplyModal />
+            <ReplyModal setCheeps={setCheeps} />
           </Modal>
         )}
       </HomeCenter>

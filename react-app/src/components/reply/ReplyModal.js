@@ -10,8 +10,9 @@ import {
 } from "react-icons/md";
 import CheepCard from "../Home/CheepCard";
 import ReplyCheepCard from "./ReplyCheepCard";
+import ReplyComposer from "./ReplyComposer";
 
-export default function ReplyModal() {
+export default function ReplyModal({setCheeps}) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const cheep = useSelector((state) => state.cheep.singleCheep);
@@ -19,6 +20,7 @@ export default function ReplyModal() {
     <ReplyModalContainer>
       <span onClick={() => dispatch(updateReplyModal(false))}>X</span>
       <ReplyCheepCard />
+      <ReplyComposer setCheeps={setCheeps}/>
     </ReplyModalContainer>
   );
 }

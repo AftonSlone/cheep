@@ -25,9 +25,10 @@ export default function ReplyCheepCard() {
   useEffect(() => {
     (async () => {
       if (cheep) {
-        const res = await fetch(`/api/cheeps/${cheep.Id}`);
+        console.log(cheep.id);
+        const res = await fetch(`/api/cheeps/${cheep.id}`);
         const data = await res.json();
-        dispatch(singleCheep(data));
+        await dispatch(singleCheep(data));
       }
     })();
   }, [update]);
