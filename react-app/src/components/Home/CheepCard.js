@@ -21,6 +21,7 @@ export default function CheepCard({ cheepId }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  const updateState = useSelector((state) => state.cheep.updateCheepCard);
   const [update, setUpdate] = useState(false);
   const [cheep, setCheep] = useState(null);
 
@@ -36,7 +37,7 @@ export default function CheepCard({ cheepId }) {
     return () => {
       mounted = false;
     };
-  }, [update, cheepId]);
+  }, [update, cheepId, updateState]);
 
   const handleLikes = async (e, cheep_id) => {
     e.stopPropagation();
@@ -106,7 +107,9 @@ export default function CheepCard({ cheepId }) {
   if (!cheep)
     return (
       <CheepCardContainer>
-        <Loader><div/></Loader>
+        <Loader>
+          <div />
+        </Loader>
       </CheepCardContainer>
     );
 
