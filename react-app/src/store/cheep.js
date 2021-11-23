@@ -45,8 +45,10 @@ const setUpdateTimeline = (payload) => ({
   payload: payload,
 });
 
-export const updateCheepCard = (payload) => (dispatch) =>
-  dispatch(setUpdateCheepCard(payload));
+export const updateCheepCard = (payload) => async (dispatch) => {
+console.log('update thunk',payload)
+  return dispatch(setUpdateCheepCard(payload));
+}
 
 export const updateNewCheep = (payload) => async (dispatch) =>
   dispatch(newCheep(payload));

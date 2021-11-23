@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReplyCheepContainer } from "../../Styles/Reply/ReplyCheepContainer.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
-import { updateNewCheep, updateTimeline } from "../../store/cheep";
+import { updateCheepCard, updateTimeline } from "../../store/cheep";
 import { updateReplyModal } from "../../store/reply";
 
 export default function ReplyComposer({ setCheeps, update, setUpdate }) {
@@ -13,8 +13,8 @@ export default function ReplyComposer({ setCheeps, update, setUpdate }) {
   const updateState = useSelector((state) => state.cheep.updateCheepCard);
   const [content, setContent] = useState("");
 
-  const newReply = () => {
-    fetch("/api/replies", {
+  const newReply = async () => {
+    await fetch("/api/replies", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,9 +27,9 @@ export default function ReplyComposer({ setCheeps, update, setUpdate }) {
     });
     if (setCheeps) setCheeps([]);
     if (setUpdate) setUpdate(!update);
-    dispatch(updateNewCheep(!updateState));
-    dispatch(updateTimeline(!timeline));
-    dispatch(updateReplyModal(false));
+    await dispatch(updateCheepCard(!updateState));
+    await dispatch(updateTimeline(!timeline));
+    await dispatch(updateReplyModal(false));
   };
 
   return (
