@@ -20,7 +20,7 @@ export default function ReplyCheepCard() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const cheep = useSelector((state) => state.cheep.singleCheep);
-  const [update, setUpdate] = useState(false);
+  const [updateCheepCard, setUpdateCheepCard] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -30,7 +30,7 @@ export default function ReplyCheepCard() {
         await dispatch(singleCheep(data));
       }
     })();
-  }, [update, dispatch]);
+  }, [updateCheepCard, dispatch]);
 
   const handleLikes = async (e, cheep_id) => {
     e.stopPropagation();
@@ -46,7 +46,7 @@ export default function ReplyCheepCard() {
           cheep_id: cheep_id,
         }),
       });
-      setUpdate(!update);
+      setUpdateCheepCard(!updateCheepCard);
       return;
     }
     await fetch(`/api/likes`, {
@@ -59,7 +59,7 @@ export default function ReplyCheepCard() {
         cheep_id: cheep_id,
       }),
     });
-    setUpdate(!update);
+    setUpdateCheepCard(!updateCheepCard);
     return;
   };
 

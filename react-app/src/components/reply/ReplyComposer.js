@@ -5,7 +5,7 @@ import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
 import { updateTimeline } from "../../store/cheep";
 import { updateReplyModal } from "../../store/reply";
 
-export default function ReplyComposer({ setCheeps }) {
+export default function ReplyComposer({ setCheeps, update, setUpdate }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const timeline = useSelector((state) => state.cheep.updateTimeline);
@@ -13,7 +13,7 @@ export default function ReplyComposer({ setCheeps }) {
   const [content, setContent] = useState("");
 
   const newReply = () => {
-    fetch("api/replies", {
+    fetch("/api/replies", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +24,10 @@ export default function ReplyComposer({ setCheeps }) {
         cheep_id: cheep.id,
       }),
     });
-    setCheeps([]);
+    console.log(setCheeps);
+    console.log(setUpdate);
+    if (setCheeps) setCheeps([]);
+    if (setUpdate) setUpdate(!update);
     dispatch(updateReplyModal(false));
     dispatch(updateTimeline(!timeline));
   };

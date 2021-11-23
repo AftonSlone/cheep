@@ -21,6 +21,7 @@ import { Modal } from "../Modal/Modal";
 import ReplyCard from "./ReplyCard";
 import ReplyOptions from "./ReplyOptions";
 import EditReply from "./EditReply";
+import ReplyModal from "./ReplyModal";
 
 export default function ReplyHome() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ export default function ReplyHome() {
   const [update, setUpdate] = useState(false);
   const actionsModal = useSelector((state) => state.cheep.actionsMenu);
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
+  const replyModal = useSelector((state) => state.reply.replyModal);
   const replies = useSelector((state) => state.cheep.singleCheep);
   const { id } = useParams();
 
@@ -91,6 +93,11 @@ export default function ReplyHome() {
           </Modal>
         )}
 
+        {replyModal && (
+          <Modal type="edit">
+            <ReplyModal update={update} setUpdate={setUpdate} />
+          </Modal>
+        )}
       </HomeCenter>
       <HomeRight></HomeRight>
     </HomeContainer>
