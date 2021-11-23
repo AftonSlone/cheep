@@ -5,10 +5,8 @@ import { IndexButton } from "../../Styles/Index/IndexButton.style";
 import { IndexContainer } from "../../Styles/Index/IndexContainer.style";
 import { IndexLeft } from "../../Styles/Index/IndexLeft.style";
 import { IndexRight } from "../../Styles/Index/IndexRight.style";
-import { Loader } from "../../Styles/Modal/Loader.style";
 import LoginForm from "../Auth/LoginForm";
 import SignUpForm from "../Auth/SignUpForm";
-// import Modal from "../Modal/Modal";
 import { Modal } from "../Modal/Modal";
 
 const Index = () => {
@@ -27,7 +25,7 @@ const Index = () => {
   const signup = () => {
     setSignupModal(true);
   };
- 
+
   return (
     <IndexContainer>
       <IndexLeft>

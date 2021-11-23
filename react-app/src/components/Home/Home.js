@@ -44,7 +44,7 @@ export default function Home() {
         setLoading(false);
       }
     })();
-  }, [timeline]);
+  }, [timeline, user]);
 
   return (
     <HomeContainer>

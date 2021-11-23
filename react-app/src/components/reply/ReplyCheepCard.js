@@ -14,7 +14,7 @@ import { CheepCardContentContainer } from "../../Styles/Cheep/CheepCardContentCo
 import { CheepCardContent } from "../../Styles/Cheep/CheepCardContent.style";
 import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
 import { actionsMenu, singleCheep } from "../../store/cheep";
-import { updateReplyModal, updateSingleReply } from "../../store/reply";
+import { updateReplyModal } from "../../store/reply";
 
 export default function ReplyCheepCard() {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ export default function ReplyCheepCard() {
         await dispatch(singleCheep(data));
       }
     })();
-  }, [update]);
+  }, [update, cheep, dispatch]);
 
   const handleLikes = async (e, cheep_id) => {
     e.stopPropagation();

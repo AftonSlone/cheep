@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   actionsMenu,
@@ -9,14 +8,12 @@ import {
 import { fetchUser } from "../../store/session";
 import { CheepCardOptionsContainer } from "../../Styles/Cheep/CheepCardOptionsContainer.style";
 import { Loader } from "../../Styles/Modal/Loader.style";
-import { Modal } from "../Modal/Modal";
-import EditCheep from "./EditCheep";
+;
 
 export default function CheepOptions({ setActionsModal, update, setUpdate }) {
   const user = useSelector((state) => state.session.user);
   const cheep = useSelector((state) => state.cheep.singleCheep);
   const timeline = useSelector((state) => state.cheep.updateTimeline);
-  const [editCheepModal, setEditCheepModal] = useState(false);
   const dispatch = useDispatch();
 
   const following = () => {

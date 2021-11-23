@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { HomeTweetContainer } from "../../Styles/Home/HomeTweetContainer.style";
 import { ReplyCheepContainer } from "../../Styles/Reply/ReplyCheepContainer.style";
-// import { Loader } from "../../Styles/Modal/Loader.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
 import { updateTimeline } from "../../store/cheep";
 import { updateReplyModal } from "../../store/reply";
