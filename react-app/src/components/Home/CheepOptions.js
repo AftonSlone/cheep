@@ -8,9 +8,7 @@ import {
 import { fetchUser } from "../../store/session";
 import { CheepCardOptionsContainer } from "../../Styles/Cheep/CheepCardOptionsContainer.style";
 import { Loader } from "../../Styles/Modal/Loader.style";
-;
-
-export default function CheepOptions({ setActionsModal, update, setUpdate }) {
+export default function CheepOptions({ setCheeps }) {
   const user = useSelector((state) => state.session.user);
   const cheep = useSelector((state) => state.cheep.singleCheep);
   const timeline = useSelector((state) => state.cheep.updateTimeline);
@@ -60,6 +58,8 @@ export default function CheepOptions({ setActionsModal, update, setUpdate }) {
   };
 
   const deleteCheep = async () => {
+    setCheeps([]);
+    dispatch(actionsMenu(false));
     await fetch(`/api/cheeps/${cheep.id}`, {
       method: "DELETE",
       headers: {
@@ -67,7 +67,6 @@ export default function CheepOptions({ setActionsModal, update, setUpdate }) {
       },
     });
     dispatch(updateTimeline(!timeline));
-    dispatch(actionsMenu(false));
     return;
   };
 
@@ -80,7 +79,9 @@ export default function CheepOptions({ setActionsModal, update, setUpdate }) {
   if (!user)
     return (
       <CheepCardOptionsContainer>
-        <Loader><div/></Loader>
+        <Loader>
+          <div />
+        </Loader>
       </CheepCardOptionsContainer>
     );
 

@@ -99,7 +99,7 @@ export default function Home() {
 
         {actionsModal && (
           <Modal type="edit">
-            <CheepOptions />
+            <CheepOptions setCheeps={setCheeps}/>
           </Modal>
         )}
 
