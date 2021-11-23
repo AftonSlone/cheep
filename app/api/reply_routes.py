@@ -9,16 +9,16 @@ reply_routes = Blueprint('replies', __name__)
 
 
 @reply_routes.route('')
-# @login_required
-def cheeps():
+@login_required
+def replies():
     replies = Reply.query.all()
     return {'replies': [reply.to_dict() for reply in replies]}
 
 @reply_routes.route('', methods=['POST'])
 @login_required
-def new_cheep():
+def new_reply():
         data = request.json
         new_reply = Reply(**data)
         db.session.add(new_reply)
         db.session.commit()
-        return new_cheep.to_dict()
+        return new_reply.to_dict()
