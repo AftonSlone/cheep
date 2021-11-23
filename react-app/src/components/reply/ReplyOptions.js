@@ -2,8 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   actionsMenu,
   editCheep,
-  singleCheep,
-  updateTimeline,
 } from "../../store/cheep";
 import { updateSingleReply } from "../../store/reply";
 import { fetchUser } from "../../store/session";
@@ -13,7 +11,6 @@ import { Loader } from "../../Styles/Modal/Loader.style";
 export default function ReplyOptions({update, setUpdate}) {
   const user = useSelector((state) => state.session.user);
   const cheep = useSelector((state) => state.reply.singleReply);
-  const timeline = useSelector((state) => state.cheep.updateTimeline);
   const dispatch = useDispatch();
 
   const following = () => {

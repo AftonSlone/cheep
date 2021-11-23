@@ -5,13 +5,13 @@ import { ReplyModalContainer } from "../../Styles/Reply/ReplyModalContainer.styl
 import ReplyCheepCard from "./ReplyCheepCard";
 import ReplyComposer from "./ReplyComposer";
 
-export default function ReplyModal({ setCheeps }) {
+export default function ReplyModal({ setCheeps, update, setUpdate }) {
   const dispatch = useDispatch();
   return (
     <ReplyModalContainer>
       <span onClick={() => dispatch(updateReplyModal(false))}>X</span>
       <ReplyCheepCard />
-      <ReplyComposer setCheeps={setCheeps} />
+      <ReplyComposer setCheeps={setCheeps}  update={update} setUpdate={setUpdate}/>
     </ReplyModalContainer>
   );
 }

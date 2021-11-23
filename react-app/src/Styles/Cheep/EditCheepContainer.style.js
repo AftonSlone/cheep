@@ -6,6 +6,8 @@ export const EditCheepContainer = styled.div`
   height: 20%;
   display: flex;
   border: 1px solid #1DA1F2;
+  border-radius: 1rem;
+  padding: 1rem;
 
   span {
       color: white;

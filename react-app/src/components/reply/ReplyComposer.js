@@ -2,18 +2,19 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReplyCheepContainer } from "../../Styles/Reply/ReplyCheepContainer.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
-import { updateTimeline } from "../../store/cheep";
+import { updateNewCheep, updateTimeline } from "../../store/cheep";
 import { updateReplyModal } from "../../store/reply";
 
-export default function ReplyComposer({ setCheeps }) {
+export default function ReplyComposer({ setCheeps, update, setUpdate }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const timeline = useSelector((state) => state.cheep.updateTimeline);
   const cheep = useSelector((state) => state.cheep.singleCheep);
+  const updateState = useSelector((state) => state.cheep.updateCheepCard);
   const [content, setContent] = useState("");
 
   const newReply = () => {
-    fetch("api/replies", {
+    fetch("/api/replies", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,9 +25,11 @@ export default function ReplyComposer({ setCheeps }) {
         cheep_id: cheep.id,
       }),
     });
-    setCheeps([]);
-    dispatch(updateReplyModal(false));
+    if (setCheeps) setCheeps([]);
+    if (setUpdate) setUpdate(!update);
+    dispatch(updateNewCheep(!updateState));
     dispatch(updateTimeline(!timeline));
+    dispatch(updateReplyModal(false));
   };
 
   return (
@@ -37,7 +40,7 @@ export default function ReplyComposer({ setCheeps }) {
       <div>
         <div>
           <textarea
-            placeholder="What's happening?"
+            placeholder="Cheep your reply..."
             name="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}

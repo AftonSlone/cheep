@@ -43,6 +43,7 @@ export const ReplyCheepContainer = styled.div`
       justify-content: space-around;
       align-items: center;
 
+
       div {
         display: flex;
         justify-content: center;
@@ -60,7 +61,7 @@ export const ReplyCheepContainer = styled.div`
         align-items: center;
         color: white;
         width: 30%;
-        height: 95%;
+        height: 5rem;
         font-size: 3rem;
         border-bottom: none;
         background-color: #1da1f2;

@@ -2,31 +2,33 @@ import React, { useState } from "react";
 import { EditCheepContainer } from "../../Styles/Cheep/EditCheepContainer.style";
 import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
-import { editCheep } from "../../store/cheep";
+import { updateNewCheep, updateTimeline } from "../../store/cheep";
 
-export default function EditReply({ update, setUpdate }) {
+export default function CheepModal({ setCheeps }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  const cheep = useSelector((state) => state.reply.singleReply);
-  const [content, setContent] = useState(cheep.content);
+  const timeline = useSelector((state) => state.cheep.updateTimeline);
+  const [content, setContent] = useState("");
 
   const updateCheep = async () => {
-    await fetch(`/api/replies/${cheep.id}`, {
-      method: "PUT",
+    await fetch(`/api/cheeps`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         content: content,
+        user_id: user.id,
       }),
     });
-    dispatch(editCheep(false));
-    setUpdate(!update);
+    dispatch(updateNewCheep(false));
+    setCheeps([]);
+    dispatch(updateTimeline(!timeline));
   };
   return (
     <EditCheepContainer>
       <div>
-        <span onClick={() => dispatch(editCheep(false))}>X</span>
+        <span onClick={() => dispatch(updateNewCheep(false))}>X</span>
         <img src={user.profile_photo} alt="" />
       </div>
       <div>
@@ -45,7 +47,7 @@ export default function EditReply({ update, setUpdate }) {
           <div>
             <MdOutlineGif />
           </div>
-          <div onClick={updateCheep}>Update</div>
+          <div onClick={updateCheep}>Cheep</div>
         </div>
       </div>
     </EditCheepContainer>
