@@ -1,14 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  actionsMenu,
-  editCheep,
-} from "../../store/cheep";
-import { updateSingleReply } from "../../store/reply";
+import { actionsMenu, editCheep } from "../../store/cheep";
+import { updateReplyActionsMenu, updateSingleReply } from "../../store/reply";
 import { fetchUser } from "../../store/session";
 import { CheepCardOptionsContainer } from "../../Styles/Cheep/CheepCardOptionsContainer.style";
 import { Loader } from "../../Styles/Modal/Loader.style";
 
-export default function ReplyOptions({update, setUpdate}) {
+export default function ReplyOptions({ update, setUpdate }) {
   const user = useSelector((state) => state.session.user);
   const cheep = useSelector((state) => state.reply.singleReply);
   const dispatch = useDispatch();
@@ -37,7 +34,7 @@ export default function ReplyOptions({update, setUpdate}) {
       }),
     });
     dispatch(fetchUser(user.id));
-    dispatch(actionsMenu(false));
+    dispatch(updateReplyActionsMenu(false));
     return;
   };
 
@@ -53,7 +50,7 @@ export default function ReplyOptions({update, setUpdate}) {
       }),
     });
     dispatch(fetchUser(user.id));
-    dispatch(actionsMenu(false));
+    dispatch(updateReplyActionsMenu(false));
     return;
   };
 
@@ -64,15 +61,15 @@ export default function ReplyOptions({update, setUpdate}) {
         "Content-Type": "application/json",
       },
     });
-    setUpdate(!update)
-    dispatch(actionsMenu(false));
+    setUpdate(!update);
+    dispatch(updateReplyActionsMenu(false));
     return;
   };
 
   const updateCheep = () => {
     dispatch(updateSingleReply(cheep));
     dispatch(editCheep(true));
-    dispatch(actionsMenu(false));
+    dispatch(updateReplyActionsMenu(false));
   };
 
   if (!user)

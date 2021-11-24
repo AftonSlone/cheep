@@ -7,7 +7,7 @@ import { CheepCardContentContainer } from "../../Styles/Cheep/CheepCardContentCo
 import { CheepCardContent } from "../../Styles/Cheep/CheepCardContent.style";
 import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
 import { actionsMenu } from "../../store/cheep";
-import { updateSingleReply } from "../../store/reply";
+import { updateReplyActionsMenu, updateSingleReply } from "../../store/reply";
 import { useHistory } from "react-router";
 
 export default function ReplyCard({ cheep }) {
@@ -17,7 +17,7 @@ export default function ReplyCard({ cheep }) {
   const openActionsMenu = (e) => {
     e.stopPropagation();
     dispatch(updateSingleReply(cheep));
-    dispatch(actionsMenu(true));
+    dispatch(updateReplyActionsMenu(true));
   };
 
   const link = (e, id) => {

@@ -29,6 +29,7 @@ export default function ReplyHome() {
   const [loading] = useState(false);
   const [update, setUpdate] = useState(false);
   const actionsModal = useSelector((state) => state.cheep.actionsMenu);
+  const replyActionsModal = useSelector((state) => state.reply.actionsMenu)
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
   const replyModal = useSelector((state) => state.reply.replyModal);
   const cheepModal = useSelector((state) => state.cheep.newCheep);
@@ -91,7 +92,7 @@ export default function ReplyHome() {
           </Modal>
         )}
 
-        {actionsModal && (
+        {replyActionsModal && (
           <Modal type="edit">
             <ReplyOptions update={update} setUpdate={setUpdate} />
           </Modal>
