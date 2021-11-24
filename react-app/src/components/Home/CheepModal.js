@@ -22,7 +22,7 @@ export default function CheepModal({ setCheeps }) {
       }),
     });
     dispatch(updateNewCheep(false));
-    setCheeps([]);
+    if (setCheeps) setCheeps([]);
     dispatch(updateTimeline(!timeline));
   };
   return (
