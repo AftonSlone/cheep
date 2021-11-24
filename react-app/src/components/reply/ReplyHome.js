@@ -16,12 +16,13 @@ import { BsTwitter } from "react-icons/bs";
 import ProfileButton from "../Home/ProfileButton";
 import CheepCard from "../Home/CheepCard";
 import { useDispatch, useSelector } from "react-redux";
-import { singleCheep } from "../../store/cheep";
+import { singleCheep, updateNewCheep } from "../../store/cheep";
 import { Modal } from "../Modal/Modal";
 import ReplyCard from "./ReplyCard";
 import ReplyOptions from "./ReplyOptions";
 import EditReply from "./EditReply";
 import ReplyModal from "./ReplyModal";
+import CheepModal from "../Home/CheepModal";
 
 export default function ReplyHome() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ export default function ReplyHome() {
   const actionsModal = useSelector((state) => state.cheep.actionsMenu);
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
   const replyModal = useSelector((state) => state.reply.replyModal);
+  const cheepModal = useSelector((state) => state.cheep.newCheep);
   const replies = useSelector((state) => state.cheep.singleCheep);
   const { id } = useParams();
 
@@ -65,7 +67,9 @@ export default function ReplyHome() {
         <a href="/home">
           <MdPersonOutline /> Profile
         </a>
-        <HomeButton>Cheep</HomeButton>
+        <HomeButton onClick={() => dispatch(updateNewCheep(true))}>
+          Cheep
+        </HomeButton>
         <ProfileButton />
       </HomeLeft>
       <HomeCenter>
@@ -96,6 +100,12 @@ export default function ReplyHome() {
         {replyModal && (
           <Modal type="edit">
             <ReplyModal update={update} setUpdate={setUpdate} />
+          </Modal>
+        )}
+
+        {cheepModal && (
+          <Modal type="edit">
+            <CheepModal />
           </Modal>
         )}
       </HomeCenter>
