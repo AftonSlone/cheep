@@ -123,6 +123,7 @@ export default function CheepCard({ cheepId }) {
           {`@${cheep.user.username}`} <div onClick={openActionsMenu}>. . .</div>
         </CheepCardUsername>
         <CheepCardContent>{cheep.content}</CheepCardContent>
+        <img src={cheep.photos[0]} alt="" />
         <CheepCardActions>
           <div>
             <div>

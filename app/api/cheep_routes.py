@@ -1,10 +1,12 @@
 from flask import Blueprint, request
 from flask_login import login_required
-from app.models import db, Cheep, User
+from app.models import db, Cheep, User, CheepPhoto
 from app.forms.edit_cheep_form import EditCheepForm
 from app.validators import validation_errors_to_error_messages
 import maya
 import datetime
+import boto3
+from app.config import Config
 
 cheep_routes = Blueprint('cheeps', __name__)
 
@@ -64,3 +66,15 @@ def timeline(id):
     timeline = [*timeline, *user['cheeps']]
     timeline.sort(reverse = True, key = lambda date: maya.parse(date['updated_at']))
     return {'data': timeline}
+
+@cheep_routes.route('/<int:id>/photo', methods=["POST"])
+@login_required
+def cheap_photo(id):
+    photo = request.files['photo']
+    url = f"{Config.S3_LOCATION}{photo.filename}"
+    S3 = boto3.client("s3", aws_access_key_id=Config.S3_KEY, aws_secret_access_key=Config.S3_SECRET)
+    S3.upload_fileobj(photo, Config.S3_BUCKET, photo.filename)
+    new_photo = CheepPhoto(cheep_id=id, photo_url=url)
+    db.session.add(new_photo)
+    db.session.commit()
+    return "Photo added"

@@ -9,9 +9,10 @@ export default function CheepComposer({ setCheeps }) {
   const user = useSelector((state) => state.session.user);
   const timeline = useSelector((state) => state.cheep.updateTimeline);
   const [content, setContent] = useState("");
+  const [image, setImage] = useState(null);
 
-  const newCheep = () => {
-    fetch("api/cheeps", {
+  const newCheep = async () => {
+    const res = await fetch("api/cheeps", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,8 +22,24 @@ export default function CheepComposer({ setCheeps }) {
         user_id: user.id,
       }),
     });
+
+    const data = await res.json();
+
+    if (image) {
+      const form_data = new FormData();
+      form_data.append("photo", image);
+      await fetch(`/api/cheeps/${data.id}/photo`, {
+        method: "POST",
+        body: form_data,
+      });
+    }
+
     setCheeps([]);
     dispatch(updateTimeline(!timeline));
+  };
+
+  const addPhoto = (e) => {
+    setImage(e.target.files[0]);
   };
 
   return (
@@ -41,7 +58,8 @@ export default function CheepComposer({ setCheeps }) {
         </div>
         <div>
           <div>
-            <MdOutlineInsertPhoto />
+            {/* <MdOutlineInsertPhoto /> */}
+            <input type="file" onChange={addPhoto} accept="image/*" />
           </div>
           <div>
             <MdOutlineGif />
