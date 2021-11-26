@@ -4,7 +4,7 @@ from app.models import db, Cheep, User, CheepPhoto
 from app.forms.edit_cheep_form import EditCheepForm
 from app.validators import validation_errors_to_error_messages
 import maya
-import datetime
+import time
 import boto3
 from app.config import Config
 
@@ -71,10 +71,12 @@ def timeline(id):
 @login_required
 def cheap_photo(id):
     photo = request.files['photo']
-    url = f"{Config.S3_LOCATION}{photo.filename}"
-    S3 = boto3.client("s3", aws_access_key_id=Config.S3_KEY, aws_secret_access_key=Config.S3_SECRET)
-    S3.upload_fileobj(photo, Config.S3_BUCKET, photo.filename)
-    new_photo = CheepPhoto(cheep_id=id, photo_url=url)
+    new_filename = f"{int(time.time())}{photo.filename}"
+    photo_url = f"{Config.S3_LOCATION}{new_filename}"
+    # S3 = boto3.client("s3", aws_access_key_id=Config.S3_KEY, aws_secret_access_key=Config.S3_SECRET)
+    S3 = boto3.client("s3")
+    S3.upload_fileobj(photo, Config.S3_BUCKET, Key=new_filename, ExtraArgs={ "ACL": 'public-read', "ContentType": photo.content_type})
+    new_photo = CheepPhoto(cheep_id=id, photo_url=photo_url)
     db.session.add(new_photo)
     db.session.commit()
     return "Photo added"
