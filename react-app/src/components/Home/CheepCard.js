@@ -24,6 +24,7 @@ export default function CheepCard({ cheepId }) {
   const updateState = useSelector((state) => state.cheep.updateCheepCard);
   const [update, setUpdate] = useState(false);
   const [cheep, setCheep] = useState(null);
+  const [photo, setPhoto] = useState(null);
 
   useEffect(() => {
     let mounted = true;
@@ -104,6 +105,12 @@ export default function CheepCard({ cheepId }) {
     history.push(`/cheep/${id}`);
   };
 
+  const handleImage = async () => {
+    const res = await fetch(`/api/cheep_photos/${cheep.photos[0].photo_url}`);
+    const data = await res.json();
+    return data;
+  };
+
   if (!cheep)
     return (
       <CheepCardContainer>
@@ -123,6 +130,7 @@ export default function CheepCard({ cheepId }) {
           {`@${cheep.user.username}`} <div onClick={openActionsMenu}>. . .</div>
         </CheepCardUsername>
         <CheepCardContent>{cheep.content}</CheepCardContent>
+        {cheep.photos.length && <img src={cheep.photos[0].photo_url} alt="" />}
         <CheepCardActions>
           <div>
             <div>

@@ -13,6 +13,7 @@ from .api.likes_routes import like_routes
 from .api.follow_routes import follow_routes
 from .api.reply_routes import reply_routes
 
+
 from .seeds import seed_commands
 
 from .config import Config

@@ -90,4 +90,8 @@ export const HomeTweetContainer = styled.div`
       outline: none;
     }
   }
+
+  input {
+    font-size: 1rem;
+  }
 `;
