@@ -73,8 +73,7 @@ def cheap_photo(id):
     photo = request.files['photo']
     new_filename = f"{int(time.time())}{photo.filename}"
     photo_url = f"{Config.S3_LOCATION}{new_filename}"
-    # S3 = boto3.client("s3", aws_access_key_id=Config.S3_KEY, aws_secret_access_key=Config.S3_SECRET)
-    S3 = boto3.client("s3")
+    S3 = boto3.client("s3", aws_access_key_id=Config.S3_KEY, aws_secret_access_key=Config.S3_SECRET)
     S3.upload_fileobj(photo, Config.S3_BUCKET, Key=new_filename, ExtraArgs={ "ACL": 'public-read', "ContentType": photo.content_type})
     new_photo = CheepPhoto(cheep_id=id, photo_url=photo_url)
     db.session.add(new_photo)
