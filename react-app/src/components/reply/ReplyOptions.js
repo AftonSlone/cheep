@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { actionsMenu, editCheep } from "../../store/cheep";
+import { actionsMenu, editCheep, updateCheepCard } from "../../store/cheep";
 import { updateReplyActionsMenu, updateSingleReply } from "../../store/reply";
 import { fetchUser } from "../../store/session";
 import { CheepCardOptionsContainer } from "../../Styles/Cheep/CheepCardOptionsContainer.style";
@@ -8,6 +8,7 @@ import { Loader } from "../../Styles/Modal/Loader.style";
 export default function ReplyOptions({ update, setUpdate }) {
   const user = useSelector((state) => state.session.user);
   const cheep = useSelector((state) => state.reply.singleReply);
+  const cheepCardUpdate = useSelector((state) => state.cheep.updateCheepCard);
   const dispatch = useDispatch();
 
   const following = () => {
@@ -62,6 +63,7 @@ export default function ReplyOptions({ update, setUpdate }) {
       },
     });
     setUpdate(!update);
+    dispatch(updateCheepCard(!cheepCardUpdate));
     dispatch(updateReplyActionsMenu(false));
     return;
   };
@@ -83,7 +85,7 @@ export default function ReplyOptions({ update, setUpdate }) {
 
   return (
     <CheepCardOptionsContainer>
-      <span onClick={() => dispatch(actionsMenu(false))}>X</span>
+      <span onClick={() => dispatch(updateReplyActionsMenu(false))}>X</span>
       {following()}
       {user.id === cheep.user_id && <div onClick={deleteCheep}>Delete</div>}
       {user.id === cheep.user_id && <div onClick={updateCheep}>Update</div>}

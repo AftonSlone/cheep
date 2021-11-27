@@ -24,7 +24,7 @@ const setReplyActionsMenu = (payload) => ({
 });
 
 export const updateReplyActionsMenu = (payload) => async (dispatch) =>
-  dispatch(updateReplyActionsMenu(payload));
+  dispatch(setReplyActionsMenu(payload));
 
 export const updateSingleReply = (payload) => async (dispatch) =>
   dispatch(setSingleReply(payload));

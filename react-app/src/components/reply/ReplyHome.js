@@ -28,7 +28,6 @@ export default function ReplyHome() {
   const dispatch = useDispatch();
   const [loading] = useState(false);
   const [update, setUpdate] = useState(false);
-  const actionsModal = useSelector((state) => state.cheep.actionsMenu);
   const replyActionsModal = useSelector((state) => state.reply.actionsMenu)
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
   const replyModal = useSelector((state) => state.reply.replyModal);
