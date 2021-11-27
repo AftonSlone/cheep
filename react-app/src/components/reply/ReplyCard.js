@@ -6,7 +6,6 @@ import { CheepCardUsername } from "../../Styles/Cheep/CheepCardUsername.style";
 import { CheepCardContentContainer } from "../../Styles/Cheep/CheepCardContentContainer.style";
 import { CheepCardContent } from "../../Styles/Cheep/CheepCardContent.style";
 import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
-import { actionsMenu } from "../../store/cheep";
 import { updateReplyActionsMenu, updateSingleReply } from "../../store/reply";
 import { useHistory } from "react-router";
 
@@ -35,7 +34,7 @@ export default function ReplyCard({ cheep }) {
   return (
     <CheepCardContainer onClick={(e) => link(e, cheep.id)}>
       <CheepCardProfilePhoto>
-        <img src={cheep.user.profile_photo} alt="" />
+        <img src={cheep.user.profile_photo} alt="" className="avatar" />
       </CheepCardProfilePhoto>
       <CheepCardContentContainer>
         <CheepCardUsername>

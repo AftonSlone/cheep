@@ -35,17 +35,20 @@ export default function CheepComposer({ setCheeps }) {
     }
 
     setCheeps([]);
+    setContent("");
+    setImage(null);
     dispatch(updateTimeline(!timeline));
   };
 
   const addPhoto = (e) => {
     setImage(e.target.files[0]);
+    e.target.value = "";
   };
 
   return (
     <HomeTweetContainer>
       <div>
-        <img src={user.profile_photo} alt="" />
+        <img src={user.profile_photo} alt="" className="avatar" />
       </div>
       <div>
         <div>
@@ -55,14 +58,43 @@ export default function CheepComposer({ setCheeps }) {
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
+          <div className="cheepPhotoWrapper">
+            {image && (
+              <span className="deletePhoto" onClick={() => setImage(null)}>
+                X
+              </span>
+            )}
+            {image && (
+              <img
+                src={URL.createObjectURL(image)}
+                alt=""
+                className="cheepPhoto"
+              />
+            )}
+          </div>
         </div>
         <div>
           <div>
-            {/* <MdOutlineInsertPhoto /> */}
-            <input type="file" onChange={addPhoto} accept="image/*" />
+            <label>
+              <MdOutlineInsertPhoto />
+              <input
+                id="file-upload"
+                type="file"
+                onChange={addPhoto}
+                accept="image/*"
+              />
+            </label>
           </div>
           <div>
-            <MdOutlineGif />
+            <label>
+              <MdOutlineGif />
+              <input
+                id="file-upload"
+                type="file"
+                onChange={addPhoto}
+                accept="image/*"
+              />
+            </label>
           </div>
           <div onClick={newCheep}>Cheep</div>
         </div>

@@ -123,14 +123,25 @@ export default function CheepCard({ cheepId }) {
   return (
     <CheepCardContainer onClick={(e) => link(e, cheep.id)}>
       <CheepCardProfilePhoto>
-        <img src={cheep.user.profile_photo} alt="" />
+        <img src={cheep.user.profile_photo} alt="" className="avatar" />
       </CheepCardProfilePhoto>
       <CheepCardContentContainer>
         <CheepCardUsername>
           {`@${cheep.user.username}`} <div onClick={openActionsMenu}>. . .</div>
         </CheepCardUsername>
-        <CheepCardContent>{cheep.content}</CheepCardContent>
-        {cheep.photos.length && <img src={cheep.photos[0].photo_url} alt="" />}
+        <CheepCardContent>
+          <div className="cheepContentWrapper">{cheep.content}</div>
+
+          <div className="cheepPhotoWrapper">
+            {cheep.photos.length > 0 && (
+              <img
+                src={cheep.photos[0].photo_url}
+                alt=""
+                className="cheepPhoto"
+              />
+            )}
+          </div>
+        </CheepCardContent>
         <CheepCardActions>
           <div>
             <div>

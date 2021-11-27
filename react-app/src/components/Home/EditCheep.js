@@ -30,7 +30,7 @@ export default function EditCheep({ setCheeps }) {
     <EditCheepContainer>
       <div>
         <span onClick={() => dispatch(editCheep(false))}>X</span>
-        <img src={user.profile_photo} alt="" />
+        <img src={user.profile_photo} alt="" className='avatar' />
       </div>
       <div>
         <div>

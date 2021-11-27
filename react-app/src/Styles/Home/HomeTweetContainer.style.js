@@ -71,13 +71,6 @@ export const HomeTweetContainer = styled.div`
     }
   }
 
-  img {
-    width: 8rem;
-    height: 8rem;
-    border-radius: 50%;
-    margin-top: 1rem;
-  }
-
   textarea {
     width: 100%;
     height: 100%;
@@ -93,5 +86,52 @@ export const HomeTweetContainer = styled.div`
 
   input {
     font-size: 1rem;
+  }
+
+  #file-upload {
+    display: none;
+  }
+
+  label {
+    cursor: pointer;
+  }
+
+  .cheepPhotoWrapper {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    max-height: 45rem;
+    max-width: 80%;
+    background-color: black;
+    border-radius: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .cheepPhoto {
+    max-height: 100%;
+    max-width: 100%;
+  }
+
+  .avatar {
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    margin-top: 1rem;
+  }
+
+  .deletePhoto {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    position: absolute;
+    background-color: #657786;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
   }
 `;
