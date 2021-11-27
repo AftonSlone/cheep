@@ -121,6 +121,7 @@ export const HomeTweetContainer = styled.div`
   }
 
   .deletePhoto {
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -128,7 +129,7 @@ export const HomeTweetContainer = styled.div`
     width: 3rem;
     height: 3rem;
     position: absolute;
-    background-color: #e1e8ed;
+    background-color: #657786;
     top: 1rem;
     right: 1rem;
     cursor: pointer;

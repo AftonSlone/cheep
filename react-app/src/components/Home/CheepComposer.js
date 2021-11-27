@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { HomeTweetContainer } from "../../Styles/Home/HomeTweetContainer.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
@@ -10,8 +10,6 @@ export default function CheepComposer({ setCheeps }) {
   const timeline = useSelector((state) => state.cheep.updateTimeline);
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
-
-  useEffect(() => {}, [image]);
 
   const newCheep = async () => {
     const res = await fetch("api/cheeps", {
@@ -43,8 +41,8 @@ export default function CheepComposer({ setCheeps }) {
   };
 
   const addPhoto = (e) => {
-    setImage(null);
     setImage(e.target.files[0]);
+    e.target.value = "";
   };
 
   return (
