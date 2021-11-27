@@ -94,4 +94,12 @@ export const HomeTweetContainer = styled.div`
   input {
     font-size: 1rem;
   }
+
+  #file-upload {
+    display: none;
+  }
+
+  label {
+    cursor: pointer;
+  }
 `;

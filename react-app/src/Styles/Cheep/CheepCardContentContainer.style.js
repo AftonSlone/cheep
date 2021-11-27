@@ -9,5 +9,5 @@ export const CheepCardContentContainer = styled.div`
   width: 100%;
   /* min-height: 100%; */
   margin-bottom: 2rem;
-  background-color: green;
+
 `;

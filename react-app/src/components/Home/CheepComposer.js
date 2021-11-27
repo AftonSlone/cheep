@@ -35,6 +35,7 @@ export default function CheepComposer({ setCheeps }) {
     }
 
     setCheeps([]);
+    setContent("");
     dispatch(updateTimeline(!timeline));
   };
 
@@ -58,8 +59,15 @@ export default function CheepComposer({ setCheeps }) {
         </div>
         <div>
           <div>
-            {/* <MdOutlineInsertPhoto /> */}
-            <input type="file" onChange={addPhoto} accept="image/*" />
+            <label for="file-upload">
+              <MdOutlineInsertPhoto />
+              <input
+                id="file-upload"
+                type="file"
+                onChange={addPhoto}
+                accept="image/*"
+              />
+            </label>
           </div>
           <div>
             <MdOutlineGif />

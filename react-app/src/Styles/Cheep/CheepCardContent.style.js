@@ -10,20 +10,21 @@ export const CheepCardContent = styled.div`
   box-sizing: border-box;
   width: 100%;
   /* min-height: 30%; */
-  border: 1px solid red;
+
 
   .cheepContentWrapper {
     width: 100%;
-    background-color: firebrick;
+    margin-bottom: 2rem;
   }
 
   .cheepPhotoWrapper {
     display: flex;
     justify-content: center;
     align-items: center;
+    max-height: 45rem;
     width: 80%;
-    height: 100%;
     background-color: black;
     border-radius: 2.5rem;
+    margin-bottom: 2rem;
   }
 `;
