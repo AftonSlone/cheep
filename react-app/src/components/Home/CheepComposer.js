@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { HomeTweetContainer } from "../../Styles/Home/HomeTweetContainer.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
@@ -10,6 +10,8 @@ export default function CheepComposer({ setCheeps }) {
   const timeline = useSelector((state) => state.cheep.updateTimeline);
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
+
+  useEffect(() => {}, [image]);
 
   const newCheep = async () => {
     const res = await fetch("api/cheeps", {
@@ -36,17 +38,19 @@ export default function CheepComposer({ setCheeps }) {
 
     setCheeps([]);
     setContent("");
+    setImage(null);
     dispatch(updateTimeline(!timeline));
   };
 
   const addPhoto = (e) => {
+    setImage(null);
     setImage(e.target.files[0]);
   };
 
   return (
     <HomeTweetContainer>
       <div>
-        <img src={user.profile_photo} alt="" />
+        <img src={user.profile_photo} alt="" className="avatar" />
       </div>
       <div>
         <div>
@@ -56,10 +60,24 @@ export default function CheepComposer({ setCheeps }) {
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
+          <div className="cheepPhotoWrapper">
+            {image && (
+              <span className="deletePhoto" onClick={() => setImage(null)}>
+                X
+              </span>
+            )}
+            {image && (
+              <img
+                src={URL.createObjectURL(image)}
+                alt=""
+                className="cheepPhoto"
+              />
+            )}
+          </div>
         </div>
         <div>
           <div>
-            <label for="file-upload">
+            <label>
               <MdOutlineInsertPhoto />
               <input
                 id="file-upload"
@@ -70,7 +88,15 @@ export default function CheepComposer({ setCheeps }) {
             </label>
           </div>
           <div>
-            <MdOutlineGif />
+            <label>
+              <MdOutlineGif />
+              <input
+                id="file-upload"
+                type="file"
+                onChange={addPhoto}
+                accept="image/*"
+              />
+            </label>
           </div>
           <div onClick={newCheep}>Cheep</div>
         </div>
