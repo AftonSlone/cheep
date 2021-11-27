@@ -40,51 +40,12 @@ export default function CheepModal({ setCheeps }) {
     dispatch(updateTimeline(!timeline));
   };
 
-  const updateCheep = async () => {
-    await fetch(`/api/cheeps`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        content: content,
-        user_id: user.id,
-      }),
-    });
-    dispatch(updateNewCheep(false));
-    if (setCheeps) setCheeps([]);
-    dispatch(updateTimeline(!timeline));
-  };
-
   const addPhoto = (e) => {
     setImage(e.target.files[0]);
     e.target.value = "";
   };
   return (
     <EditCheepContainer>
-      {/* <div>
-        <span onClick={() => dispatch(updateNewCheep(false))}>X</span>
-        <img src={user.profile_photo} alt="" />
-      </div>
-      <div>
-        <div>
-          <textarea
-            name="content"
-            placeholder="What's happening?"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
-        </div>
-        <div>
-          <div>
-            <MdOutlineInsertPhoto />
-          </div>
-          <div>
-            <MdOutlineGif />
-          </div>
-          <div onClick={updateCheep}>Cheep</div>
-        </div>
-      </div> */}
       <div>
         <span onClick={() => dispatch(updateNewCheep(false))}>X</span>
         <img src={user.profile_photo} alt="" className="avatar" />

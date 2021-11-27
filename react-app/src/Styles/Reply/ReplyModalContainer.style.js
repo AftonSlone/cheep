@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ReplyModalContainer = styled.div`
   width: 50%;
-  height: 60%;
+  /* height: 60%; */
   display: flex;
   flex-direction: column;
   align-items: center;

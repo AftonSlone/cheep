@@ -12,6 +12,7 @@ export default function ReplyComposer({ setCheeps, update, setUpdate }) {
   const cheep = useSelector((state) => state.cheep.singleCheep);
   const updateState = useSelector((state) => state.cheep.updateCheepCard);
   const [content, setContent] = useState("");
+  const [image, setImage] = useState(null);
 
   const newReply = async () => {
     await fetch("/api/replies", {
@@ -32,10 +33,15 @@ export default function ReplyComposer({ setCheeps, update, setUpdate }) {
     await dispatch(updateReplyModal(false));
   };
 
+  const addPhoto = (e) => {
+    setImage(e.target.files[0]);
+    e.target.value = "";
+  };
+
   return (
     <ReplyCheepContainer>
       <div>
-        <img src={user.profile_photo} alt="" />
+        <img src={user.profile_photo} alt="" className="avatar" />
       </div>
       <div>
         <div>
@@ -45,13 +51,43 @@ export default function ReplyComposer({ setCheeps, update, setUpdate }) {
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
+          <div className="cheepPhotoWrapper">
+            {image && (
+              <span className="deletePhoto" onClick={() => setImage(null)}>
+                X
+              </span>
+            )}
+            {image && (
+              <img
+                src={URL.createObjectURL(image)}
+                alt=""
+                className="cheepPhoto"
+              />
+            )}
+          </div>
         </div>
         <div>
           <div>
-            <MdOutlineInsertPhoto />
+            <label>
+              <MdOutlineInsertPhoto />
+              <input
+                id="file-upload"
+                type="file"
+                onChange={addPhoto}
+                accept="image/*"
+              />
+            </label>
           </div>
           <div>
-            <MdOutlineGif />
+            <label>
+              <MdOutlineGif />
+              <input
+                id="file-upload"
+                type="file"
+                onChange={addPhoto}
+                accept="image/*"
+              />
+            </label>
           </div>
           <div onClick={newReply}>Reply</div>
         </div>

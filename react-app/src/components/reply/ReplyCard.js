@@ -35,7 +35,7 @@ export default function ReplyCard({ cheep }) {
   return (
     <CheepCardContainer onClick={(e) => link(e, cheep.id)}>
       <CheepCardProfilePhoto>
-        <img src={cheep.user.profile_photo} alt="" />
+        <img src={cheep.user.profile_photo} alt="" className="avatar" />
       </CheepCardProfilePhoto>
       <CheepCardContentContainer>
         <CheepCardUsername>
