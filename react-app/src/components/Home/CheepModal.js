@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { EditCheepContainer } from "../../Styles/Cheep/EditCheepContainer.style";
 import { useDispatch, useSelector } from "react-redux";
-import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
+import {
+  MdOutlineInsertPhoto,
+  MdOutlineGif,
+  MdOutlineSwapHorizontalCircle,
+} from "react-icons/md";
 import { updateNewCheep, updateTimeline } from "../../store/cheep";
 
 export default function CheepModal({ setCheeps }) {
@@ -12,7 +16,7 @@ export default function CheepModal({ setCheeps }) {
   const [image, setImage] = useState(null);
 
   const newCheep = async () => {
-    const res = await fetch("api/cheeps", {
+    const res = await fetch("/api/cheeps", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +39,7 @@ export default function CheepModal({ setCheeps }) {
     }
 
     dispatch(updateNewCheep(false));
-    setCheeps([]);
+    if (setCheeps) setCheeps([]);
     setImage(null);
     dispatch(updateTimeline(!timeline));
   };

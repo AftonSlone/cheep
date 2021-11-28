@@ -26,7 +26,7 @@ class Cheep(db.Model):
             'updated_at': self.updated_at,
             'user': self.user.to_dict(),
             'photos': [photo.to_simple_dict() for photo in self.photos],
-            'replies': [reply.to_simple_dict() for reply in self.replies],
+            'replies': [reply.to_dict() for reply in self.replies],
             'likes': [like.to_dict() for like in self.likes],
             'recheeps': [recheep.to_dict() for recheep in self.recheeps]
         }
