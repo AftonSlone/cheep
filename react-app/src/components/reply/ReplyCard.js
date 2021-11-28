@@ -40,7 +40,19 @@ export default function ReplyCard({ cheep }) {
         <CheepCardUsername>
           {`@${cheep.user.username}`} <div onClick={openActionsMenu}>. . .</div>
         </CheepCardUsername>
-        <CheepCardContent>{cheep.content}</CheepCardContent>
+        <CheepCardContent>
+          <div className="cheepContentWrapper">{cheep.content}</div>
+
+          <div className="cheepPhotoWrapper">
+            {cheep.photos.length > 0 && (
+              <img
+                src={cheep.photos[0].photo_url}
+                alt=""
+                className="cheepPhoto"
+              />
+            )}
+          </div>
+        </CheepCardContent>
         <CheepCardActions></CheepCardActions>
       </CheepCardContentContainer>
     </CheepCardContainer>

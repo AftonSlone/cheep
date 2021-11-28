@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ReplyCheepContainer } from '../../Styles/Reply/ReplyCheepContainer.style';
-import { MdOutlineInsertPhoto, MdOutlineGif } from 'react-icons/md';
-import { updateCheepCard, updateTimeline } from '../../store/cheep';
-import { updateReplyModal } from '../../store/reply';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ReplyCheepContainer } from "../../Styles/Reply/ReplyCheepContainer.style";
+import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
+import { updateCheepCard, updateTimeline } from "../../store/cheep";
+import { updateReplyModal } from "../../store/reply";
 
 export default function ReplyComposer({ setCheeps, update, setUpdate }) {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.session.user);
-  const timeline = useSelector(state => state.cheep.updateTimeline);
-  const cheep = useSelector(state => state.cheep.singleCheep);
-  const updateState = useSelector(state => state.cheep.updateCheepCard);
-  const [content, setContent] = useState('');
+  const user = useSelector((state) => state.session.user);
+  const timeline = useSelector((state) => state.cheep.updateTimeline);
+  const cheep = useSelector((state) => state.cheep.singleCheep);
+  const updateState = useSelector((state) => state.cheep.updateCheepCard);
+  const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
 
   const newReply = async () => {
-    const res = await fetch('/api/replies', {
-      method: 'POST',
+    const res = await fetch("/api/replies", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         content: content,
@@ -27,13 +27,13 @@ export default function ReplyComposer({ setCheeps, update, setUpdate }) {
       }),
     });
 
-    const data = res.json();
+    const data = await res.json();
 
     if (image) {
       const form_data = new FormData();
-      form_data.append('photo', image);
+      form_data.append("photo", image);
       await fetch(`/api/replies/${data.id}/photo`, {
-        method: 'POST',
+        method: "POST",
         body: form_data,
       });
     }
@@ -45,35 +45,35 @@ export default function ReplyComposer({ setCheeps, update, setUpdate }) {
     await dispatch(updateReplyModal(false));
   };
 
-  const addPhoto = e => {
+  const addPhoto = (e) => {
     setImage(e.target.files[0]);
-    e.target.value = '';
+    e.target.value = "";
   };
 
   return (
     <ReplyCheepContainer>
       <div>
-        <img src={user.profile_photo} alt='' className='avatar' />
+        <img src={user.profile_photo} alt="" className="avatar" />
       </div>
       <div>
         <div>
           <textarea
-            placeholder='Cheep your reply...'
-            name='content'
+            placeholder="Cheep your reply..."
+            name="content"
             value={content}
-            onChange={e => setContent(e.target.value)}
+            onChange={(e) => setContent(e.target.value)}
           />
-          <div className='cheepPhotoWrapper'>
+          <div className="cheepPhotoWrapper">
             {image && (
-              <span className='deletePhoto' onClick={() => setImage(null)}>
+              <span className="deletePhoto" onClick={() => setImage(null)}>
                 X
               </span>
             )}
             {image && (
               <img
                 src={URL.createObjectURL(image)}
-                alt=''
-                className='cheepPhoto'
+                alt=""
+                className="cheepPhoto"
               />
             )}
           </div>
@@ -83,10 +83,10 @@ export default function ReplyComposer({ setCheeps, update, setUpdate }) {
             <label>
               <MdOutlineInsertPhoto />
               <input
-                id='file-upload'
-                type='file'
+                id="file-upload"
+                type="file"
                 onChange={addPhoto}
-                accept='image/*'
+                accept="image/*"
               />
             </label>
           </div>
@@ -94,10 +94,10 @@ export default function ReplyComposer({ setCheeps, update, setUpdate }) {
             <label>
               <MdOutlineGif />
               <input
-                id='file-upload'
-                type='file'
+                id="file-upload"
+                type="file"
                 onChange={addPhoto}
-                accept='image/*'
+                accept="image/*"
               />
             </label>
           </div>
