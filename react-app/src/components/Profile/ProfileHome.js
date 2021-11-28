@@ -14,40 +14,17 @@ import {
 } from 'react-icons/md';
 import { BsTwitter } from 'react-icons/bs';
 import ProfileButton from '../Home/ProfileButton';
-import CheepCard from '../Home/CheepCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { singleCheep, updateNewCheep } from '../../store/cheep';
 import { Modal } from '../Modal/Modal';
-import ReplyCard from './ReplyCard';
-import ReplyOptions from './ReplyOptions';
-import EditReply from './EditReply';
-import ReplyModal from './ReplyModal';
-import CheepModal from '../Home/CheepModal';
+import CheepCard from '../Home/CheepCard';
 
-export default function ReplyHome() {
+export default function ProfileHome() {
   const dispatch = useDispatch();
   const [loading] = useState(false);
+  const user = useSelector(state => state.session.user);
   const [update, setUpdate] = useState(false);
-  const replyActionsModal = useSelector(state => state.reply.actionsMenu);
-  const editCheepModal = useSelector(state => state.cheep.editCheep);
-  const replyModal = useSelector(state => state.reply.replyModal);
-  const cheepModal = useSelector(state => state.cheep.newCheep);
-  const replies = useSelector(state => state.cheep.singleCheep);
   const { id } = useParams();
-
-  useEffect(() => {
-    let mounted = true;
-    if (mounted) {
-      (async () => {
-        const res = await fetch(`/api/cheeps/${id}`);
-        const data = await res.json();
-        dispatch(singleCheep(data));
-      })();
-    }
-    return () => {
-      mounted = false;
-    };
-  }, [update]);
 
   return (
     <HomeContainer>
@@ -78,36 +55,10 @@ export default function ReplyHome() {
             <div />
           </Loader>
         )}
-        {id && <CheepCard cheepId={id} />}
-
-        {replies &&
-          replies.replies.map(reply => (
-            <ReplyCard key={reply.id} cheep={reply} />
+        {user &&
+          user.cheeps.map(cheep => (
+            <CheepCard cheepId={cheep.id} key={cheep.id} />
           ))}
-
-        {editCheepModal && (
-          <Modal type='edit'>
-            <EditReply update={update} setUpdate={setUpdate} />
-          </Modal>
-        )}
-
-        {replyActionsModal && (
-          <Modal type='edit'>
-            <ReplyOptions update={update} setUpdate={setUpdate} />
-          </Modal>
-        )}
-
-        {replyModal && (
-          <Modal type='edit'>
-            <ReplyModal update={update} setUpdate={setUpdate} />
-          </Modal>
-        )}
-
-        {cheepModal && (
-          <Modal type='edit'>
-            <CheepModal />
-          </Modal>
-        )}
       </HomeCenter>
       <HomeRight></HomeRight>
     </HomeContainer>
