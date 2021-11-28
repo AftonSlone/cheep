@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Switch } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import Index from "./components/Index/Index";
-import ProtectedRoute from "./components/Auth/ProtectedRoute";
-import { authenticate } from "./store/session";
-import Home from "./components/Home/Home";
-import ReplyHome from "./components/reply/ReplyHome";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Switch } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import Index from './components/Index/Index';
+import ProtectedRoute from './components/Auth/ProtectedRoute';
+import { authenticate } from './store/session';
+import Home from './components/Home/Home';
+import ReplyHome from './components/reply/ReplyHome';
+import ProfileHome from './components/Profile/ProfileHome';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -26,11 +27,14 @@ function App() {
     <BrowserRouter>
       <Index />
       <Switch>
-        <ProtectedRoute path="/cheep/:id">
+        <ProtectedRoute path='/cheep/:id' exact={true}>
           <ReplyHome />
         </ProtectedRoute>
-        <ProtectedRoute path="/home" exact={true}>
+        <ProtectedRoute path='/home' exact={true}>
           <Home />
+        </ProtectedRoute>
+        <ProtectedRoute path='/user/:id' exact={true}>
+          <ProfileHome />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
