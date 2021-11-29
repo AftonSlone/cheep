@@ -20,12 +20,18 @@ import { Modal } from "../Modal/Modal";
 import CheepCard from "../Home/CheepCard";
 import UserProfileCard from "./UserProfileCard";
 import EditProfileModal from "./EditProfileModal";
+import CheepModal from "../Home/CheepModal";
+import CheepOptions from "../Home/CheepOptions";
+import EditCheep from "../Home/EditCheep";
 
 export default function ProfileHome() {
   const dispatch = useDispatch();
   const [loading] = useState(false);
   const user = useSelector((state) => state.session.user);
   const editProfile = useSelector((state) => state.profile.editProfileModal);
+  const cheepModal = useSelector((state) => state.cheep.newCheep);
+  const actionsModal = useSelector((state) => state.cheep.actionsMenu);
+  const editCheepModal = useSelector((state) => state.cheep.editCheep);
   const [update, setUpdate] = useState(false);
   const { id } = useParams();
 
@@ -67,6 +73,24 @@ export default function ProfileHome() {
         {editProfile && (
           <Modal type="edit">
             <EditProfileModal />
+          </Modal>
+        )}
+
+        {cheepModal && (
+          <Modal type="edit">
+            <CheepModal />
+          </Modal>
+        )}
+
+        {actionsModal && (
+          <Modal type="edit">
+            <CheepOptions />
+          </Modal>
+        )}
+
+        {editCheepModal && (
+          <Modal type="edit">
+            <EditCheep />
           </Modal>
         )}
       </HomeCenter>

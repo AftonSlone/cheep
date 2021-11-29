@@ -58,7 +58,7 @@ export default function CheepOptions({ setCheeps }) {
   };
 
   const deleteCheep = async () => {
-    setCheeps([]);
+    if (setCheeps) setCheeps([]);
     dispatch(actionsMenu(false));
     await fetch(`/api/cheeps/${cheep.id}`, {
       method: "DELETE",
@@ -67,6 +67,7 @@ export default function CheepOptions({ setCheeps }) {
       },
     });
     dispatch(updateTimeline(!timeline));
+    dispatch(fetchUser(user.id));
     return;
   };
 

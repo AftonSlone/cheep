@@ -52,7 +52,7 @@ def delete_reply(id):
 @login_required
 def reply_photo(id):
     photo = request.files['photo']
-    new_filename = f"{int(time.time())}{photo.filename}"
+    new_filename = f"reply_photo:{id}"
     photo_url = f"{Config.S3_LOCATION}{new_filename}"
     S3 = boto3.client("s3", aws_access_key_id=Config.S3_KEY, aws_secret_access_key=Config.S3_SECRET)
     S3.upload_fileobj(photo, Config.S3_BUCKET, Key=new_filename, ExtraArgs={ "ACL": 'public-read', "ContentType": photo.content_type})
