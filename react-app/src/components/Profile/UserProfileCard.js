@@ -18,10 +18,11 @@ export default function UserProfileCard() {
         <ProfileCardUsername>
           <p>{user.name}</p>
           <p>{`@${user.username}`}</p>
+          <div>Edit Profile</div>
         </ProfileCardUsername>
         <ProfileCardContent>{user.bio}</ProfileCardContent>
         <ProfileCardActions>
-          <div>Edit Profile</div>
+          <div>{user.following.length} Following</div> <div>{user.followers.length} Followers</div>
         </ProfileCardActions>
       </ProfileCardContentContainer>
     </ProfileCardContainer>

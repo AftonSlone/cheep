@@ -7,6 +7,7 @@ export const ProfileCardContentContainer = styled.div`
   justify-content: center;
   position: relative;
   width: 100%;
+  color: white;
   /* min-height: 100%; */
   margin-bottom: 2rem;
 `;

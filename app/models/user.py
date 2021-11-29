@@ -49,6 +49,7 @@ class User(db.Model, UserMixin):
             'profile_photo': self.profile_photo,
             'bio': self.bio,
             'following': [follow.to_dict() for follow in self.following],
+            'followers': [follower.to_dict() for follower in self.followers],
             'likes': [like.to_dict() for like in self.likes],
             'cheeps': [cheep.to_simple_dict() for cheep in self.cheeps],
             'replies': [reply.to_simple_dict() for reply in self.replies],

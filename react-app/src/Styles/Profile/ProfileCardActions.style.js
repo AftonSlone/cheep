@@ -6,10 +6,7 @@ export const ProfileCardActions = styled.div`
   /* position: absolute; */
   bottom: 0;
   justify-content: space-around;
-  /* margin-top: 7rem; */
-
-
-
+  margin-top: 2rem;
 
   div {
     display: flex;
@@ -17,7 +14,7 @@ export const ProfileCardActions = styled.div`
     align-items: center;
     color: #1da1f2;
     font-size: 3rem;
-    width: 20%;
+    width: 30%;
     height: 3rem;
     cursor: pointer;
     margin-right: 1rem;
