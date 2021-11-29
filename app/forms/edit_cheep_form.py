@@ -6,5 +6,5 @@ import datetime
 
 
 class EditCheepForm(FlaskForm):
-    content = StringField('content', DataRequired(), Length(min=1, max=280))
+    content = StringField('content', validators=[DataRequired(), Length(max=280)])
     updated_at = DateTimeField('updated_at', default=datetime.datetime.utcnow)

@@ -19,11 +19,16 @@ def cheeps():
 @cheep_routes.route('', methods=['POST'])
 @login_required
 def new_cheep():
+    form = EditCheepForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', form)
+    if form.validate_on_submit():
         data = request.json
         new_cheep = Cheep(**data)
         db.session.add(new_cheep)
         db.session.commit()
         return new_cheep.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @cheep_routes.route('/<int:id>')

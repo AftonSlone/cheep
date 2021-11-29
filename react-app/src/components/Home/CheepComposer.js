@@ -25,6 +25,8 @@ export default function CheepComposer({ setCheeps }) {
 
     const data = await res.json();
 
+    console.log(data)
+
     if (image) {
       const form_data = new FormData();
       form_data.append("photo", image);
