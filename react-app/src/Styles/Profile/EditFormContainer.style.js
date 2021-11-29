@@ -9,6 +9,7 @@ export const EditFormContainer = styled.form`
   justify-content: center;
   position: relative;
   width: 70rem;
+  min-height: 30rem;
   border: 1px solid #1da1f2;
   border-radius: 2.5rem;
 
@@ -48,13 +49,15 @@ export const EditFormContainer = styled.form`
 
   textarea {
     width: 60%;
-    height: 100%;
+    height: 15rem;
     resize: none;
     background-color: #14171a;
-    color: white;
-    border-bottom: 1px solid #1da1f2;
+    color: #1da1f2;
+    border: 1px solid #1da1f2;
     margin-top: 2rem;
     margin-bottom: 2rem;
+    box-sizing: border-box;
+    padding: 10px;
 
     &:focus {
       outline: none;
