@@ -3,12 +3,13 @@ import styled from "styled-components";
 export const EditFormContainer = styled.form`
   background-color: #14171a;
   display: flex;
+  font-size: 2rem;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
-  width: 40%;
-  height: 40%;
+  width: 70rem;
+  border: 1px solid #1da1f2;
   border-radius: 2.5rem;
 
   span {
@@ -34,6 +35,26 @@ export const EditFormContainer = styled.form`
     background-color: #14171a;
     color: #1da1f2;
     border-bottom: 1px solid #1da1f2;
+    margin-top: 2rem;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: white;
+    }
+  }
+
+  textarea {
+    width: 60%;
+    height: 100%;
+    resize: none;
+    background-color: #14171a;
+    color: white;
+    border-bottom: 1px solid #1da1f2;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 
     &:focus {
       outline: none;
