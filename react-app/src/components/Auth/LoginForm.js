@@ -18,7 +18,10 @@ const LoginForm = ({ setLoginModal }) => {
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
+      return;
     }
+    setErrors(null);
+    setLoginModal(false);
   };
 
   const demoLogin = async (e) => {
@@ -26,7 +29,10 @@ const LoginForm = ({ setLoginModal }) => {
     const data = await dispatch(login("demo@aa.io", "password"));
     if (data) {
       setErrors(data);
+      return;
     }
+    setErrors(null);
+    setLoginModal(false);
   };
 
   const updateEmail = (e) => {

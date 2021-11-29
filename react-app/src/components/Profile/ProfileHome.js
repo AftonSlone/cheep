@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { HomeButton } from "../../Styles/Home/HomeButton.style";
 import { HomeCenter } from "../../Styles/Home/HomeCenter.style";
 import { HomeContainer } from "../../Styles/Home/HomeContainer.style";
@@ -40,21 +40,21 @@ export default function ProfileHome() {
   return (
     <HomeContainer>
       <HomeLeft>
-        <a href="/home">
+        <Link to="/home">
           <BsTwitter />
-        </a>
-        <a href="/home">
+        </Link>
+        <Link to="/home">
           <MdHome /> Home
-        </a>
-        <a href="/home">
+        </Link>
+        <Link to="/home">
           <MdAlternateEmail /> Mentions
-        </a>
-        <a href="/home">
+        </Link>
+        <Link to="/home">
           <MdMailOutline /> Messages
-        </a>
-        <a href="/home">
+        </Link>
+        <Link to={`/user/${user.id}`}>
           <MdPersonOutline /> Profile
-        </a>
+        </Link>
         <HomeButton onClick={() => dispatch(updateNewCheep(true))}>
           Cheep
         </HomeButton>

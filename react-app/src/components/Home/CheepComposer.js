@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { HomeTweetContainer } from "../../Styles/Home/HomeTweetContainer.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
 import { updateTimeline } from "../../store/cheep";
+import { ErrorContainer } from "../../Styles/Auth/ErrorContainer.style";
 
 export default function CheepComposer({ setCheeps }) {
   const dispatch = useDispatch();
@@ -10,6 +11,7 @@ export default function CheepComposer({ setCheeps }) {
   const timeline = useSelector((state) => state.cheep.updateTimeline);
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
+  const [errors, setErrors] = useState(null);
 
   const newCheep = async () => {
     const res = await fetch("api/cheeps", {
@@ -22,8 +24,12 @@ export default function CheepComposer({ setCheeps }) {
         user_id: user.id,
       }),
     });
-
     const data = await res.json();
+
+    if (data.errors) {
+      setErrors(data.errors);
+      return;
+    }
 
     if (image) {
       const form_data = new FormData();
@@ -37,6 +43,7 @@ export default function CheepComposer({ setCheeps }) {
     setCheeps([]);
     setContent("");
     setImage(null);
+    setErrors(null);
     dispatch(updateTimeline(!timeline));
   };
 
@@ -52,6 +59,7 @@ export default function CheepComposer({ setCheeps }) {
       </div>
       <div>
         <div>
+
           <textarea
             placeholder="What's happening?"
             name="content"
@@ -98,6 +106,13 @@ export default function CheepComposer({ setCheeps }) {
           </div>
           <div onClick={newCheep}>Cheep</div>
         </div>
+        {errors && (
+            <div className="cheepComposerErrors">
+              {errors.map((error, ind) => (
+                <div key={ind}>{error}</div>
+              ))}
+            </div>
+          )}
       </div>
     </HomeTweetContainer>
   );

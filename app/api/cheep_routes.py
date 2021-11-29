@@ -19,11 +19,15 @@ def cheeps():
 @cheep_routes.route('', methods=['POST'])
 @login_required
 def new_cheep():
+    form = EditCheepForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
         data = request.json
         new_cheep = Cheep(**data)
         db.session.add(new_cheep)
         db.session.commit()
         return new_cheep.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @cheep_routes.route('/<int:id>')
@@ -51,6 +55,7 @@ def edit_cheep(id):
         db.session.add(cheep)
         db.session.commit()
         return cheep.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 @cheep_routes.route('/user/<int:id>/timeline')
 @login_required
@@ -79,15 +84,13 @@ def cheap_photo(id):
     db.session.commit()
     return "Photo added"
 
-@cheep_routes.route('/<int:id>/photo', methods=["PUT"])
+@cheep_routes.route('/<int:id>/photo', methods=["DELETE"])
 @login_required
-def edit_cheap_photo(id):
-    photo = request.files['photo']
+def delete_cheap_photo(id):
     new_filename = f"cheep_photo:{id}"
-    photo_url = f"{Config.S3_LOCATION}{new_filename}"
     S3 = boto3.client("s3", aws_access_key_id=Config.S3_KEY, aws_secret_access_key=Config.S3_SECRET)
-    S3.upload_fileobj(photo, Config.S3_BUCKET, Key=new_filename, ExtraArgs={ "ACL": 'public-read', "ContentType": photo.content_type})
-    new_photo = CheepPhoto(cheep_id=id, photo_url=photo_url)
-    db.session.add(new_photo)
+    S3.delete_object(Bucket=Config.S3_BUCKET, Key=new_filename)
+    cheep = Cheep.query.get(id)
+    db.session.delete(cheep)
     db.session.commit()
-    return "Photo added"
+    return "success"

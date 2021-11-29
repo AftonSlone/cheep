@@ -13,6 +13,7 @@ export default function ReplyComposer({ setCheeps, update, setUpdate }) {
   const updateState = useSelector((state) => state.cheep.updateCheepCard);
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
+  const [errors, setErrors] = useState(null);
 
   const newReply = async () => {
     const res = await fetch("/api/replies", {
@@ -29,6 +30,11 @@ export default function ReplyComposer({ setCheeps, update, setUpdate }) {
 
     const data = await res.json();
 
+    if (data.errors) {
+      setErrors(data.errors);
+      return;
+    }
+
     if (image) {
       const form_data = new FormData();
       form_data.append("photo", image);
@@ -40,6 +46,7 @@ export default function ReplyComposer({ setCheeps, update, setUpdate }) {
 
     if (setCheeps) setCheeps([]);
     if (setUpdate) setUpdate(!update);
+    setErrors(null);
     await dispatch(updateCheepCard(!updateState));
     await dispatch(updateTimeline(!timeline));
     await dispatch(updateReplyModal(false));
@@ -103,6 +110,13 @@ export default function ReplyComposer({ setCheeps, update, setUpdate }) {
           </div>
           <div onClick={newReply}>Reply</div>
         </div>
+        {errors && (
+          <div className="cheepComposerErrors">
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
+          </div>
+        )}
       </div>
     </ReplyCheepContainer>
   );

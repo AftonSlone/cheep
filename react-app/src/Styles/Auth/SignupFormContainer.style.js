@@ -9,6 +9,7 @@ export const SignupFormContainer = styled.form`
   position: relative;
   width: 40%;
   height: 40%;
+  font-size: 1.5rem;
   border-radius: 2.5rem;
 
   span {
