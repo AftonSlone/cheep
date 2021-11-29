@@ -6,5 +6,5 @@ import datetime
 
 
 class EditReplyForm(FlaskForm):
-    content = TextAreaField('content', [Length(min=1, max=280)])
+    content = TextAreaField('content', validators=[DataRequired(), Length(max=280)])
     updated_at = DateTimeField('updated_at', default=datetime.datetime.utcnow)

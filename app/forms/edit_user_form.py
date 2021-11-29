@@ -5,5 +5,5 @@ from app.validators import email_exists, username_exists
 
 
 class EditUserForm(FlaskForm):
-    name = StringField('name', Length(min=3, max=25), DataRequired())
-    bio = StringField('bio', Length(max=500))
+    name = StringField('name', validators=[Length(min=3, max=25), DataRequired()])
+    bio = StringField('bio', validators=[Length(max=500)])

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const HomeTweetContainer = styled.div`
   background-color: black;
   width: 100%;
-  min-height: 20%;
+  min-height: 30%;
   display: flex;
   border-top: 1px solid rgba(245, 248, 250, 0.3);
   border-bottom: 1px solid rgba(245, 248, 250, 0.3);
@@ -16,6 +16,7 @@ export const HomeTweetContainer = styled.div`
     align-items: center;
     height: 100%;
     width: 15%;
+
   }
 
   div:nth-child(2) {
@@ -133,5 +134,11 @@ export const HomeTweetContainer = styled.div`
     top: 1rem;
     right: 1rem;
     cursor: pointer;
+  }
+
+  .cheepComposerErrors {
+    color: #1DA1F2;
+    margin-top: 1rem;
+    font-size: 1.5rem;
   }
 `;

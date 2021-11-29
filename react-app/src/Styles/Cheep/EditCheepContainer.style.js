@@ -139,4 +139,10 @@ export const EditCheepContainer = styled.div`
     right: 1rem;
     cursor: pointer;
   }
+
+  .cheepComposerErrors {
+    color: #1DA1F2;
+    font-size: 1.5rem;
+    margin-right: 7rem;
+  }
 `;

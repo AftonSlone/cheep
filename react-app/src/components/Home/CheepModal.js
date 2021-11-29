@@ -14,6 +14,7 @@ export default function CheepModal({ setCheeps }) {
   const timeline = useSelector((state) => state.cheep.updateTimeline);
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
+  const [errors, setErrors] = useState(null);
 
   const newCheep = async () => {
     const res = await fetch("/api/cheeps", {
@@ -29,6 +30,11 @@ export default function CheepModal({ setCheeps }) {
 
     const data = await res.json();
 
+    if (data.errors) {
+      setErrors(data.errors);
+      return;
+    }
+
     if (image) {
       const form_data = new FormData();
       form_data.append("photo", image);
@@ -41,6 +47,7 @@ export default function CheepModal({ setCheeps }) {
     dispatch(updateNewCheep(false));
     if (setCheeps) setCheeps([]);
     setImage(null);
+    setErrors(null);
     dispatch(updateTimeline(!timeline));
   };
 
@@ -107,6 +114,13 @@ export default function CheepModal({ setCheeps }) {
           </div>
           <div onClick={newCheep}>Cheep</div>
         </div>
+        {errors && (
+          <div className="cheepComposerErrors">
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
+          </div>
+        )}
       </div>
     </EditCheepContainer>
   );
