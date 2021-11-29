@@ -43,7 +43,6 @@ def edit_reply(id):
 @login_required
 def delete_reply(id):
     reply = Reply.query.get(id)
-    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', reply)
     db.session.delete(reply)
     db.session.commit()
     return "success"
@@ -61,3 +60,14 @@ def reply_photo(id):
     db.session.add(new_photo)
     db.session.commit()
     return "Photo added"
+
+@reply_routes.route('/<int:id>/photo', methods=["DELETE"])
+@login_required
+def delete_reply_photo(id):
+    new_filename = f"cheep_photo:{id}"
+    S3 = boto3.client("s3", aws_access_key_id=Config.S3_KEY, aws_secret_access_key=Config.S3_SECRET)
+    S3.delete_object(Bucket=Config.S3_BUCKET, Key=new_filename)
+    reply = Reply.query.get(id)
+    db.session.delete(reply)
+    db.session.commit()
+    return "success"
