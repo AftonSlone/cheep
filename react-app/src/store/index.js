@@ -3,11 +3,13 @@ import thunk from "redux-thunk";
 import session from "./session";
 import cheep from "./cheep";
 import reply from "./reply";
+import profile from "./profile";
 
 const rootReducer = combineReducers({
   session,
   cheep,
   reply,
+  profile,
 });
 
 let enhancer;

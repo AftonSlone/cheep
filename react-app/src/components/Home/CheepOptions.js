@@ -58,8 +58,19 @@ export default function CheepOptions({ setCheeps }) {
   };
 
   const deleteCheep = async () => {
-    setCheeps([]);
+    if (setCheeps) setCheeps([]);
     dispatch(actionsMenu(false));
+    if (cheep.photos.length) {
+      await fetch(`/api/cheeps/${cheep.id}/photo`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      dispatch(updateTimeline(!timeline));
+      dispatch(fetchUser(user.id));
+      return;
+    }
     await fetch(`/api/cheeps/${cheep.id}`, {
       method: "DELETE",
       headers: {
@@ -67,6 +78,7 @@ export default function CheepOptions({ setCheeps }) {
       },
     });
     dispatch(updateTimeline(!timeline));
+    dispatch(fetchUser(user.id));
     return;
   };
 

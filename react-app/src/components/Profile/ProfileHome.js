@@ -19,11 +19,21 @@ import { singleCheep, updateNewCheep } from "../../store/cheep";
 import { Modal } from "../Modal/Modal";
 import CheepCard from "../Home/CheepCard";
 import UserProfileCard from "./UserProfileCard";
+import EditProfileModal from "./EditProfileModal";
+import CheepModal from "../Home/CheepModal";
+import CheepOptions from "../Home/CheepOptions";
+import EditCheep from "../Home/EditCheep";
+import ReplyModal from "../reply/ReplyModal";
 
 export default function ProfileHome() {
   const dispatch = useDispatch();
   const [loading] = useState(false);
   const user = useSelector((state) => state.session.user);
+  const editProfile = useSelector((state) => state.profile.editProfileModal);
+  const cheepModal = useSelector((state) => state.cheep.newCheep);
+  const actionsModal = useSelector((state) => state.cheep.actionsMenu);
+  const editCheepModal = useSelector((state) => state.cheep.editCheep);
+  const replyModal = useSelector((state) => state.reply.replyModal);
   const [update, setUpdate] = useState(false);
   const { id } = useParams();
 
@@ -61,6 +71,36 @@ export default function ProfileHome() {
           user.cheeps.map((cheep) => (
             <CheepCard cheepId={cheep.id} key={cheep.id} />
           ))}
+
+        {editProfile && (
+          <Modal type="edit">
+            <EditProfileModal />
+          </Modal>
+        )}
+
+        {cheepModal && (
+          <Modal type="edit">
+            <CheepModal />
+          </Modal>
+        )}
+
+        {actionsModal && (
+          <Modal type="edit">
+            <CheepOptions />
+          </Modal>
+        )}
+
+        {editCheepModal && (
+          <Modal type="edit">
+            <EditCheep />
+          </Modal>
+        )}
+
+        {replyModal && (
+          <Modal type="edit">
+            <ReplyModal update={update} setUpdate={setUpdate} />
+          </Modal>
+        )}
       </HomeCenter>
       <HomeRight></HomeRight>
     </HomeContainer>

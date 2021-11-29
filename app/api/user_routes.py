@@ -27,7 +27,6 @@ def update_user(id):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user = User.query.get(id)
-        print(form.data)
         user.update(**form.data)
         db.session.add(user)
         db.session.commit()

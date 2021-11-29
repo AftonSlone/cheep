@@ -49,6 +49,7 @@ class User(db.Model, UserMixin):
             'profile_photo': self.profile_photo,
             'bio': self.bio,
             'following': [follow.to_dict() for follow in self.following],
+            'followers': [follower.to_dict() for follower in self.followers],
             'likes': [like.to_dict() for like in self.likes],
             'cheeps': [cheep.to_simple_dict() for cheep in self.cheeps],
             'replies': [reply.to_simple_dict() for reply in self.replies],
@@ -72,7 +73,7 @@ class User(db.Model, UserMixin):
     def update(self, username=None, email=None, name=None, bio=None, profile_photo=None,  **kwargs):
         self.username = username if username else self.username
         self.email = email if email else self.email
-        self.full_name = name if name else self.name
+        self.name = name if name else self.name
         self.bio = bio if bio else self.bio
         self.profile_photo = profile_photo if profile_photo else self.profile_photo
         return self

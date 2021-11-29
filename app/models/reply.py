@@ -14,7 +14,7 @@ class Reply(db.Model):
 
     cheep = db.relationship("Cheep", back_populates="replies")
     user = db.relationship("User", back_populates='replies')
-    photos = db.relationship("ReplyPhoto", back_populates="reply")
+    photos = db.relationship("ReplyPhoto", back_populates="reply", cascade = 'all, delete')
 
     def to_dict(self):
         return {
