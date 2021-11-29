@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { EditCheepContainer } from "../../Styles/Cheep/EditCheepContainer.style";
 import { useDispatch, useSelector } from "react-redux";
-// import { Loader } from "../../Styles/Modal/Loader.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
 import { editCheep, updateCheepCard, updateTimeline } from "../../store/cheep";
 import { fetchUser } from "../../store/session";
@@ -13,9 +12,10 @@ export default function EditCheep({ setCheeps }) {
   const timeline = useSelector((state) => state.cheep.updateTimeline);
   const updateState = useSelector((state) => state.cheep.updateCheepCard);
   const [content, setContent] = useState(cheep.content);
+  const [errors, setErrors] = useState(null);
 
   const updateCheep = async () => {
-    await fetch(`/api/cheeps/${cheep.id}`, {
+    const res = await fetch(`/api/cheeps/${cheep.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -24,8 +24,16 @@ export default function EditCheep({ setCheeps }) {
         content: content,
       }),
     });
+
+    const data = res.json();
+    if (data.errors) {
+      setErrors(data.errors);
+      return;
+    }
+
     dispatch(editCheep(false));
     if (setCheeps) setCheeps([]);
+    setErrors(null);
     dispatch(updateTimeline(!timeline));
     dispatch(updateCheepCard(!updateState));
     dispatch(fetchUser(user.id));

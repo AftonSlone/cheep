@@ -18,11 +18,15 @@ def replies():
 @reply_routes.route('', methods=['POST'])
 @login_required
 def new_reply():
+    form = EditReplyForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
         data = request.json
         new_reply = Reply(**data)
         db.session.add(new_reply)
         db.session.commit()
         return new_reply.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 @reply_routes.route('/<int:id>', methods=['PUT'])
 @login_required

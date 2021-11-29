@@ -21,7 +21,6 @@ def cheeps():
 def new_cheep():
     form = EditCheepForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', form)
     if form.validate_on_submit():
         data = request.json
         new_cheep = Cheep(**data)
@@ -56,6 +55,7 @@ def edit_cheep(id):
         db.session.add(cheep)
         db.session.commit()
         return cheep.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 @cheep_routes.route('/user/<int:id>/timeline')
 @login_required

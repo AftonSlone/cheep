@@ -132,4 +132,11 @@ export const ReplyCheepContainer = styled.div`
     right: 1rem;
     cursor: pointer;
   }
+
+  .cheepComposerErrors {
+    color: #1DA1F2;
+    font-size: 2rem;
+    margin-right: 10rem;
+    text-decoration: none;
+  }
 `;
