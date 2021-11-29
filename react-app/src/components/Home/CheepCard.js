@@ -16,6 +16,7 @@ import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
 import { actionsMenu, singleCheep } from "../../store/cheep";
 import { updateReplyModal } from "../../store/reply";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function CheepCard({ cheepId }) {
   const history = useHistory();
@@ -102,6 +103,7 @@ export default function CheepCard({ cheepId }) {
 
   const link = (e, id) => {
     e.stopPropagation();
+    // if (e.target.id != "link") history.push(`/cheep/${id}`);
     history.push(`/cheep/${id}`);
   };
 
@@ -127,7 +129,13 @@ export default function CheepCard({ cheepId }) {
       </CheepCardProfilePhoto>
       <CheepCardContentContainer>
         <CheepCardUsername>
-          {`@${cheep.user.username}`} <div onClick={openActionsMenu}>. . .</div>
+          {
+            <Link
+              to={`/user/${cheep.user.id}`}
+              id="link"
+            >{`@${cheep.user.username}`}</Link>
+          }{" "}
+          <div onClick={openActionsMenu}>. . .</div>
         </CheepCardUsername>
         <CheepCardContent>
           <div className="cheepContentWrapper">{cheep.content}</div>

@@ -23,6 +23,7 @@ import EditProfileModal from "./EditProfileModal";
 import CheepModal from "../Home/CheepModal";
 import CheepOptions from "../Home/CheepOptions";
 import EditCheep from "../Home/EditCheep";
+import ReplyModal from "../reply/ReplyModal";
 
 export default function ProfileHome() {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ export default function ProfileHome() {
   const cheepModal = useSelector((state) => state.cheep.newCheep);
   const actionsModal = useSelector((state) => state.cheep.actionsMenu);
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
+  const replyModal = useSelector((state) => state.reply.replyModal);
   const [update, setUpdate] = useState(false);
   const { id } = useParams();
 
@@ -91,6 +93,12 @@ export default function ProfileHome() {
         {editCheepModal && (
           <Modal type="edit">
             <EditCheep />
+          </Modal>
+        )}
+
+        {replyModal && (
+          <Modal type="edit">
+            <ReplyModal update={update} setUpdate={setUpdate} />
           </Modal>
         )}
       </HomeCenter>

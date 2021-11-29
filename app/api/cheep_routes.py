@@ -36,7 +36,6 @@ def single_cheep(id):
 @cheep_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_cheep(id):
-    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', 'PING')
     cheep = Cheep.query.get(id)
     db.session.delete(cheep)
     db.session.commit()

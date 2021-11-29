@@ -9,6 +9,11 @@ export const CheepCardUsername = styled.div`
   display: flex;
   justify-content: space-between;
 
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
   div {
     display: flex;
     justify-content: center;
