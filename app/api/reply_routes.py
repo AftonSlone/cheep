@@ -43,6 +43,7 @@ def edit_reply(id):
 @login_required
 def delete_reply(id):
     reply = Reply.query.get(id)
+    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', reply)
     db.session.delete(reply)
     db.session.commit()
     return "success"
