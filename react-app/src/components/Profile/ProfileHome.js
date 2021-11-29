@@ -19,11 +19,13 @@ import { singleCheep, updateNewCheep } from "../../store/cheep";
 import { Modal } from "../Modal/Modal";
 import CheepCard from "../Home/CheepCard";
 import UserProfileCard from "./UserProfileCard";
+import EditProfileModal from "./EditProfileModal";
 
 export default function ProfileHome() {
   const dispatch = useDispatch();
   const [loading] = useState(false);
   const user = useSelector((state) => state.session.user);
+  const editProfile = useSelector((state) => state.profile.EditProfileModal);
   const [update, setUpdate] = useState(false);
   const { id } = useParams();
 
@@ -61,6 +63,12 @@ export default function ProfileHome() {
           user.cheeps.map((cheep) => (
             <CheepCard cheepId={cheep.id} key={cheep.id} />
           ))}
+
+        {editProfile && (
+          <Modal type="edit>">
+            <EditProfileModal />
+          </Modal>
+        )}
       </HomeCenter>
       <HomeRight></HomeRight>
     </HomeContainer>
