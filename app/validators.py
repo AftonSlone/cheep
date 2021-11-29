@@ -1,5 +1,5 @@
 from wtforms.validators import ValidationError
-from app.models import User
+from app.models import User, user
 
 def validation_errors_to_error_messages(validation_errors):
     """
@@ -46,3 +46,10 @@ def password_matches(form, field):
         raise ValidationError('No such user exists.')
     if not user.check_password(password):
         raise ValidationError('Password was incorrect.')
+
+def signup_username_length(form, field):
+    username = field.data
+    if len(username) < 4:
+        raise ValidationError('Username must be at least 4 characters')
+    if len(username) > 15:
+        raise ValidationError('Username cant be greater than 15 characters')
