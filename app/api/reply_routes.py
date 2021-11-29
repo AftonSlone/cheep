@@ -3,9 +3,6 @@ from flask_login import login_required
 from app.models import db, Reply, ReplyPhoto
 from app.forms.edit_reply_form import EditReplyForm
 from app.validators import validation_errors_to_error_messages
-import maya
-import datetime
-import time
 import boto3
 from app.config import Config
 
@@ -28,7 +25,7 @@ def new_reply():
         return new_reply.to_dict()
 
 @reply_routes.route('/<int:id>', methods=['PUT'])
-# @login_required
+@login_required
 def edit_reply(id):
     form = EditReplyForm()
     form['csrf_token'].data = request.cookies['csrf_token']
