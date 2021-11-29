@@ -1,14 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, EmailField, BooleanField, PasswordField
-from wtforms.validators import Email
+from wtforms.validators import DataRequired
 from app.validators import email_exists, username_exists
 
 
 class EditUserForm(FlaskForm):
     name = StringField('name')
-    username = StringField('username', validators=[username_exists])
-    email = EmailField('email', validators=[Email(granular_message=True), email_exists])
-    profile_photo = StringField('profile_photo')
-    private = BooleanField('private')
-    about = StringField('about')
-    password = PasswordField('password')
+    bio = StringField('bio')

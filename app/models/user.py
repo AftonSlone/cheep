@@ -73,7 +73,7 @@ class User(db.Model, UserMixin):
     def update(self, username=None, email=None, name=None, bio=None, profile_photo=None,  **kwargs):
         self.username = username if username else self.username
         self.email = email if email else self.email
-        self.full_name = name if name else self.name
+        self.name = name if name else self.name
         self.bio = bio if bio else self.bio
         self.profile_photo = profile_photo if profile_photo else self.profile_photo
         return self
