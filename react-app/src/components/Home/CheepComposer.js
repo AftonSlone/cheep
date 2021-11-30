@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { HomeTweetContainer } from "../../Styles/Home/HomeTweetContainer.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
 import { updateTimeline } from "../../store/cheep";
-import { ErrorContainer } from "../../Styles/Auth/ErrorContainer.style";
+// import { ErrorContainer } from "../../Styles/Auth/ErrorContainer.style";
 
 export default function CheepComposer({ setCheeps }) {
   const dispatch = useDispatch();

@@ -1,17 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useHistory } from "react-router-dom";
 import {
   actionsMenu,
   editCheep,
   singleCheep,
+  updateCheepCard,
   updateTimeline,
 } from "../../store/cheep";
-import { fetchUser } from "../../store/session";
+import { fetchUser, logout } from "../../store/session";
 import { CheepCardOptionsContainer } from "../../Styles/Cheep/CheepCardOptionsContainer.style";
 import { Loader } from "../../Styles/Modal/Loader.style";
 export default function CheepOptions({ setCheeps }) {
+  const location = useLocation();
+  const history = useHistory();
   const user = useSelector((state) => state.session.user);
   const cheep = useSelector((state) => state.cheep.singleCheep);
   const timeline = useSelector((state) => state.cheep.updateTimeline);
+  const updateState = useSelector((state) => state.cheep.updateCheepCard);
   const dispatch = useDispatch();
 
   const following = () => {
@@ -69,6 +74,8 @@ export default function CheepOptions({ setCheeps }) {
       });
       dispatch(updateTimeline(!timeline));
       dispatch(fetchUser(user.id));
+      dispatch(actionsMenu(false));
+      dispatch(updateCheepCard(!updateState));
       return;
     }
     await fetch(`/api/cheeps/${cheep.id}`, {
@@ -79,6 +86,12 @@ export default function CheepOptions({ setCheeps }) {
     });
     dispatch(updateTimeline(!timeline));
     dispatch(fetchUser(user.id));
+    dispatch(actionsMenu(false));
+    if (location.pathname.includes("cheep")) {
+      history.push("/home");
+      return;
+    }
+    dispatch(updateCheepCard(!updateState));
     return;
   };
 

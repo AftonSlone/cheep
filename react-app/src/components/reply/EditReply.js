@@ -3,6 +3,7 @@ import { EditCheepContainer } from "../../Styles/Cheep/EditCheepContainer.style"
 import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
 import { editCheep } from "../../store/cheep";
+import { updateEditReply } from "../../store/reply";
 
 export default function EditReply({ update, setUpdate }) {
   const dispatch = useDispatch();
@@ -20,14 +21,14 @@ export default function EditReply({ update, setUpdate }) {
         content: content,
       }),
     });
-    dispatch(editCheep(false));
+    dispatch(updateEditReply(false));
     setUpdate(!update);
   };
   return (
     <EditCheepContainer>
       <div>
         <span onClick={() => dispatch(editCheep(false))}>X</span>
-        <img src={user.profile_photo} alt=""  className='avatar'/>
+        <img src={user.profile_photo} alt="" className="avatar" />
       </div>
       <div>
         <div>
