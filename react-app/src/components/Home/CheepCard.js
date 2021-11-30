@@ -26,7 +26,6 @@ export default function CheepCard({ cheepId }) {
   const [update, setUpdate] = useState(false);
   const [cheep, setCheep] = useState(null);
 
-
   useEffect(() => {
     let mounted = true;
 
@@ -113,6 +112,12 @@ export default function CheepCard({ cheepId }) {
   //   return data;
   // };
 
+  const handleProfileImg = () => {
+    if (cheep.user.profile_photo.includes("lorempixel.com"))
+      return "https://icon-library.com/images/default-profile-icon/default-profile-icon-24.jpg";
+    return cheep.user.profile_photo;
+  };
+
   if (!cheep)
     return (
       <CheepCardContainer>
@@ -125,7 +130,7 @@ export default function CheepCard({ cheepId }) {
   return (
     <CheepCardContainer onClick={(e) => link(e, cheep.id)}>
       <CheepCardProfilePhoto>
-        <img src={cheep.user.profile_photo} alt="" className="avatar" />
+        <img src={handleProfileImg()} alt="" className="avatar" />
       </CheepCardProfilePhoto>
       <CheepCardContentContainer>
         <CheepCardUsername>
