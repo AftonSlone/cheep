@@ -6,5 +6,5 @@ export const HomeContainer = styled.div`
   justify-content: center;
   background-color: black;
   width: 100%;
-  height: 100vh;
+  height: 95vh;
 `;

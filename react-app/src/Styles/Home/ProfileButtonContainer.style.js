@@ -9,7 +9,7 @@ export const ProfileButtonContainer = styled.div`
   height: 8%;
   font-size: 1.5rem;
   position: absolute;
-  bottom: 2rem;
+  bottom: 6rem;
   background-color: black;
   margin-right: 1%;
   border-radius: 3.5rem;
