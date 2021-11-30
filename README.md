@@ -122,7 +122,31 @@ Cheep is a free social networking microblogging service that allows registered m
 
 ## Usage
 
-_For more examples, please refer to the [Documentation](https://github.com/AftonSlone/cheep/wiki)_
+
+<img src="https://i.imgur.com/s4kCcvM.png" alt="" width="480" height="300">
+
+- Sign up for a new account or use the demo login to start exploring the website. 
+
+
+<img src="https://i.imgur.com/aXkJYVk.png" alt="" width="680" height="250">
+
+
+- Use the cheep feature to share whatever is on your mind with the world.
+
+
+<img src="https://i.imgur.com/ASeEG40.png" alt="" width="680" height="250">
+
+
+- See a cheep from a fellow user that Interest you? Use the like or reply feature to interact with them. 
+
+
+
+
+
+
+
+
+- For more examples, please refer to the [Documentation](https://github.com/AftonSlone/cheep/wiki)_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
