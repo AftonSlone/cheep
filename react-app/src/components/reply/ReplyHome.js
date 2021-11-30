@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { HomeButton } from "../../Styles/Home/HomeButton.style";
 import { HomeCenter } from "../../Styles/Home/HomeCenter.style";
 import { HomeContainer } from "../../Styles/Home/HomeContainer.style";
@@ -28,6 +28,7 @@ import CheepOptions from "../Home/CheepOptions";
 import EditCheep from "../Home/EditCheep";
 
 export default function ReplyHome() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [loading] = useState(false);
   const [update, setUpdate] = useState(false);
@@ -40,6 +41,7 @@ export default function ReplyHome() {
   const user = useSelector((state) => state.session.user);
   const userModal = useSelector((state) => state.session.userModal);
   const actionsModal = useSelector((state) => state.cheep.actionsMenu);
+  const updateState = useSelector((state) => state.cheep.updateCheepCard);
   const { id } = useParams();
 
   useEffect(() => {
@@ -47,6 +49,10 @@ export default function ReplyHome() {
     if (mounted) {
       (async () => {
         const res = await fetch(`/api/cheeps/${id}`);
+        if (res.status > 400) {
+          history.push("/home");
+          return;
+        }
         const data = await res.json();
         dispatch(singleCheep(data));
       })();
@@ -54,7 +60,7 @@ export default function ReplyHome() {
     return () => {
       mounted = false;
     };
-  }, [update]);
+  }, [update, updateState]);
 
   return (
     <HomeContainer>
