@@ -27,7 +27,6 @@ export default function ReplyOptions({ update, setUpdate }) {
   };
 
   const deleteFollow = async () => {
-    console.log(cheep);
     await fetch(`/api/follows/delete`, {
       method: "DELETE",
       headers: {
