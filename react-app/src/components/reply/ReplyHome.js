@@ -23,17 +23,23 @@ import ReplyOptions from "./ReplyOptions";
 import EditReply from "./EditReply";
 import ReplyModal from "./ReplyModal";
 import CheepModal from "../Home/CheepModal";
+import UserModal from "../Profile/UserModal";
+import CheepOptions from "../Home/CheepOptions";
+import EditCheep from "../Home/EditCheep";
 
 export default function ReplyHome() {
   const dispatch = useDispatch();
   const [loading] = useState(false);
   const [update, setUpdate] = useState(false);
   const replyActionsModal = useSelector((state) => state.reply.actionsMenu);
+  const editReply = useSelector((state) => state.reply.editReply);
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
   const replyModal = useSelector((state) => state.reply.replyModal);
   const cheepModal = useSelector((state) => state.cheep.newCheep);
   const replies = useSelector((state) => state.cheep.singleCheep);
   const user = useSelector((state) => state.session.user);
+  const userModal = useSelector((state) => state.session.userModal);
+  const actionsModal = useSelector((state) => state.cheep.actionsMenu);
   const { id } = useParams();
 
   useEffect(() => {
@@ -88,6 +94,12 @@ export default function ReplyHome() {
 
         {editCheepModal && (
           <Modal type="edit">
+            <EditCheep />
+          </Modal>
+        )}
+
+        {editReply && (
+          <Modal type="edit">
             <EditReply update={update} setUpdate={setUpdate} />
           </Modal>
         )}
@@ -107,6 +119,18 @@ export default function ReplyHome() {
         {cheepModal && (
           <Modal type="edit">
             <CheepModal />
+          </Modal>
+        )}
+
+        {userModal && (
+          <Modal type="edit">
+            <UserModal />
+          </Modal>
+        )}
+
+        {actionsModal && (
+          <Modal type="edit">
+            <CheepOptions />
           </Modal>
         )}
       </HomeCenter>

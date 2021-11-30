@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   MdOutlineInsertPhoto,
   MdOutlineGif,
-  MdOutlineSwapHorizontalCircle,
+  // MdOutlineSwapHorizontalCircle,
 } from "react-icons/md";
 import { updateNewCheep, updateTimeline } from "../../store/cheep";
 

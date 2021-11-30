@@ -25,7 +25,7 @@ export default function EditCheep({ setCheeps }) {
       }),
     });
 
-    const data = res.json();
+    const data = await res.json();
     if (data.errors) {
       setErrors(data.errors);
       return;
@@ -62,6 +62,13 @@ export default function EditCheep({ setCheeps }) {
           </div>
           <div onClick={updateCheep}>Update</div>
         </div>
+        {errors && (
+          <div className="cheepComposerErrors">
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
+          </div>
+        )}
       </div>
     </EditCheepContainer>
   );

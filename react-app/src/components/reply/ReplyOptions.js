@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { actionsMenu, editCheep, updateCheepCard } from "../../store/cheep";
-import { updateReplyActionsMenu, updateSingleReply } from "../../store/reply";
+import {
+  updateEditReply,
+  updateReplyActionsMenu,
+  updateSingleReply,
+} from "../../store/reply";
 import { fetchUser } from "../../store/session";
 import { CheepCardOptionsContainer } from "../../Styles/Cheep/CheepCardOptionsContainer.style";
 import { Loader } from "../../Styles/Modal/Loader.style";
@@ -70,7 +74,7 @@ export default function ReplyOptions({ update, setUpdate }) {
 
   const updateCheep = () => {
     dispatch(updateSingleReply(cheep));
-    dispatch(editCheep(true));
+    dispatch(updateEditReply(true));
     dispatch(updateReplyActionsMenu(false));
   };
 
