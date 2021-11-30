@@ -30,6 +30,7 @@ function App() {
       <Switch>
         <ProtectedRoute path="/cheep/:id" exact={true}>
           <ReplyHome />
+          <Footer />
         </ProtectedRoute>
         <ProtectedRoute path="/home" exact={true}>
           <Home />
@@ -37,6 +38,7 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/user/:id" exact={true}>
           <ProfileHome />
+          <Footer />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
