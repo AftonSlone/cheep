@@ -28,6 +28,7 @@ class User(db.Model, UserMixin):
     messages = db.relationship("Message", back_populates='user')
     likes = db.relationship("CheepLikes")
     recheeps = db.relationship("Recheeps")
+    mentions = db.relationship('Mention')
 
     @property
     def password(self):
