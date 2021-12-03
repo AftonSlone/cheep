@@ -16,6 +16,7 @@ class Cheep(db.Model):
     replies = db.relationship("Reply", back_populates="cheep", cascade = 'all, delete')
     likes = db.relationship("CheepLikes", cascade = 'all, delete')
     recheeps = db.relationship("Recheeps", cascade = 'all, delete')
+    mentions = db.relationship("Mention", cascade = 'all, delete')
 
     def to_dict(self):
         return {
