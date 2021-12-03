@@ -1,3 +1,4 @@
+from enum import unique
 from .db import db
 
 
@@ -5,7 +6,7 @@ class Mention(db.Model):
     __tablename__ = 'mentions'
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, primary_key=True)
-    cheep_id = db.Column(db.Integer, db.ForeignKey('cheeps.id'), nullable=False, primary_key=True)
+    cheep_id = db.Column(db.Integer, db.ForeignKey('cheeps.id'), nullable=False, primary_key=True , unique=True)
 
     cheep = db.relationship("Cheep")
 
