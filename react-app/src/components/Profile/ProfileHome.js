@@ -15,7 +15,7 @@ import {
 import { BsTwitter } from "react-icons/bs";
 import ProfileButton from "../Home/ProfileButton";
 import { useDispatch, useSelector } from "react-redux";
-import { singleCheep, updateNewCheep } from "../../store/cheep";
+import { updateNewCheep } from "../../store/cheep";
 import { Modal } from "../Modal/Modal";
 import CheepCard from "../Home/CheepCard";
 import UserProfileCard from "./UserProfileCard";
@@ -24,7 +24,6 @@ import CheepModal from "../Home/CheepModal";
 import CheepOptions from "../Home/CheepOptions";
 import EditCheep from "../Home/EditCheep";
 import ReplyModal from "../reply/ReplyModal";
-import ReplyOptions from "../reply/ReplyOptions";
 import UserModal from "./UserModal";
 import { fetchUser } from "../../store/session";
 
@@ -36,7 +35,6 @@ export default function ProfileHome() {
   const cheepModal = useSelector((state) => state.cheep.newCheep);
   const actionsModal = useSelector((state) => state.cheep.actionsMenu);
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
-  const replyActionsModal = useSelector((state) => state.reply.actionsMenu);
   const userModal = useSelector((state) => state.session.userModal);
   const replyModal = useSelector((state) => state.reply.replyModal);
   const timeline = useSelector((state) => state.cheep.updateTimeline);
@@ -45,7 +43,7 @@ export default function ProfileHome() {
 
   useEffect(() => {
     dispatch(fetchUser(id));
-  }, [timeline]);
+  }, [timeline, dispatch, id]);
 
   return (
     <HomeContainer>
@@ -111,12 +109,6 @@ export default function ProfileHome() {
             <ReplyModal update={update} setUpdate={setUpdate} />
           </Modal>
         )}
-
-        {/* {replyActionsModal && (
-          <Modal type="edit">
-            <ReplyOptions update={update} setUpdate={setUpdate} />
-          </Modal>
-        )} */}
 
         {userModal && (
           <Modal type="edit">

@@ -60,7 +60,7 @@ export default function ReplyHome() {
     return () => {
       mounted = false;
     };
-  }, [update, updateState]);
+  }, [update, updateState, dispatch, id, history]);
 
   return (
     <HomeContainer>

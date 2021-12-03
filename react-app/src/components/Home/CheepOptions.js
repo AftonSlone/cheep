@@ -7,7 +7,7 @@ import {
   updateCheepCard,
   updateTimeline,
 } from "../../store/cheep";
-import { fetchUser, logout } from "../../store/session";
+import { fetchUser } from "../../store/session";
 import { CheepCardOptionsContainer } from "../../Styles/Cheep/CheepCardOptionsContainer.style";
 import { Loader } from "../../Styles/Modal/Loader.style";
 export default function CheepOptions({ setCheeps }) {

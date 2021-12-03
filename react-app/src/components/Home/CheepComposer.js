@@ -40,11 +40,11 @@ export default function CheepComposer({ setCheeps }) {
       });
     }
 
-    // setCheeps([]);
-    // setContent("");
-    // setImage(null);
-    // setErrors(null);
-    // dispatch(updateTimeline(!timeline));
+    setCheeps([]);
+    setContent("");
+    setImage(null);
+    setErrors(null);
+    dispatch(updateTimeline(!timeline));
   };
 
   const addPhoto = (e) => {
