@@ -46,77 +46,53 @@ export default function ProfileHome() {
   }, [timeline, dispatch, id]);
 
   return (
-    <HomeContainer>
-      <HomeLeft>
-        <Link to="/home">
-          <BsTwitter />
-        </Link>
-        <Link to="/home">
-          <MdHome /> Home
-        </Link>
-        <Link to="/home">
-          <MdAlternateEmail /> Mentions
-        </Link>
-        <Link to="/home">
-          <MdMailOutline /> Messages
-        </Link>
-        <Link to={`/user/${user.id}`}>
-          <MdPersonOutline /> Profile
-        </Link>
-        <HomeButton onClick={() => dispatch(updateNewCheep(true))}>
-          Cheep
-        </HomeButton>
-        <ProfileButton />
-      </HomeLeft>
-      <HomeCenter>
-        {loading && (
-          <Loader>
-            <div />
-          </Loader>
-        )}
-        {user && <UserProfileCard />}
-        {user &&
-          user.cheeps.map((cheep) => (
-            <CheepCard cheepId={cheep.id} key={cheep.id} />
-          ))}
+    <>
+      {loading && (
+        <Loader>
+          <div />
+        </Loader>
+      )}
+      {user && <UserProfileCard />}
+      {user &&
+        user.cheeps.map((cheep) => (
+          <CheepCard cheepId={cheep.id} key={cheep.id} />
+        ))}
 
-        {editProfile && (
-          <Modal type="edit">
-            <EditProfileModal />
-          </Modal>
-        )}
+      {editProfile && (
+        <Modal type="edit">
+          <EditProfileModal />
+        </Modal>
+      )}
 
-        {cheepModal && (
-          <Modal type="edit">
-            <CheepModal />
-          </Modal>
-        )}
+      {cheepModal && (
+        <Modal type="edit">
+          <CheepModal />
+        </Modal>
+      )}
 
-        {actionsModal && (
-          <Modal type="edit">
-            <CheepOptions />
-          </Modal>
-        )}
+      {actionsModal && (
+        <Modal type="edit">
+          <CheepOptions />
+        </Modal>
+      )}
 
-        {editCheepModal && (
-          <Modal type="edit">
-            <EditCheep />
-          </Modal>
-        )}
+      {editCheepModal && (
+        <Modal type="edit">
+          <EditCheep />
+        </Modal>
+      )}
 
-        {replyModal && (
-          <Modal type="edit">
-            <ReplyModal update={update} setUpdate={setUpdate} />
-          </Modal>
-        )}
+      {replyModal && (
+        <Modal type="edit">
+          <ReplyModal update={update} setUpdate={setUpdate} />
+        </Modal>
+      )}
 
-        {userModal && (
-          <Modal type="edit">
-            <UserModal />
-          </Modal>
-        )}
-      </HomeCenter>
-      <HomeRight></HomeRight>
-    </HomeContainer>
+      {userModal && (
+        <Modal type="edit">
+          <UserModal />
+        </Modal>
+      )}
+    </>
   );
 }

@@ -15,7 +15,7 @@ const Index = () => {
   const user = useSelector((state) => state.session.user);
 
   if (user) {
-    return <Redirect to="/home" />;
+    return <Redirect to="/home/home" />;
   }
 
   const login = () => {

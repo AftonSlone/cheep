@@ -63,84 +63,60 @@ export default function ReplyHome() {
   }, [update, updateState, dispatch, id, history]);
 
   return (
-    <HomeContainer>
-      <HomeLeft>
-        <Link to="/home">
-          <BsTwitter />
-        </Link>
-        <Link to="/home">
-          <MdHome /> Home
-        </Link>
-        <Link to="/home">
-          <MdAlternateEmail /> Mentions
-        </Link>
-        <Link to="/home">
-          <MdMailOutline /> Messages
-        </Link>
-        <Link to={`/user/${user.id}`}>
-          <MdPersonOutline /> Profile
-        </Link>
-        <HomeButton onClick={() => dispatch(updateNewCheep(true))}>
-          Cheep
-        </HomeButton>
-        <ProfileButton />
-      </HomeLeft>
-      <HomeCenter>
-        {loading && (
-          <Loader>
-            <div />
-          </Loader>
-        )}
-        {id && <CheepCard cheepId={id} />}
+    <>
+      {loading && (
+        <Loader>
+          <div />
+        </Loader>
+      )}
+      {id && <CheepCard cheepId={id} />}
 
-        {replies &&
-          replies.replies.map((reply) => (
-            <ReplyCard key={reply.id} cheep={reply} />
-          ))}
+      {replies &&
+        replies.replies.map((reply) => (
+          <ReplyCard key={reply.id} cheep={reply} />
+        ))}
 
-        {editCheepModal && (
-          <Modal type="edit">
-            <EditCheep />
-          </Modal>
-        )}
+      {editCheepModal && (
+        <Modal type="edit">
+          <EditCheep />
+        </Modal>
+      )}
 
-        {editReply && (
-          <Modal type="edit">
-            <EditReply update={update} setUpdate={setUpdate} />
-          </Modal>
-        )}
+      {editReply && (
+        <Modal type="edit">
+          <EditReply update={update} setUpdate={setUpdate} />
+        </Modal>
+      )}
 
-        {replyActionsModal && (
-          <Modal type="edit">
-            <ReplyOptions update={update} setUpdate={setUpdate} />
-          </Modal>
-        )}
+      {replyActionsModal && (
+        <Modal type="edit">
+          <ReplyOptions update={update} setUpdate={setUpdate} />
+        </Modal>
+      )}
 
-        {replyModal && (
-          <Modal type="edit">
-            <ReplyModal update={update} setUpdate={setUpdate} />
-          </Modal>
-        )}
+      {replyModal && (
+        <Modal type="edit">
+          <ReplyModal update={update} setUpdate={setUpdate} />
+        </Modal>
+      )}
 
-        {cheepModal && (
-          <Modal type="edit">
-            <CheepModal />
-          </Modal>
-        )}
+      {cheepModal && (
+        <Modal type="edit">
+          <CheepModal />
+        </Modal>
+      )}
 
-        {userModal && (
-          <Modal type="edit">
-            <UserModal />
-          </Modal>
-        )}
+      {userModal && (
+        <Modal type="edit">
+          <UserModal />
+        </Modal>
+      )}
 
-        {actionsModal && (
-          <Modal type="edit">
-            <CheepOptions />
-          </Modal>
-        )}
-      </HomeCenter>
-      <HomeRight></HomeRight>
-    </HomeContainer>
+      {actionsModal && (
+        <Modal type="edit">
+          <CheepOptions />
+        </Modal>
+      )}
+    </>
   );
 }

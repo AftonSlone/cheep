@@ -103,7 +103,7 @@ export default function CheepCard({ cheepId }) {
   const link = (e, id) => {
     e.stopPropagation();
     // if (e.target.id != "link") history.push(`/cheep/${id}`);
-    history.push(`/cheep/${id}`);
+    history.push(`/home/cheep/${id}`);
   };
 
   // const handleImage = async () => {
@@ -128,7 +128,7 @@ export default function CheepCard({ cheepId }) {
     );
 
   return (
-    <CheepCardContainer onClick={(e) => link(e, cheep.id)}>
+    <CheepCardContainer>
       <CheepCardProfilePhoto>
         <img src={handleProfileImg()} alt="" className="avatar" />
       </CheepCardProfilePhoto>
@@ -136,13 +136,13 @@ export default function CheepCard({ cheepId }) {
         <CheepCardUsername>
           {
             <Link
-              to={`/user/${cheep.user.id}`}
+              to={`/home/user/${cheep.user.id}`}
               id="link"
             >{`@${cheep.user.username}`}</Link>
           }{" "}
           <div onClick={openActionsMenu}>. . .</div>
         </CheepCardUsername>
-        <CheepCardContent>
+        <CheepCardContent onClick={(e) => link(e, cheep.id)}>
           <div className="cheepContentWrapper">{cheep.content}</div>
 
           <div className="cheepPhotoWrapper">
