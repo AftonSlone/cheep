@@ -14,7 +14,7 @@ export default function CheepComposer({ setCheeps }) {
   const [errors, setErrors] = useState(null);
 
   const newCheep = async () => {
-    const res = await fetch("api/cheeps", {
+    const res = await fetch("/api/cheeps", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +59,6 @@ export default function CheepComposer({ setCheeps }) {
       </div>
       <div>
         <div>
-
           <textarea
             placeholder="What's happening?"
             name="content"
@@ -107,12 +106,12 @@ export default function CheepComposer({ setCheeps }) {
           <div onClick={newCheep}>Cheep</div>
         </div>
         {errors && (
-            <div className="cheepComposerErrors">
-              {errors.map((error, ind) => (
-                <div key={ind}>{error}</div>
-              ))}
-            </div>
-          )}
+          <div className="cheepComposerErrors">
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
+          </div>
+        )}
       </div>
     </HomeTweetContainer>
   );
