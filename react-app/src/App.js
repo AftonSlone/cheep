@@ -46,7 +46,7 @@ function App() {
                 <ProfileHome />
               </ProtectedRoute>
               <ProtectedRoute
-                path={`${match.url}/user/id/mentions`}
+                path={`${match.url}/user/:id/mentions`}
                 exact={true}
               >
                 <MentionHome />

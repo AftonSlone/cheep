@@ -55,6 +55,7 @@ class User(db.Model, UserMixin):
             'cheeps': [cheep.to_simple_dict() for cheep in self.cheeps],
             'replies': [reply.to_simple_dict() for reply in self.replies],
             'messages': [message.to_simple_dict() for message in self.messages],
+            'mentions': [mention.to_dict() for mention in self.mentions],
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
