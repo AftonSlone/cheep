@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import { EditCheepContainer } from "../../Styles/Cheep/EditCheepContainer.style";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  MdOutlineInsertPhoto,
-  MdOutlineGif,
-  // MdOutlineSwapHorizontalCircle,
-} from "react-icons/md";
-import { updateNewCheep, updateTimeline } from "../../store/cheep";
+import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
+import { updateNewCheep, addNewCheep } from "../../store/cheep";
 
 export default function CheepModal({ setCheeps }) {
   const dispatch = useDispatch();
@@ -16,7 +12,43 @@ export default function CheepModal({ setCheeps }) {
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState(null);
 
+  // const newCheep = async () => {
+  //   const res = await fetch("/api/cheeps", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       content: content,
+  //       user_id: user.id,
+  //     }),
+  //   });
+
+  //   const data = await res.json();
+
+  //   if (data.errors) {
+  //     setErrors(data.errors);
+  //     return;
+  //   }
+
+  //   if (image) {
+  //     const form_data = new FormData();
+  //     form_data.append("photo", image);
+  //     await fetch(`/api/cheeps/${data.id}/photo`, {
+  //       method: "POST",
+  //       body: form_data,
+  //     });
+  //   }
+
+  //   dispatch(updateNewCheep(false));
+  //   if (setCheeps) setCheeps([]);
+  //   setImage(null);
+  //   setErrors(null);
+  //   dispatch(updateTimeline(!timeline));
+  // };
+
   const newCheep = async () => {
+    let finalData = null;
     const res = await fetch("/api/cheeps", {
       method: "POST",
       headers: {
@@ -27,8 +59,8 @@ export default function CheepModal({ setCheeps }) {
         user_id: user.id,
       }),
     });
-
     const data = await res.json();
+    finalData = data;
 
     if (data.errors) {
       setErrors(data.errors);
@@ -38,17 +70,20 @@ export default function CheepModal({ setCheeps }) {
     if (image) {
       const form_data = new FormData();
       form_data.append("photo", image);
-      await fetch(`/api/cheeps/${data.id}/photo`, {
+      const res2 = await fetch(`/api/cheeps/${data.id}/photo`, {
         method: "POST",
         body: form_data,
       });
+
+      const data2 = await res2.json();
+      finalData = data2;
     }
 
+    // setContent("");
+    // setImage(null);
+    // setErrors(null);
     dispatch(updateNewCheep(false));
-    if (setCheeps) setCheeps([]);
-    setImage(null);
-    setErrors(null);
-    dispatch(updateTimeline(!timeline));
+    dispatch(addNewCheep(finalData));
   };
 
   const addPhoto = (e) => {
