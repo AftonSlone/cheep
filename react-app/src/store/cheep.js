@@ -107,14 +107,16 @@ export default function reducer(state = initialState, action) {
     case SET_TIMELINE:
       return { ...state, timeline: action.payload };
     case UPDATE_TIMELINE_CHEEP:
-      return {
-        ...state,
-        timeline: state.timeline.map((cheep) => {
-          if (cheep.id === action.payload.id) return action.payload;
-          return cheep;
-        }),
-      };
-      return state;
+      if (state.timeline) {
+        return {
+          ...state,
+          timeline: state.timeline.map((cheep) => {
+            if (cheep.id === action.payload.id) return action.payload;
+            return cheep;
+          }),
+        };
+      }
+      return { ...state, timeline: [action.payload] };
     default:
       return state;
   }

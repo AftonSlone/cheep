@@ -9,7 +9,7 @@ import CheepOptions from "./CheepOptions";
 import ReplyModal from "../reply/ReplyModal";
 import CheepModal from "./CheepModal";
 import UserModal from "../Profile/UserModal";
-import { fetchTimeline } from "../../store/cheep";
+import { fetchTimeline, setUpdateTimelineCheep } from "../../store/cheep";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -49,14 +49,22 @@ export default function Home() {
 
   useEffect(() => {}, [updateTimeline]);
 
+  if (loading) {
+    return (
+      <>
+        <CheepComposer />
+        {loading && (
+          <Loader>
+            <div />
+          </Loader>
+        )}
+      </>
+    );
+  }
+
   return (
     <>
       <CheepComposer />
-      {loading && (
-        <Loader>
-          <div />
-        </Loader>
-      )}
 
       {cheeps &&
         cheeps.map((cheep) => (

@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required
-from app.models import db, Reply, ReplyPhoto
+from app.models import db, Reply, ReplyPhoto, Cheep
 from app.forms.edit_reply_form import EditReplyForm
 from app.validators import validation_errors_to_error_messages
 import boto3
@@ -25,7 +25,8 @@ def new_reply():
         new_reply = Reply(**data)
         db.session.add(new_reply)
         db.session.commit()
-        return new_reply.to_dict()
+        cheep = Cheep.query.get(data['cheep_id'])
+        return cheep.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 @reply_routes.route('/<int:id>', methods=['PUT'])

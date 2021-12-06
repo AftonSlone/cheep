@@ -1,22 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams, useHistory } from "react-router-dom";
-import { HomeButton } from "../../Styles/Home/HomeButton.style";
-import { HomeCenter } from "../../Styles/Home/HomeCenter.style";
-import { HomeContainer } from "../../Styles/Home/HomeContainer.style";
-import { HomeLeft } from "../../Styles/Home/HomeLeft.style";
-import { HomeRight } from "../../Styles/Home/HomeRight.style";
+import { useParams, useHistory } from "react-router-dom";
 import { Loader } from "../../Styles/Modal/Loader.style";
-import {
-  MdHome,
-  MdAlternateEmail,
-  MdMailOutline,
-  MdPersonOutline,
-} from "react-icons/md";
-import { BsTwitter } from "react-icons/bs";
-import ProfileButton from "../Home/ProfileButton";
 import CheepCard from "../Home/CheepCard";
 import { useDispatch, useSelector } from "react-redux";
-import { singleCheep, updateNewCheep } from "../../store/cheep";
+import { singleCheep } from "../../store/cheep";
 import { Modal } from "../Modal/Modal";
 import ReplyCard from "./ReplyCard";
 import ReplyOptions from "./ReplyOptions";
@@ -69,7 +56,7 @@ export default function ReplyHome() {
           <div />
         </Loader>
       )}
-      {id && <CheepCard cheepId={id} />}
+      {id && <CheepCard cheep={replies} />}
 
       {replies &&
         replies.replies.map((reply) => (
