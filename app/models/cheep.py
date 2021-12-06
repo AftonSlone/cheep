@@ -38,6 +38,10 @@ class Cheep(db.Model):
             'user_id': self.user_id,
             'content': self.content,
             'photos': [photo.to_simple_dict() for photo in self.photos],
+            'user': self.user.to_simple_dict(),
+            'replies': [reply.to_simple_dict() for reply in self.replies],
+            'recheeps': [recheep.to_dict() for recheep in self.recheeps],
+            'likes': [like.to_dict() for like in self.likes],
             'created_at': self.created_at,
             'updated_at': self.updated_at,
         }

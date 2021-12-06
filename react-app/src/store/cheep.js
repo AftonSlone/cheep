@@ -5,6 +5,8 @@ const SET_ACTIONS_MENU = "cheep/SET_ACTIONS_MENU";
 const SET_NEW_CHEEP = "cheep/SET_NEW_CHEEP";
 const SET_UPDATE_TIMELINE = "cheep/SET_UPDATE_TIMELINE";
 const SET_UPDATE_CHEEPCARD = "cheep/SET_UPDATE_CHEEPCARD";
+const UPDATE_TIMELINE_CHEEP = "cheep/UPDATE_TIMELINE_CHEEP";
+const SET_TIMELINE = "cheep/SET_TIMELINE";
 
 const initialState = {
   singleCheep: null,
@@ -13,6 +15,7 @@ const initialState = {
   newCheep: false,
   updateTimeline: false,
   updateCheepCard: false,
+  timeline: null,
 };
 
 const setCheep = (payload) => ({
@@ -22,6 +25,16 @@ const setCheep = (payload) => ({
 
 const setUpdateCheepCard = (payload) => ({
   type: SET_UPDATE_CHEEPCARD,
+  payload: payload,
+});
+
+const setTimeline = (payload) => ({
+  type: SET_TIMELINE,
+  payload: payload,
+});
+
+const updateTimelineCheep = (payload) => ({
+  type: UPDATE_TIMELINE_CHEEP,
   payload: payload,
 });
 
@@ -45,9 +58,22 @@ const setUpdateTimeline = (payload) => ({
   payload: payload,
 });
 
+export const setUpdateTimelineCheep = (payload) => async (dispatch) =>
+  dispatch(updateTimelineCheep(payload));
+
+export const fetchTimeline = (payload) => async (dispatch) => {
+  const res = await fetch(`/api/cheeps/user/${payload.id}/timeline`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await res.json();
+  return await dispatch(setTimeline(data.data));
+};
+
 export const updateCheepCard = (payload) => async (dispatch) => {
   return dispatch(setUpdateCheepCard(payload));
-}
+};
 
 export const updateNewCheep = (payload) => async (dispatch) =>
   dispatch(newCheep(payload));
@@ -78,6 +104,17 @@ export default function reducer(state = initialState, action) {
       return { ...state, newCheep: action.payload };
     case SET_UPDATE_CHEEPCARD:
       return { ...state, updateCheepCard: action.payload };
+    case SET_TIMELINE:
+      return { ...state, timeline: action.payload };
+    case UPDATE_TIMELINE_CHEEP:
+      return {
+        ...state,
+        timeline: state.timeline.map((cheep) => {
+          if (cheep.id === action.payload.id) return action.payload;
+          return cheep;
+        }),
+      };
+      return state;
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Switch, Route, useParams } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Index from "./components/Index/Index";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
@@ -50,7 +50,6 @@ function App() {
                 exact={true}
               >
                 <MentionHome />
-                <Footer />
               </ProtectedRoute>
             </Switch>
           </HomeCenter>

@@ -1,29 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { HomeCenter } from "../../Styles/Home/HomeCenter.style";
-import { HomeContainer } from "../../Styles/Home/HomeContainer.style";
-import { HomeLeft } from "../../Styles/Home/HomeLeft.style";
-import { HomeRight } from "../../Styles/Home/HomeRight.style";
-import {
-  MdHome,
-  MdAlternateEmail,
-  MdMailOutline,
-  MdPersonOutline,
-} from "react-icons/md";
-import { BsTwitter } from "react-icons/bs";
-import { HomeButton } from "../../Styles/Home/HomeButton.style";
 import { Loader } from "../../Styles/Modal/Loader.style";
 import { Modal } from "../Modal/Modal";
-import ProfileButton from "./ProfileButton";
 import CheepComposer from "./CheepComposer";
 import CheepCard from "./CheepCard";
 import EditCheep from "./EditCheep";
 import CheepOptions from "./CheepOptions";
 import ReplyModal from "../reply/ReplyModal";
 import CheepModal from "./CheepModal";
-import { updateNewCheep } from "../../store/cheep";
-import { Link } from "react-router-dom";
 import UserModal from "../Profile/UserModal";
+import { fetchTimeline } from "../../store/cheep";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -33,9 +19,10 @@ export default function Home() {
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
   const replyModal = useSelector((state) => state.reply.replyModal);
   const cheepModal = useSelector((state) => state.cheep.newCheep);
-  const timeline = useSelector((state) => state.cheep.updateTimeline);
+  const updateTimeline = useSelector((state) => state.cheep.updateTimeline);
   const userModal = useSelector((state) => state.session.userModal);
-  const [cheeps, setCheeps] = useState([]);
+  const cheeps = useSelector((state) => state.cheep.timeline);
+  const setCheeps = false;
 
   useEffect(() => {
     let mounted = true;
@@ -43,13 +30,14 @@ export default function Home() {
       (async () => {
         if (user) {
           setLoading(true);
-          const res = await fetch(`/api/cheeps/user/${user.id}/timeline`, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          const data = await res.json();
-          setCheeps(data.data);
+          await dispatch(fetchTimeline(user));
+          // const res = await fetch(`/api/cheeps/user/${user.id}/timeline`, {
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          // });
+          // const data = await res.json();
+          // setCheeps(data.data);
           setLoading(false);
         }
       })();
@@ -57,18 +45,23 @@ export default function Home() {
     return () => {
       mounted = false;
     };
-  }, [timeline, user]);
+  }, []);
+
+  useEffect(() => {}, [updateTimeline]);
 
   return (
     <>
-      <CheepComposer setCheeps={setCheeps} />
+      <CheepComposer />
       {loading && (
         <Loader>
           <div />
         </Loader>
       )}
+
       {cheeps &&
-        cheeps.map((cheep) => <CheepCard cheepId={cheep.id} key={cheep.id} />)}
+        cheeps.map((cheep) => (
+          <CheepCard cheepId={cheep.id} key={cheep.id} cheep={cheep} />
+        ))}
 
       {editCheepModal && (
         <Modal type="edit">

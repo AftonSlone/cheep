@@ -13,38 +13,42 @@ import { CheepCardUsername } from "../../Styles/Cheep/CheepCardUsername.style";
 import { CheepCardContentContainer } from "../../Styles/Cheep/CheepCardContentContainer.style";
 import { CheepCardContent } from "../../Styles/Cheep/CheepCardContent.style";
 import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
-import { actionsMenu, singleCheep } from "../../store/cheep";
+import {
+  actionsMenu,
+  setUpdateTimelineCheep,
+  singleCheep,
+} from "../../store/cheep";
 import { updateReplyModal } from "../../store/reply";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
-export default function CheepCard({ cheepId }) {
+export default function CheepCard({ cheepId, cheep }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const updateState = useSelector((state) => state.cheep.updateCheepCard);
   const [update, setUpdate] = useState(false);
-  const [cheep, setCheep] = useState(null);
+  // const [cheep, setCheep] = useState(propsCheep);
 
-  useEffect(() => {
-    let mounted = true;
+  // useEffect(() => {
+  //   let mounted = true;
 
-    (async () => {
-      const res = await fetch(`/api/cheeps/${cheepId}`);
-      const data = await res.json();
-      if (mounted) setCheep(data);
-    })();
+  //   (async () => {
+  //     const res = await fetch(`/api/cheeps/${cheepId}`);
+  //     const data = await res.json();
+  //     if (mounted) setCheep(data);
+  //   })();
 
-    return () => {
-      mounted = false;
-    };
-  }, [update, cheepId, updateState]);
+  //   return () => {
+  //     mounted = false;
+  //   };
+  // }, [update, cheepId, updateState]);
 
   const handleLikes = async (e, cheep_id) => {
     e.stopPropagation();
     const id = Number(e.currentTarget.id);
     if (id > 0) {
-      await fetch(`/api/likes/${id}`, {
+      const res = await fetch(`/api/likes/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -54,10 +58,11 @@ export default function CheepCard({ cheepId }) {
           cheep_id: cheep_id,
         }),
       });
-      setUpdate(!update);
+      const data = await res.json();
+      dispatch(setUpdateTimelineCheep(data));
       return;
     }
-    await fetch(`/api/likes`, {
+    const res = await fetch(`/api/likes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +72,8 @@ export default function CheepCard({ cheepId }) {
         cheep_id: cheep_id,
       }),
     });
-    setUpdate(!update);
+    const data = await res.json();
+    dispatch(setUpdateTimelineCheep(data));
     return;
   };
 
