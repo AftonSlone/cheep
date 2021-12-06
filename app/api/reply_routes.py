@@ -61,7 +61,8 @@ def reply_photo(id):
     new_photo = ReplyPhoto(reply_id=id, photo_url=photo_url)
     db.session.add(new_photo)
     db.session.commit()
-    return "Photo added"
+    cheep = Cheep.query.get(id)
+    return cheep.to_dict()
 
 @reply_routes.route('/<int:id>/photo', methods=["DELETE"])
 @login_required

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReplyCheepContainer } from "../../Styles/Reply/ReplyCheepContainer.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
-import { setUpdateTimelineCheep } from "../../store/cheep";
+import { setUpdateTimelineCheep, singleCheep } from "../../store/cheep";
 import { updateReplyModal } from "../../store/reply";
 
 export default function ReplyComposer() {
@@ -14,6 +14,7 @@ export default function ReplyComposer() {
   const [errors, setErrors] = useState(null);
 
   const newReply = async () => {
+    let finalData = null;
     const res = await fetch("/api/replies", {
       method: "POST",
       headers: {
@@ -27,6 +28,7 @@ export default function ReplyComposer() {
     });
 
     const data = await res.json();
+    finalData = data;
 
     if (data.errors) {
       setErrors(data.errors);
@@ -36,14 +38,18 @@ export default function ReplyComposer() {
     if (image) {
       const form_data = new FormData();
       form_data.append("photo", image);
-      await fetch(`/api/replies/${data.id}/photo`, {
+      console.log(data.replies.pop().id)
+      const res2 = await fetch(`/api/replies/${data.replies.pop().id}/photo`, {
         method: "POST",
         body: form_data,
       });
+      const data2 = await res2.json();
+      finalData = data2;
     }
 
     setErrors(null);
-    dispatch(setUpdateTimelineCheep(data));
+    dispatch(setUpdateTimelineCheep(finalData));
+    dispatch(singleCheep(finalData));
     // await dispatch(updateCheepCard(!updateState));
     // await dispatch(updateTimeline(!timeline));
     dispatch(updateReplyModal(false));

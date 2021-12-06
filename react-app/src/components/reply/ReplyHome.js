@@ -24,7 +24,7 @@ export default function ReplyHome() {
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
   const replyModal = useSelector((state) => state.reply.replyModal);
   const cheepModal = useSelector((state) => state.cheep.newCheep);
-  const replies = useSelector((state) => state.cheep.singleCheep);
+  const cheep = useSelector((state) => state.cheep.singleCheep);
   const userModal = useSelector((state) => state.session.userModal);
   const actionsModal = useSelector((state) => state.cheep.actionsMenu);
   const updateState = useSelector((state) => state.cheep.updateCheepCard);
@@ -55,10 +55,10 @@ export default function ReplyHome() {
           <div />
         </Loader>
       )}
-      {id && <CheepCard cheep={replies} />}
+      {id && <CheepCard cheep={cheep} />}
 
-      {replies &&
-        replies.replies.map((reply) => (
+      {cheep &&
+        cheep.replies.map((reply) => (
           <ReplyCard key={reply.id} cheep={reply} />
         ))}
 

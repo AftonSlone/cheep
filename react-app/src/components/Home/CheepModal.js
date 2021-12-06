@@ -79,9 +79,6 @@ export default function CheepModal({ setCheeps }) {
       finalData = data2;
     }
 
-    // setContent("");
-    // setImage(null);
-    // setErrors(null);
     dispatch(updateNewCheep(false));
     dispatch(addNewCheep(finalData));
   };
