@@ -45,7 +45,7 @@ export default function Home() {
     return () => {
       mounted = false;
     };
-  }, [dispatch, user]);
+  }, [dispatch]);
 
   useEffect(() => {}, [updateTimeline]);
 

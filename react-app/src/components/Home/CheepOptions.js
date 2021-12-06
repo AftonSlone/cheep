@@ -85,7 +85,7 @@ export default function CheepOptions({ setCheeps }) {
       },
     });
 
-    const data = res.json();
+    const data = await res.json();
     dispatch(fetchDeleteCheep(data));
 
     // dispatch(updateTimeline(!timeline));

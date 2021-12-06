@@ -127,11 +127,12 @@ export default function reducer(state = initialState, action) {
     case SET_TIMELINE:
       return { ...state, timeline: action.payload };
     case DELETE_CHEEP:
-      let newState = { ...state };
-      newState.timeline.forEach((cheep, i, timeline) => {
-        if (cheep.id === action.payload.id) timeline.splice(i, 1);
-      });
-      return newState;
+      return {
+        ...state,
+        timeline: state.timeline.filter(
+          (cheep) => cheep.id !== action.payload.id
+        ),
+      };
     case UPDATE_TIMELINE_CHEEP:
       if (state.timeline) {
         return {
