@@ -25,7 +25,6 @@ export default function ReplyHome() {
   const replyModal = useSelector((state) => state.reply.replyModal);
   const cheepModal = useSelector((state) => state.cheep.newCheep);
   const replies = useSelector((state) => state.cheep.singleCheep);
-  const user = useSelector((state) => state.session.user);
   const userModal = useSelector((state) => state.session.userModal);
   const actionsModal = useSelector((state) => state.cheep.actionsMenu);
   const updateState = useSelector((state) => state.cheep.updateCheepCard);

@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../../Styles/Modal/Loader.style";
 import { CheepCardContainer } from "../../Styles/Cheep/CheepCardContainer.style";
@@ -26,9 +25,6 @@ export default function CheepCard({ cheepId, cheep }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  const updateState = useSelector((state) => state.cheep.updateCheepCard);
-  const [update, setUpdate] = useState(false);
-  // const [cheep, setCheep] = useState(propsCheep);
 
   // useEffect(() => {
   //   let mounted = true;

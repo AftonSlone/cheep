@@ -7,6 +7,8 @@ const SET_UPDATE_TIMELINE = "cheep/SET_UPDATE_TIMELINE";
 const SET_UPDATE_CHEEPCARD = "cheep/SET_UPDATE_CHEEPCARD";
 const UPDATE_TIMELINE_CHEEP = "cheep/UPDATE_TIMELINE_CHEEP";
 const SET_TIMELINE = "cheep/SET_TIMELINE";
+const ADD_CHEEP = "cheep/ADD_CHEEP";
+const DELETE_CHEEP = "cheep/DELETE_CHEEP";
 
 const initialState = {
   singleCheep: null,
@@ -17,6 +19,16 @@ const initialState = {
   updateCheepCard: false,
   timeline: null,
 };
+
+const addCheep = (payload) => ({
+  type: ADD_CHEEP,
+  payload: payload,
+});
+
+const deleteCheep = (payload) => ({
+  type: DELETE_CHEEP,
+  payload: payload,
+});
 
 const setCheep = (payload) => ({
   type: SET_SINGLE_CHEEP,
@@ -61,6 +73,9 @@ const setUpdateTimeline = (payload) => ({
 export const setUpdateTimelineCheep = (payload) => async (dispatch) =>
   dispatch(updateTimelineCheep(payload));
 
+export const fetchDeleteCheep = (payload) => async (dispatch) =>
+  dispatch(deleteCheep(payload));
+
 export const fetchTimeline = (payload) => async (dispatch) => {
   const res = await fetch(`/api/cheeps/user/${payload.id}/timeline`, {
     headers: {
@@ -70,6 +85,9 @@ export const fetchTimeline = (payload) => async (dispatch) => {
   const data = await res.json();
   return await dispatch(setTimeline(data.data));
 };
+
+export const addNewCheep = (payload) => async (dispatch) =>
+  dispatch(addCheep(payload));
 
 export const updateCheepCard = (payload) => async (dispatch) => {
   return dispatch(setUpdateCheepCard(payload));
@@ -94,6 +112,8 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_SINGLE_CHEEP:
       return { ...state, singleCheep: action.payload };
+    case ADD_CHEEP:
+      return { ...state, timeline: [action.payload, ...state.timeline] };
     case SET_EDIT_CHEEP:
       return { ...state, editCheep: action.payload };
     case SET_ACTIONS_MENU:
@@ -106,6 +126,12 @@ export default function reducer(state = initialState, action) {
       return { ...state, updateCheepCard: action.payload };
     case SET_TIMELINE:
       return { ...state, timeline: action.payload };
+    case DELETE_CHEEP:
+      let newState = { ...state };
+      newState.timeline.forEach((cheep, i, timeline) => {
+        if (cheep.id === action.payload.id) timeline.splice(i, 1);
+      });
+      return newState;
     case UPDATE_TIMELINE_CHEEP:
       if (state.timeline) {
         return {

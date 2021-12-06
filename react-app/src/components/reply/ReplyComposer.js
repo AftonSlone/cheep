@@ -2,19 +2,13 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReplyCheepContainer } from "../../Styles/Reply/ReplyCheepContainer.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
-import {
-  setUpdateTimelineCheep,
-  updateCheepCard,
-  updateTimeline,
-} from "../../store/cheep";
+import { setUpdateTimelineCheep } from "../../store/cheep";
 import { updateReplyModal } from "../../store/reply";
 
 export default function ReplyComposer() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  const timeline = useSelector((state) => state.cheep.updateTimeline);
   const cheep = useSelector((state) => state.cheep.singleCheep);
-  const updateState = useSelector((state) => state.cheep.updateCheepCard);
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState(null);

@@ -5,17 +5,15 @@ import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
 import {
   editCheep,
   setUpdateTimelineCheep,
-  updateCheepCard,
   updateTimeline,
 } from "../../store/cheep";
-import { fetchUser } from "../../store/session";
+
 
 export default function EditCheep() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const cheep = useSelector((state) => state.cheep.singleCheep);
   const timeline = useSelector((state) => state.cheep.updateTimeline);
-  const updateState = useSelector((state) => state.cheep.updateCheepCard);
   const [content, setContent] = useState(cheep.content);
   const [errors, setErrors] = useState(null);
 

@@ -51,7 +51,7 @@ def delete_cheep(id):
     cheep = Cheep.query.get(id)
     db.session.delete(cheep)
     db.session.commit()
-    return "success"
+    return cheep.to_simple_dict()
 
 @cheep_routes.route('/<int:id>', methods=['PUT'])
 @login_required
@@ -100,18 +100,10 @@ def cheap_photo(id):
     S3 = boto3.client("s3", aws_access_key_id=Config.S3_KEY, aws_secret_access_key=Config.S3_SECRET)
     S3.upload_fileobj(photo, Config.S3_BUCKET, Key=new_filename, ExtraArgs={ "ACL": 'public-read', "ContentType": photo.content_type})
     new_photo = CheepPhoto(cheep_id=id, photo_url=photo_url)
-    data = request.json
-    regex = r'@(.*?) '
-    usernames = re.findall(regex, data['content'])
     db.session.add(new_photo)
-    if usernames:
-            for user in usernames:
-                user = User.query.filter(User.username == user).all()
-                if user:
-                    new_mention = Mention(user_id=user[0].id, cheep_id=new_cheep.id)
-                    db.session.add(new_mention)
     db.session.commit()
-    return "Photo added"
+    cheep = Cheep.query.get(id)
+    return cheep.to_dict()
 
 @cheep_routes.route('/<int:id>/photo', methods=["DELETE"])
 @login_required
@@ -122,4 +114,4 @@ def delete_cheap_photo(id):
     cheep = Cheep.query.get(id)
     db.session.delete(cheep)
     db.session.commit()
-    return "success"
+    return cheep.to_simple_dict()

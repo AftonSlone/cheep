@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { HomeTweetContainer } from "../../Styles/Home/HomeTweetContainer.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
-import { updateTimeline } from "../../store/cheep";
+import { addNewCheep } from "../../store/cheep";
 
 export default function CheepComposer() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  const updatedTimeline = useSelector((state) => state.cheep.updateTimeline);
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState(null);
 
   const newCheep = async () => {
+    let finalData = null;
     const res = await fetch("/api/cheeps", {
       method: "POST",
       headers: {
@@ -24,6 +24,7 @@ export default function CheepComposer() {
       }),
     });
     const data = await res.json();
+    finalData = data;
 
     if (data.errors) {
       setErrors(data.errors);
@@ -33,16 +34,19 @@ export default function CheepComposer() {
     if (image) {
       const form_data = new FormData();
       form_data.append("photo", image);
-      await fetch(`/api/cheeps/${data.id}/photo`, {
+      const res2 = await fetch(`/api/cheeps/${data.id}/photo`, {
         method: "POST",
         body: form_data,
       });
+
+      const data2 = await res2.json();
+      finalData = data2;
     }
 
     setContent("");
     setImage(null);
     setErrors(null);
-    dispatch(updateTimeline(!updatedTimeline));
+    dispatch(addNewCheep(finalData));
   };
 
   const addPhoto = (e) => {

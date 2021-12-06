@@ -9,7 +9,7 @@ import CheepOptions from "./CheepOptions";
 import ReplyModal from "../reply/ReplyModal";
 import CheepModal from "./CheepModal";
 import UserModal from "../Profile/UserModal";
-import { fetchTimeline, setUpdateTimelineCheep } from "../../store/cheep";
+import { fetchTimeline } from "../../store/cheep";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ export default function Home() {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [dispatch, user]);
 
   useEffect(() => {}, [updateTimeline]);
 
