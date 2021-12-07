@@ -4,48 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
 import { updateNewCheep, addNewCheep } from "../../store/cheep";
 
-export default function CheepModal({ setCheeps }) {
+export default function CheepModal() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  const timeline = useSelector((state) => state.cheep.updateTimeline);
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState(null);
 
-  // const newCheep = async () => {
-  //   const res = await fetch("/api/cheeps", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       content: content,
-  //       user_id: user.id,
-  //     }),
-  //   });
 
-  //   const data = await res.json();
-
-  //   if (data.errors) {
-  //     setErrors(data.errors);
-  //     return;
-  //   }
-
-  //   if (image) {
-  //     const form_data = new FormData();
-  //     form_data.append("photo", image);
-  //     await fetch(`/api/cheeps/${data.id}/photo`, {
-  //       method: "POST",
-  //       body: form_data,
-  //     });
-  //   }
-
-  //   dispatch(updateNewCheep(false));
-  //   if (setCheeps) setCheeps([]);
-  //   setImage(null);
-  //   setErrors(null);
-  //   dispatch(updateTimeline(!timeline));
-  // };
 
   const newCheep = async () => {
     let finalData = null;
