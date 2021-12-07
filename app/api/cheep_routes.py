@@ -50,8 +50,9 @@ def single_cheep(id):
 def delete_cheep(id):
     cheep = Cheep.query.get(id)
     db.session.delete(cheep)
+    cheep = cheep.to_simple_dict()
     db.session.commit()
-    return cheep.to_simple_dict()
+    return cheep
 
 @cheep_routes.route('/<int:id>', methods=['PUT'])
 @login_required

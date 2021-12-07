@@ -36,7 +36,7 @@ export default function ReplyHome() {
       (async () => {
         const res = await fetch(`/api/cheeps/${id}`);
         if (res.status > 400) {
-          history.push("/home");
+          history.push("/home/home");
           return;
         }
         const data = await res.json();

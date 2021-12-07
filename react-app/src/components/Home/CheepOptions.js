@@ -96,7 +96,7 @@ export default function CheepOptions({ setCheeps }) {
     // dispatch(fetchUser(user.id));
     // dispatch(actionsMenu(false));
     if (location.pathname.includes("cheep")) {
-      history.push("/home");
+      history.push("/home/home");
       return;
     }
     // dispatch(updateCheepCard(!updateState));
@@ -127,7 +127,3 @@ export default function CheepOptions({ setCheeps }) {
     </CheepCardOptionsContainer>
   );
 }
-
-
-
-

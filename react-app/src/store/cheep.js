@@ -132,6 +132,11 @@ export default function reducer(state = initialState, action) {
           ...state.singleCheep,
           replies: [...state.singleCheep.replies, action.payload],
         },
+        timeline: state.timeline.map((cheep) => {
+          if (cheep.id === action.payload.cheep.id)
+            return { ...cheep, replies: [...cheep.replies, action.payload] };
+          return cheep;
+        }),
       };
     case SET_ACTIONS_MENU:
       return { ...state, actionsMenu: action.payload };
