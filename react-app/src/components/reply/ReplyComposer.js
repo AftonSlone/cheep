@@ -8,6 +8,7 @@ import {
   singleCheep,
 } from "../../store/cheep";
 import { updateReplyModal } from "../../store/reply";
+import { fetchUser } from "../../store/session";
 
 export default function ReplyComposer() {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ export default function ReplyComposer() {
 
     setErrors(null);
     dispatch(fetchNewReply(finalData));
+    dispatch(fetchUser(user.id));
     // dispatch(setUpdateTimelineCheep(finalData));
     // dispatch(singleCheep(finalData));
     // await dispatch(updateCheepCard(!updateState));
