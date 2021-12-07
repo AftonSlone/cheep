@@ -37,8 +37,8 @@ export default function MentionHome() {
       )}
 
       {user &&
-        user.mentions.map((cheep) => (
-          <CheepCard cheepId={cheep.id} key={cheep.id} />
+        user.mentions.map((mention) => (
+          <CheepCard cheep={mention.cheep} key={mention.cheep.id} />
         ))}
 
       {cheepModal && (

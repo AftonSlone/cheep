@@ -11,23 +11,26 @@ import { updateEditProfileModal } from "../../store/profile";
 export default function UserProfileCard() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  const profileUser = useSelector((state) => state.profile.user);
   return (
     <ProfileCardContainer>
       <ProfileCardProfilePhoto>
-        <img src={user.profile_photo} alt="" className="avatar" />
+        <img src={profileUser.profile_photo} alt="" className="avatar" />
       </ProfileCardProfilePhoto>
       <ProfileCardContentContainer>
         <ProfileCardUsername>
-          <p>{user.name}</p>
-          <p>{`@${user.username}`}</p>
-          <div onClick={() => dispatch(updateEditProfileModal(true))}>
-            Edit Profile
-          </div>
+          <p>{profileUser.name}</p>
+          <p>{`@${profileUser.username}`}</p>
+          {user.id === profileUser.id && (
+            <div onClick={() => dispatch(updateEditProfileModal(true))}>
+              Edit Profile
+            </div>
+          )}
         </ProfileCardUsername>
-        <ProfileCardContent>{user.bio}</ProfileCardContent>
+        <ProfileCardContent>{profileUser.bio}</ProfileCardContent>
         <ProfileCardActions>
-          <div>{user.following.length} Following</div>{" "}
-          <div>{user.followers.length} Followers</div>
+          <div>{profileUser.following.length} Following</div>{" "}
+          <div>{profileUser.followers.length} Followers</div>
         </ProfileCardActions>
       </ProfileCardContentContainer>
     </ProfileCardContainer>

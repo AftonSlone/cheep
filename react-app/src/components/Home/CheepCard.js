@@ -20,6 +20,7 @@ import {
 import { updateReplyModal } from "../../store/reply";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import { fetchUser } from "../../store/session";
 
 export default function CheepCard({ cheepId, cheep }) {
   const history = useHistory();
@@ -43,6 +44,7 @@ export default function CheepCard({ cheepId, cheep }) {
       const data = await res.json();
       dispatch(setUpdateTimelineCheep(data));
       dispatch(singleCheep(data));
+      dispatch(fetchUser(user.id));
       // dispatch(update);
       return;
     }
@@ -59,6 +61,7 @@ export default function CheepCard({ cheepId, cheep }) {
     const data = await res.json();
     dispatch(setUpdateTimelineCheep(data));
     dispatch(singleCheep(data));
+    dispatch(fetchUser(user.id));
     return;
   };
 
