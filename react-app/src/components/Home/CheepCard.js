@@ -26,20 +26,6 @@ export default function CheepCard({ cheepId, cheep }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
 
-  // useEffect(() => {
-  //   let mounted = true;
-
-  //   (async () => {
-  //     const res = await fetch(`/api/cheeps/${cheepId}`);
-  //     const data = await res.json();
-  //     if (mounted) setCheep(data);
-  //   })();
-
-  //   return () => {
-  //     mounted = false;
-  //   };
-  // }, [update, cheepId, updateState]);
-
   const handleLikes = async (e, cheep_id) => {
     e.stopPropagation();
     const id = Number(e.currentTarget.id);
