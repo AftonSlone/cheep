@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReplyCheepContainer } from "../../Styles/Reply/ReplyCheepContainer.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
-import { setUpdateTimelineCheep, singleCheep } from "../../store/cheep";
+import {
+  fetchNewReply,
+  setUpdateTimelineCheep,
+  singleCheep,
+} from "../../store/cheep";
 import { updateReplyModal } from "../../store/reply";
 
 export default function ReplyComposer() {
@@ -38,8 +42,7 @@ export default function ReplyComposer() {
     if (image) {
       const form_data = new FormData();
       form_data.append("photo", image);
-      console.log(data.replies.pop().id)
-      const res2 = await fetch(`/api/replies/${data.replies.pop().id}/photo`, {
+      const res2 = await fetch(`/api/replies/${data.id}/photo`, {
         method: "POST",
         body: form_data,
       });
@@ -48,8 +51,9 @@ export default function ReplyComposer() {
     }
 
     setErrors(null);
-    dispatch(setUpdateTimelineCheep(finalData));
-    dispatch(singleCheep(finalData));
+    dispatch(fetchNewReply(finalData));
+    // dispatch(setUpdateTimelineCheep(finalData));
+    // dispatch(singleCheep(finalData));
     // await dispatch(updateCheepCard(!updateState));
     // await dispatch(updateTimeline(!timeline));
     dispatch(updateReplyModal(false));

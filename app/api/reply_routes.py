@@ -25,8 +25,7 @@ def new_reply():
         new_reply = Reply(**data)
         db.session.add(new_reply)
         db.session.commit()
-        cheep = Cheep.query.get(data['cheep_id'])
-        return cheep.to_dict()
+        return new_reply.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 @reply_routes.route('/<int:id>', methods=['PUT'])
@@ -61,8 +60,8 @@ def reply_photo(id):
     new_photo = ReplyPhoto(reply_id=id, photo_url=photo_url)
     db.session.add(new_photo)
     db.session.commit()
-    cheep = Cheep.query.get(id)
-    return cheep.to_dict()
+    reply = Reply.query.get(id)
+    return reply.to_dict()
 
 @reply_routes.route('/<int:id>/photo', methods=["DELETE"])
 @login_required

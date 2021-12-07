@@ -5,6 +5,7 @@ const SET_ACTIONS_MENU = "cheep/SET_ACTIONS_MENU";
 const SET_NEW_CHEEP = "cheep/SET_NEW_CHEEP";
 const SET_UPDATE_TIMELINE = "cheep/SET_UPDATE_TIMELINE";
 const SET_UPDATE_CHEEPCARD = "cheep/SET_UPDATE_CHEEPCARD";
+const SET_NEW_REPLY = "cheep/SET_NEW_REPLY";
 const UPDATE_TIMELINE_CHEEP = "cheep/UPDATE_TIMELINE_CHEEP";
 const SET_TIMELINE = "cheep/SET_TIMELINE";
 const ADD_CHEEP = "cheep/ADD_CHEEP";
@@ -22,6 +23,11 @@ const initialState = {
 
 const addCheep = (payload) => ({
   type: ADD_CHEEP,
+  payload: payload,
+});
+
+const newReply = (payload) => ({
+  type: SET_NEW_REPLY,
   payload: payload,
 });
 
@@ -76,6 +82,9 @@ export const setUpdateTimelineCheep = (payload) => async (dispatch) =>
 export const fetchDeleteCheep = (payload) => async (dispatch) =>
   dispatch(deleteCheep(payload));
 
+export const fetchNewReply = (payload) => async (dispatch) =>
+  dispatch(newReply(payload));
+
 export const fetchTimeline = (payload) => async (dispatch) => {
   const res = await fetch(`/api/cheeps/user/${payload.id}/timeline`, {
     headers: {
@@ -116,6 +125,14 @@ export default function reducer(state = initialState, action) {
       return { ...state, timeline: [action.payload, ...state.timeline] };
     case SET_EDIT_CHEEP:
       return { ...state, editCheep: action.payload };
+    case SET_NEW_REPLY:
+      return {
+        ...state,
+        singleCheep: {
+          ...state.singleCheep,
+          replies: [...state.singleCheep.replies, action.payload],
+        },
+      };
     case SET_ACTIONS_MENU:
       return { ...state, actionsMenu: action.payload };
     case SET_UPDATE_TIMELINE:
@@ -132,6 +149,7 @@ export default function reducer(state = initialState, action) {
         timeline: state.timeline.filter(
           (cheep) => cheep.id !== action.payload.id
         ),
+        singleCheep: null,
       };
     case UPDATE_TIMELINE_CHEEP:
       if (state.timeline) {

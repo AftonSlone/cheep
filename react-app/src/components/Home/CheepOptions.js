@@ -5,6 +5,7 @@ import {
   editCheep,
   fetchDeleteCheep,
   singleCheep,
+  updateCheepCard,
 } from "../../store/cheep";
 import { fetchUser } from "../../store/session";
 import { CheepCardOptionsContainer } from "../../Styles/Cheep/CheepCardOptionsContainer.style";
@@ -14,6 +15,7 @@ export default function CheepOptions({ setCheeps }) {
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
   const cheep = useSelector((state) => state.cheep.singleCheep);
+  const cheepCardUpdate = useSelector((state) => state.cheep.updateCheepCard);
   const dispatch = useDispatch();
 
   const following = () => {
@@ -71,6 +73,7 @@ export default function CheepOptions({ setCheeps }) {
 
       const data = await res.json();
       dispatch(fetchDeleteCheep(data));
+      dispatch(updateCheepCard(!cheepCardUpdate));
 
       // dispatch(updateTimeline(!timeline));
       // dispatch(fetchUser(user.id));
@@ -87,6 +90,7 @@ export default function CheepOptions({ setCheeps }) {
 
     const data = await res.json();
     dispatch(fetchDeleteCheep(data));
+    dispatch(updateCheepCard(!cheepCardUpdate));
 
     // dispatch(updateTimeline(!timeline));
     // dispatch(fetchUser(user.id));
@@ -123,3 +127,7 @@ export default function CheepOptions({ setCheeps }) {
     </CheepCardOptionsContainer>
   );
 }
+
+
+
+
