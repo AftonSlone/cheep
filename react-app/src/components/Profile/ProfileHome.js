@@ -12,11 +12,13 @@ import EditCheep from "../Home/EditCheep";
 import ReplyModal from "../reply/ReplyModal";
 import UserModal from "./UserModal";
 import { fetchUser } from "../../store/session";
+import { fetchProfileUser } from "../../store/profile";
 
 export default function ProfileHome() {
   const dispatch = useDispatch();
   const [loading] = useState(false);
   const user = useSelector((state) => state.session.user);
+  const profileUser = useSelector((state) => state.profile.user);
   const editProfile = useSelector((state) => state.profile.editProfileModal);
   const cheepModal = useSelector((state) => state.cheep.newCheep);
   const actionsModal = useSelector((state) => state.cheep.actionsMenu);
@@ -28,7 +30,7 @@ export default function ProfileHome() {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(fetchUser(id));
+    dispatch(fetchProfileUser(id));
   }, [timeline, dispatch, id]);
 
   return (
@@ -38,10 +40,10 @@ export default function ProfileHome() {
           <div />
         </Loader>
       )}
-      {user && <UserProfileCard />}
-      {user &&
-        user.cheeps.map((cheep) => (
-          <CheepCard cheepId={cheep.id} key={cheep.id} />
+      {profileUser && <UserProfileCard />}
+      {profileUser &&
+        profileUser.cheeps.map((cheep) => (
+          <CheepCard cheep={cheep} key={cheep.id} />
         ))}
 
       {editProfile && (
