@@ -26,4 +26,8 @@ export const CheepCardUsername = styled.div`
       border-radius: 1rem;
     }
   }
+
+  #link {
+    color: #1da1f2;
+  }
 `;
