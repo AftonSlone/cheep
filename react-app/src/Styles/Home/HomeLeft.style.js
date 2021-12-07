@@ -1,22 +1,29 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const HomeLeft = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  justify-content: flex-end;
   background-color: black;
   width: 30%;
   height: 100%;
   color: white;
   border-right: 1px solid rgba(245, 248, 250, 0.3);
 
+  .navlinkcontainer {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+  }
+
+  .icon {
+    margin-right: 2rem;
+  }
+
   a {
     display: flex;
-    justify-content: center;
     align-items: center;
-    justify-content: space-evenly;
     color: white;
-    width: 30%;
     height: 5%;
     border-radius: 2.5rem;
     font-size: 2.5rem;

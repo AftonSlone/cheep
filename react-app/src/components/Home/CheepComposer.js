@@ -2,19 +2,18 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { HomeTweetContainer } from "../../Styles/Home/HomeTweetContainer.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
-import { updateTimeline } from "../../store/cheep";
-// import { ErrorContainer } from "../../Styles/Auth/ErrorContainer.style";
+import { addNewCheep } from "../../store/cheep";
 
-export default function CheepComposer({ setCheeps }) {
+export default function CheepComposer() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  const timeline = useSelector((state) => state.cheep.updateTimeline);
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState(null);
 
   const newCheep = async () => {
-    const res = await fetch("api/cheeps", {
+    let finalData = null;
+    const res = await fetch("/api/cheeps", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,6 +24,7 @@ export default function CheepComposer({ setCheeps }) {
       }),
     });
     const data = await res.json();
+    finalData = data;
 
     if (data.errors) {
       setErrors(data.errors);
@@ -34,17 +34,19 @@ export default function CheepComposer({ setCheeps }) {
     if (image) {
       const form_data = new FormData();
       form_data.append("photo", image);
-      await fetch(`/api/cheeps/${data.id}/photo`, {
+      const res2 = await fetch(`/api/cheeps/${data.id}/photo`, {
         method: "POST",
         body: form_data,
       });
+
+      const data2 = await res2.json();
+      finalData = data2;
     }
 
-    setCheeps([]);
     setContent("");
     setImage(null);
     setErrors(null);
-    dispatch(updateTimeline(!timeline));
+    dispatch(addNewCheep(finalData));
   };
 
   const addPhoto = (e) => {
@@ -59,7 +61,6 @@ export default function CheepComposer({ setCheeps }) {
       </div>
       <div>
         <div>
-
           <textarea
             placeholder="What's happening?"
             name="content"
@@ -107,12 +108,12 @@ export default function CheepComposer({ setCheeps }) {
           <div onClick={newCheep}>Cheep</div>
         </div>
         {errors && (
-            <div className="cheepComposerErrors">
-              {errors.map((error, ind) => (
-                <div key={ind}>{error}</div>
-              ))}
-            </div>
-          )}
+          <div className="cheepComposerErrors">
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
+          </div>
+        )}
       </div>
     </HomeTweetContainer>
   );

@@ -4,20 +4,17 @@ import { Loader } from "../../Styles/Modal/Loader.style";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "../Modal/Modal";
 import CheepCard from "../Home/CheepCard";
-import UserProfileCard from "./UserProfileCard";
-import EditProfileModal from "./EditProfileModal";
 import CheepModal from "../Home/CheepModal";
 import CheepOptions from "../Home/CheepOptions";
 import EditCheep from "../Home/EditCheep";
 import ReplyModal from "../reply/ReplyModal";
-import UserModal from "./UserModal";
+import UserModal from "../Profile/UserModal";
 import { fetchUser } from "../../store/session";
 
-export default function ProfileHome() {
+export default function MentionHome() {
   const dispatch = useDispatch();
   const [loading] = useState(false);
   const user = useSelector((state) => state.session.user);
-  const editProfile = useSelector((state) => state.profile.editProfileModal);
   const cheepModal = useSelector((state) => state.cheep.newCheep);
   const actionsModal = useSelector((state) => state.cheep.actionsMenu);
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
@@ -38,17 +35,11 @@ export default function ProfileHome() {
           <div />
         </Loader>
       )}
-      {user && <UserProfileCard />}
+
       {user &&
-        user.cheeps.map((cheep) => (
+        user.mentions.map((cheep) => (
           <CheepCard cheepId={cheep.id} key={cheep.id} />
         ))}
-
-      {editProfile && (
-        <Modal type="edit">
-          <EditProfileModal />
-        </Modal>
-      )}
 
       {cheepModal && (
         <Modal type="edit">
@@ -79,6 +70,7 @@ export default function ProfileHome() {
           <UserModal />
         </Modal>
       )}
+      <h1>Test</h1>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const HomeTweetContainer = styled.div`
   background-color: black;
@@ -7,7 +7,6 @@ export const HomeTweetContainer = styled.div`
   display: flex;
   border-top: 1px solid rgba(245, 248, 250, 0.3);
   border-bottom: 1px solid rgba(245, 248, 250, 0.3);
-  margin-bottom: 1rem;
 
   div:nth-child(1) {
     display: flex;
@@ -16,7 +15,6 @@ export const HomeTweetContainer = styled.div`
     align-items: center;
     height: 100%;
     width: 15%;
-
   }
 
   div:nth-child(2) {
@@ -137,7 +135,7 @@ export const HomeTweetContainer = styled.div`
   }
 
   .cheepComposerErrors {
-    color: #1DA1F2;
+    color: #1da1f2;
     margin-top: 1rem;
     font-size: 1.5rem;
   }

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 28afc179fee1
-Revises: 
-Create Date: 2021-11-17 11:26:37.090401
+Revision ID: 5707aed709de
+Revises:
+Create Date: 2021-12-02 01:20:28.156652
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '28afc179fee1'
+revision = '5707aed709de'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -73,6 +73,13 @@ def upgrade():
     sa.ForeignKeyConstraint(['cheep_id'], ['cheeps.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('mentions',
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('cheep_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['cheep_id'], ['cheeps.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('user_id', 'cheep_id')
+    )
     op.create_table('message_photos',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('message_id', sa.Integer(), nullable=False),
@@ -118,6 +125,7 @@ def downgrade():
     op.drop_table('replies')
     op.drop_table('recheeps')
     op.drop_table('message_photos')
+    op.drop_table('mentions')
     op.drop_table('cheep_photos')
     op.drop_table('cheep_likes')
     op.drop_table('messages')

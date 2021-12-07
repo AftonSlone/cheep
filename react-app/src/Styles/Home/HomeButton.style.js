@@ -7,7 +7,7 @@ export const HomeButton = styled.span`
   background-color: #1da1f2;
   color: white;
   font-size: 2.5rem;
-  width: 40%;
+  width: 85%;
   height: 5%;
   margin-right: 10%;
   margin-top: 1%;

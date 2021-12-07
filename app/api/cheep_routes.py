@@ -1,10 +1,11 @@
 from flask import Blueprint, request
 from flask_login import login_required
-from app.models import db, Cheep, User, CheepPhoto
+from app.models import db, Cheep, User, CheepPhoto, Mention
 from app.forms.edit_cheep_form import EditCheepForm
 from app.validators import validation_errors_to_error_messages
 import maya
 import boto3
+import re
 from app.config import Config
 
 cheep_routes = Blueprint('cheeps', __name__)
@@ -23,8 +24,16 @@ def new_cheep():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         data = request.json
+        regex = r'@(.*?) '
+        usernames = re.findall(regex, data['content'])
         new_cheep = Cheep(**data)
         db.session.add(new_cheep)
+        if usernames:
+            for user in usernames:
+                user = User.query.filter(User.username == user).all()
+                if user:
+                    new_mention = Mention(user_id=user[0].id, cheep_id=new_cheep.id)
+                    db.session.add(new_mention)
         db.session.commit()
         return new_cheep.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
@@ -41,8 +50,9 @@ def single_cheep(id):
 def delete_cheep(id):
     cheep = Cheep.query.get(id)
     db.session.delete(cheep)
+    cheep = cheep.to_simple_dict()
     db.session.commit()
-    return "success"
+    return cheep
 
 @cheep_routes.route('/<int:id>', methods=['PUT'])
 @login_required
@@ -50,9 +60,20 @@ def edit_cheep(id):
     form = EditCheepForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        data = request.json
+        regex = r'@(.*?) '
+        usernames = re.findall(regex, data['content'])
         cheep = Cheep.query.get(id)
         cheep.update(**form.data)
         db.session.add(cheep)
+        if usernames:
+            for user in usernames:
+                user = User.query.filter(User.username == user).all()
+                if user:
+                    mention = Mention.query.filter(Mention.cheep_id == id).filter(Mention.user_id == user[0].id).all()
+                    if not mention:
+                        new_mention = Mention(user_id=user.id, cheep_id=id)
+                        db.session.add(new_mention)
         db.session.commit()
         return cheep.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
@@ -82,7 +103,8 @@ def cheap_photo(id):
     new_photo = CheepPhoto(cheep_id=id, photo_url=photo_url)
     db.session.add(new_photo)
     db.session.commit()
-    return "Photo added"
+    cheep = Cheep.query.get(id)
+    return cheep.to_dict()
 
 @cheep_routes.route('/<int:id>/photo', methods=["DELETE"])
 @login_required
@@ -93,4 +115,4 @@ def delete_cheap_photo(id):
     cheep = Cheep.query.get(id)
     db.session.delete(cheep)
     db.session.commit()
-    return "success"
+    return cheep.to_simple_dict()

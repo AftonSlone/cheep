@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required
-from app.models import db, Reply, ReplyPhoto
+from app.models import db, Reply, ReplyPhoto, Cheep
 from app.forms.edit_reply_form import EditReplyForm
 from app.validators import validation_errors_to_error_messages
 import boto3
@@ -60,7 +60,8 @@ def reply_photo(id):
     new_photo = ReplyPhoto(reply_id=id, photo_url=photo_url)
     db.session.add(new_photo)
     db.session.commit()
-    return "Photo added"
+    reply = Reply.query.get(id)
+    return reply.to_dict()
 
 @reply_routes.route('/<int:id>/photo', methods=["DELETE"])
 @login_required

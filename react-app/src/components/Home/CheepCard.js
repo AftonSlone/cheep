@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../../Styles/Modal/Loader.style";
 import { CheepCardContainer } from "../../Styles/Cheep/CheepCardContainer.style";
@@ -13,38 +12,39 @@ import { CheepCardUsername } from "../../Styles/Cheep/CheepCardUsername.style";
 import { CheepCardContentContainer } from "../../Styles/Cheep/CheepCardContentContainer.style";
 import { CheepCardContent } from "../../Styles/Cheep/CheepCardContent.style";
 import { CheepCardActions } from "../../Styles/Cheep/CheepCardActions.style";
-import { actionsMenu, singleCheep } from "../../store/cheep";
+import {
+  actionsMenu,
+  setUpdateTimelineCheep,
+  singleCheep,
+} from "../../store/cheep";
 import { updateReplyModal } from "../../store/reply";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
-export default function CheepCard({ cheepId }) {
+export default function CheepCard({ cheepId, cheep }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  const updateState = useSelector((state) => state.cheep.updateCheepCard);
-  const [update, setUpdate] = useState(false);
-  const [cheep, setCheep] = useState(null);
 
-  useEffect(() => {
-    let mounted = true;
+  // useEffect(() => {
+  //   let mounted = true;
 
-    (async () => {
-      const res = await fetch(`/api/cheeps/${cheepId}`);
-      const data = await res.json();
-      if (mounted) setCheep(data);
-    })();
+  //   (async () => {
+  //     const res = await fetch(`/api/cheeps/${cheepId}`);
+  //     const data = await res.json();
+  //     if (mounted) setCheep(data);
+  //   })();
 
-    return () => {
-      mounted = false;
-    };
-  }, [update, cheepId, updateState]);
+  //   return () => {
+  //     mounted = false;
+  //   };
+  // }, [update, cheepId, updateState]);
 
   const handleLikes = async (e, cheep_id) => {
     e.stopPropagation();
     const id = Number(e.currentTarget.id);
     if (id > 0) {
-      await fetch(`/api/likes/${id}`, {
+      const res = await fetch(`/api/likes/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -54,10 +54,13 @@ export default function CheepCard({ cheepId }) {
           cheep_id: cheep_id,
         }),
       });
-      setUpdate(!update);
+      const data = await res.json();
+      dispatch(setUpdateTimelineCheep(data));
+      dispatch(singleCheep(data));
+      // dispatch(update);
       return;
     }
-    await fetch(`/api/likes`, {
+    const res = await fetch(`/api/likes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +70,9 @@ export default function CheepCard({ cheepId }) {
         cheep_id: cheep_id,
       }),
     });
-    setUpdate(!update);
+    const data = await res.json();
+    dispatch(setUpdateTimelineCheep(data));
+    dispatch(singleCheep(data));
     return;
   };
 
@@ -103,7 +108,7 @@ export default function CheepCard({ cheepId }) {
   const link = (e, id) => {
     e.stopPropagation();
     // if (e.target.id != "link") history.push(`/cheep/${id}`);
-    history.push(`/cheep/${id}`);
+    history.push(`/home/cheep/${id}`);
   };
 
   // const handleImage = async () => {
@@ -128,7 +133,7 @@ export default function CheepCard({ cheepId }) {
     );
 
   return (
-    <CheepCardContainer onClick={(e) => link(e, cheep.id)}>
+    <CheepCardContainer>
       <CheepCardProfilePhoto>
         <img src={handleProfileImg()} alt="" className="avatar" />
       </CheepCardProfilePhoto>
@@ -136,13 +141,13 @@ export default function CheepCard({ cheepId }) {
         <CheepCardUsername>
           {
             <Link
-              to={`/user/${cheep.user.id}`}
+              to={`/home/user/${cheep.user.id}`}
               id="link"
             >{`@${cheep.user.username}`}</Link>
           }{" "}
           <div onClick={openActionsMenu}>. . .</div>
         </CheepCardUsername>
-        <CheepCardContent>
+        <CheepCardContent onClick={(e) => link(e, cheep.id)}>
           <div className="cheepContentWrapper">{cheep.content}</div>
 
           <div className="cheepPhotoWrapper">

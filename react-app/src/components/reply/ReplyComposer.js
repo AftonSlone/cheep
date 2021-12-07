@@ -2,20 +2,23 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReplyCheepContainer } from "../../Styles/Reply/ReplyCheepContainer.style";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
-import { updateCheepCard, updateTimeline } from "../../store/cheep";
+import {
+  fetchNewReply,
+  setUpdateTimelineCheep,
+  singleCheep,
+} from "../../store/cheep";
 import { updateReplyModal } from "../../store/reply";
 
-export default function ReplyComposer({ setCheeps, update, setUpdate }) {
+export default function ReplyComposer() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  const timeline = useSelector((state) => state.cheep.updateTimeline);
   const cheep = useSelector((state) => state.cheep.singleCheep);
-  const updateState = useSelector((state) => state.cheep.updateCheepCard);
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState(null);
 
   const newReply = async () => {
+    let finalData = null;
     const res = await fetch("/api/replies", {
       method: "POST",
       headers: {
@@ -29,6 +32,7 @@ export default function ReplyComposer({ setCheeps, update, setUpdate }) {
     });
 
     const data = await res.json();
+    finalData = data;
 
     if (data.errors) {
       setErrors(data.errors);
@@ -38,18 +42,21 @@ export default function ReplyComposer({ setCheeps, update, setUpdate }) {
     if (image) {
       const form_data = new FormData();
       form_data.append("photo", image);
-      await fetch(`/api/replies/${data.id}/photo`, {
+      const res2 = await fetch(`/api/replies/${data.id}/photo`, {
         method: "POST",
         body: form_data,
       });
+      const data2 = await res2.json();
+      finalData = data2;
     }
 
-    if (setCheeps) setCheeps([]);
-    if (setUpdate) setUpdate(!update);
     setErrors(null);
-    await dispatch(updateCheepCard(!updateState));
-    await dispatch(updateTimeline(!timeline));
-    await dispatch(updateReplyModal(false));
+    dispatch(fetchNewReply(finalData));
+    // dispatch(setUpdateTimelineCheep(finalData));
+    // dispatch(singleCheep(finalData));
+    // await dispatch(updateCheepCard(!updateState));
+    // await dispatch(updateTimeline(!timeline));
+    dispatch(updateReplyModal(false));
   };
 
   const addPhoto = (e) => {

@@ -3,11 +3,11 @@ import { useLocation, useHistory } from "react-router-dom";
 import {
   actionsMenu,
   editCheep,
+  fetchDeleteCheep,
   singleCheep,
   updateCheepCard,
-  updateTimeline,
 } from "../../store/cheep";
-import { fetchUser, logout } from "../../store/session";
+import { fetchUser } from "../../store/session";
 import { CheepCardOptionsContainer } from "../../Styles/Cheep/CheepCardOptionsContainer.style";
 import { Loader } from "../../Styles/Modal/Loader.style";
 export default function CheepOptions({ setCheeps }) {
@@ -15,8 +15,7 @@ export default function CheepOptions({ setCheeps }) {
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
   const cheep = useSelector((state) => state.cheep.singleCheep);
-  const timeline = useSelector((state) => state.cheep.updateTimeline);
-  const updateState = useSelector((state) => state.cheep.updateCheepCard);
+  const cheepCardUpdate = useSelector((state) => state.cheep.updateCheepCard);
   const dispatch = useDispatch();
 
   const following = () => {
@@ -63,35 +62,44 @@ export default function CheepOptions({ setCheeps }) {
   };
 
   const deleteCheep = async () => {
-    if (setCheeps) setCheeps([]);
     dispatch(actionsMenu(false));
     if (cheep.photos.length) {
-      await fetch(`/api/cheeps/${cheep.id}/photo`, {
+      const res = await fetch(`/api/cheeps/${cheep.id}/photo`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
       });
-      dispatch(updateTimeline(!timeline));
-      dispatch(fetchUser(user.id));
-      dispatch(actionsMenu(false));
-      dispatch(updateCheepCard(!updateState));
+
+      const data = await res.json();
+      dispatch(fetchDeleteCheep(data));
+      dispatch(updateCheepCard(!cheepCardUpdate));
+
+      // dispatch(updateTimeline(!timeline));
+      // dispatch(fetchUser(user.id));
+      // dispatch(actionsMenu(false));
+      // dispatch(updateCheepCard(!updateState));
       return;
     }
-    await fetch(`/api/cheeps/${cheep.id}`, {
+    const res = await fetch(`/api/cheeps/${cheep.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
     });
-    dispatch(updateTimeline(!timeline));
-    dispatch(fetchUser(user.id));
-    dispatch(actionsMenu(false));
+
+    const data = await res.json();
+    dispatch(fetchDeleteCheep(data));
+    dispatch(updateCheepCard(!cheepCardUpdate));
+
+    // dispatch(updateTimeline(!timeline));
+    // dispatch(fetchUser(user.id));
+    // dispatch(actionsMenu(false));
     if (location.pathname.includes("cheep")) {
-      history.push("/home");
+      history.push("/home/home");
       return;
     }
-    dispatch(updateCheepCard(!updateState));
+    // dispatch(updateCheepCard(!updateState));
     return;
   };
 

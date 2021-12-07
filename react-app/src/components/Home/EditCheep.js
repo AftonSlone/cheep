@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import { EditCheepContainer } from "../../Styles/Cheep/EditCheepContainer.style";
 import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
-import { editCheep, updateCheepCard, updateTimeline } from "../../store/cheep";
-import { fetchUser } from "../../store/session";
+import {
+  editCheep,
+  setUpdateTimelineCheep,
+  updateTimeline,
+} from "../../store/cheep";
 
-export default function EditCheep({ setCheeps }) {
+
+export default function EditCheep() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const cheep = useSelector((state) => state.cheep.singleCheep);
   const timeline = useSelector((state) => state.cheep.updateTimeline);
-  const updateState = useSelector((state) => state.cheep.updateCheepCard);
   const [content, setContent] = useState(cheep.content);
   const [errors, setErrors] = useState(null);
 
@@ -31,12 +34,12 @@ export default function EditCheep({ setCheeps }) {
       return;
     }
 
+    dispatch(setUpdateTimelineCheep(data));
     dispatch(editCheep(false));
-    if (setCheeps) setCheeps([]);
     setErrors(null);
     dispatch(updateTimeline(!timeline));
-    dispatch(updateCheepCard(!updateState));
-    dispatch(fetchUser(user.id));
+    // dispatch(updateCheepCard(!updateState));
+    // dispatch(fetchUser(user.id));
   };
   return (
     <EditCheepContainer>
