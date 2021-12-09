@@ -5,9 +5,9 @@ import { MdOutlineInsertPhoto, MdOutlineGif } from "react-icons/md";
 import {
   editCheep,
   setUpdateTimelineCheep,
+  singleCheep,
   updateTimeline,
 } from "../../store/cheep";
-
 
 export default function EditCheep() {
   const dispatch = useDispatch();
@@ -38,8 +38,7 @@ export default function EditCheep() {
     dispatch(editCheep(false));
     setErrors(null);
     dispatch(updateTimeline(!timeline));
-    // dispatch(updateCheepCard(!updateState));
-    // dispatch(fetchUser(user.id));
+    dispatch(singleCheep(data));
   };
   return (
     <EditCheepContainer>
