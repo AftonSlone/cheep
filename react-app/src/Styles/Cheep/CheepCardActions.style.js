@@ -8,9 +8,6 @@ export const CheepCardActions = styled.div`
   justify-content: space-around;
   /* margin-top: 7rem; */
 
-
-
-
   div {
     display: flex;
     justify-content: center;

@@ -120,6 +120,23 @@ export default function CheepCard({ cheepId, cheep }) {
     );
   };
 
+  const userRecheeped = () => {
+    if (cheep.recheeps) {
+      for (const recheep of cheep.recheeps) {
+        if (recheep.user_id === user.id)
+          return (
+            <MdOutlineCached
+              id={`${user.id}`}
+              onClick={(e) => handleRecheeps(e, cheep.id)}
+            />
+          );
+      }
+    }
+    return (
+      <MdOutlineCached id="0" onClick={(e) => handleRecheeps(e, cheep.id)} />
+    );
+  };
+
   const openActionsMenu = (e) => {
     e.stopPropagation();
     dispatch(singleCheep(cheep));
@@ -161,7 +178,7 @@ export default function CheepCard({ cheepId, cheep }) {
 
   return (
     <CheepCardContainer>
-      <CheepCardProfilePhoto>
+      <CheepCardProfilePhoto onClick={(e) => link(e, cheep.id)}>
         <img src={handleProfileImg()} alt="" className="avatar" />
       </CheepCardProfilePhoto>
       <CheepCardContentContainer>
@@ -195,9 +212,7 @@ export default function CheepCard({ cheepId, cheep }) {
             <div>{cheep.replies.length}</div>
           </div>
           <div>
-            <div>
-              <MdOutlineCached />
-            </div>
+            <div>{userRecheeped()}</div>
             <div>{cheep.recheeps.length}</div>
           </div>
           <div>

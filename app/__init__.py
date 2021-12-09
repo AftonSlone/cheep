@@ -12,6 +12,7 @@ from .api.cheep_routes import cheep_routes
 from .api.likes_routes import like_routes
 from .api.follow_routes import follow_routes
 from .api.reply_routes import reply_routes
+from .api.recheep_routes import recheep_routes
 
 
 from .seeds import seed_commands
@@ -40,6 +41,7 @@ app.register_blueprint(cheep_routes, url_prefix='/api/cheeps')
 app.register_blueprint(like_routes, url_prefix='/api/likes')
 app.register_blueprint(follow_routes, url_prefix='/api/follows')
 app.register_blueprint(reply_routes, url_prefix='/api/replies')
+app.register_blueprint(recheep_routes, url_prefix='/api/recheeps')
 db.init_app(app)
 Migrate(app, db)
 
@@ -79,5 +81,3 @@ def react_root(path):
     if path == 'favicon.ico':
         return app.send_static_file('favicon.ico')
     return app.send_static_file('index.html')
-
-
