@@ -45,10 +45,46 @@ export default function CheepCard({ cheepId, cheep }) {
       dispatch(setUpdateTimelineCheep(data));
       dispatch(singleCheep(data));
       dispatch(fetchUser(user.id));
-      // dispatch(update);
       return;
     }
     const res = await fetch(`/api/likes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        cheep_id: cheep_id,
+      }),
+    });
+    const data = await res.json();
+    dispatch(setUpdateTimelineCheep(data));
+    dispatch(singleCheep(data));
+    dispatch(fetchUser(user.id));
+    return;
+  };
+
+  const handleRecheeps = async (e, cheep_id) => {
+    e.stopPropagation();
+    const id = Number(e.currentTarget.id);
+    if (id > 0) {
+      const res = await fetch(`/api/recheeps/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: user.id,
+          cheep_id: cheep_id,
+        }),
+      });
+      const data = await res.json();
+      dispatch(setUpdateTimelineCheep(data));
+      dispatch(singleCheep(data));
+      dispatch(fetchUser(user.id));
+      return;
+    }
+    const res = await fetch(`/api/recheeps`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -79,6 +115,23 @@ export default function CheepCard({ cheepId, cheep }) {
     }
     return (
       <MdFavoriteBorder id="0" onClick={(e) => handleLikes(e, cheep.id)} />
+    );
+  };
+
+  const userRecheeped = () => {
+    if (cheep.recheeps) {
+      for (const recheep of cheep.recheeps) {
+        if (recheep.user_id === user.id)
+          return (
+            <MdOutlineCached
+              id={`${user.id}`}
+              onClick={(e) => handleRecheeps(e, cheep.id)}
+            />
+          );
+      }
+    }
+    return (
+      <MdOutlineCached id="0" onClick={(e) => handleRecheeps(e, cheep.id)} />
     );
   };
 
@@ -123,7 +176,7 @@ export default function CheepCard({ cheepId, cheep }) {
 
   return (
     <CheepCardContainer>
-      <CheepCardProfilePhoto>
+      <CheepCardProfilePhoto onClick={(e) => link(e, cheep.id)}>
         <img src={handleProfileImg()} alt="" className="avatar" />
       </CheepCardProfilePhoto>
       <CheepCardContentContainer>
@@ -157,9 +210,7 @@ export default function CheepCard({ cheepId, cheep }) {
             <div>{cheep.replies.length}</div>
           </div>
           <div>
-            <div>
-              <MdOutlineCached />
-            </div>
+            <div>{userRecheeped()}</div>
             <div>{cheep.recheeps.length}</div>
           </div>
           <div>

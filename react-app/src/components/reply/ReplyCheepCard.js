@@ -30,6 +30,7 @@ export default function ReplyCheepCard() {
         await dispatch(singleCheep(data));
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateCheepCard, dispatch]);
 
   const handleLikes = async (e, cheep_id) => {

@@ -5,6 +5,7 @@ export const CheepCardContainer = styled.div`
   display: flex;
   border-top: 1px solid rgba(245, 248, 250, 0.3);
   border-bottom: 1px solid rgba(245, 248, 250, 0.3);
+  cursor: pointer;
 
   .avatar {
     width: 7rem;

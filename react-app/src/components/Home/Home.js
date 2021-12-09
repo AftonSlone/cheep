@@ -19,10 +19,8 @@ export default function Home() {
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
   const replyModal = useSelector((state) => state.reply.replyModal);
   const cheepModal = useSelector((state) => state.cheep.newCheep);
-  const updateTimeline = useSelector((state) => state.cheep.updateTimeline);
   const userModal = useSelector((state) => state.session.userModal);
   const cheeps = useSelector((state) => state.cheep.timeline);
-  const setCheeps = false;
 
   useEffect(() => {
     let mounted = true;
@@ -31,13 +29,6 @@ export default function Home() {
         if (user) {
           setLoading(true);
           await dispatch(fetchTimeline(user));
-          // const res = await fetch(`/api/cheeps/user/${user.id}/timeline`, {
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //   },
-          // });
-          // const data = await res.json();
-          // setCheeps(data.data);
           setLoading(false);
         }
       })();
@@ -45,9 +36,8 @@ export default function Home() {
     return () => {
       mounted = false;
     };
-  }, [dispatch]);
-
-  useEffect(() => {}, [updateTimeline]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (loading) {
     return (
@@ -62,36 +52,39 @@ export default function Home() {
     );
   }
 
+  let count = 0;
+
   return (
     <>
       <CheepComposer />
 
       {cheeps &&
-        cheeps.map((cheep) => (
-          <CheepCard cheepId={cheep.id} key={cheep.id} cheep={cheep} />
-        ))}
+        cheeps.map((cheep) => {
+          count++;
+          return <CheepCard key={count} cheep={cheep} />;
+        })}
 
       {editCheepModal && (
         <Modal type="edit">
-          <EditCheep setCheeps={setCheeps} />
+          <EditCheep />
         </Modal>
       )}
 
       {actionsModal && (
         <Modal type="edit">
-          <CheepOptions setCheeps={setCheeps} />
+          <CheepOptions />
         </Modal>
       )}
 
       {replyModal && (
         <Modal type="edit">
-          <ReplyModal setCheeps={setCheeps} />
+          <ReplyModal />
         </Modal>
       )}
 
       {cheepModal && (
         <Modal type="edit">
-          <CheepModal setCheeps={setCheeps} />
+          <CheepModal />
         </Modal>
       )}
 
