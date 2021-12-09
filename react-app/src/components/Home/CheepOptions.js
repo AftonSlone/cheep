@@ -73,7 +73,7 @@ export default function CheepOptions({ setCheeps }) {
 
       const data = await res.json();
       dispatch(fetchDeleteCheep(data));
-      dispatch(updateCheepCard(!cheepCardUpdate));
+      // dispatch(updateCheepCard(!cheepCardUpdate));
       return;
     }
     const res = await fetch(`/api/cheeps/${cheep.id}`, {
@@ -85,7 +85,7 @@ export default function CheepOptions({ setCheeps }) {
 
     const data = await res.json();
     dispatch(fetchDeleteCheep(data));
-    dispatch(updateCheepCard(!cheepCardUpdate));
+    // dispatch(updateCheepCard(!cheepCardUpdate));
     if (location.pathname.includes("cheep")) {
       history.push("/home/home");
       return;
