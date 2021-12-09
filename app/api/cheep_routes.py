@@ -88,8 +88,8 @@ def timeline(id):
     following = [obj['followed_id'] for obj in user['following']]
     for id in following:
         result = Cheep.query.filter(Cheep.user_id == id).all()
-        user = User.query.get(id).to_dict()
-        recheeps = [*recheeps, *user['recheeps']]
+        user2 = User.query.get(id).to_dict()
+        recheeps = [*recheeps, *user2['recheeps']]
         results = [*results, *result]
     timeline = [*timeline, *[result.to_dict() for result in results]]
     timeline = [*timeline, *user['cheeps']]
