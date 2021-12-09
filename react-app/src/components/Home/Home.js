@@ -31,13 +31,6 @@ export default function Home() {
         if (user) {
           setLoading(true);
           await dispatch(fetchTimeline(user));
-          // const res = await fetch(`/api/cheeps/user/${user.id}/timeline`, {
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //   },
-          // });
-          // const data = await res.json();
-          // setCheeps(data.data);
           setLoading(false);
         }
       })();
@@ -45,7 +38,8 @@ export default function Home() {
     return () => {
       mounted = false;
     };
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {}, [updateTimeline]);
 
@@ -62,14 +56,17 @@ export default function Home() {
     );
   }
 
+  let count = 0;
+
   return (
     <>
       <CheepComposer />
 
       {cheeps &&
-        cheeps.map((cheep) => (
-          <CheepCard cheepId={cheep.id} key={cheep.id} cheep={cheep} />
-        ))}
+        cheeps.map((cheep) => {
+          count++;
+          return <CheepCard key={count} cheep={cheep} />;
+        })}
 
       {editCheepModal && (
         <Modal type="edit">

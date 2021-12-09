@@ -65,6 +65,44 @@ export default function CheepCard({ cheepId, cheep }) {
     return;
   };
 
+  const handleRecheeps = async (e, cheep_id) => {
+    e.stopPropagation();
+    const id = Number(e.currentTarget.id);
+    if (id > 0) {
+      const res = await fetch(`/api/recheeps/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: user.id,
+          cheep_id: cheep_id,
+        }),
+      });
+      const data = await res.json();
+      dispatch(setUpdateTimelineCheep(data));
+      dispatch(singleCheep(data));
+      dispatch(fetchUser(user.id));
+      // dispatch(update);
+      return;
+    }
+    const res = await fetch(`/api/recheeps`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        cheep_id: cheep_id,
+      }),
+    });
+    const data = await res.json();
+    dispatch(setUpdateTimelineCheep(data));
+    dispatch(singleCheep(data));
+    dispatch(fetchUser(user.id));
+    return;
+  };
+
   const userLiked = () => {
     if (cheep.likes) {
       for (const like of cheep.likes) {

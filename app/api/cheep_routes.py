@@ -82,13 +82,19 @@ def edit_cheep(id):
 @login_required
 def timeline(id):
     results = []
+    recheeps = []
+    timeline = []
     user = User.query.get(id).to_dict()
     following = [obj['followed_id'] for obj in user['following']]
     for id in following:
         result = Cheep.query.filter(Cheep.user_id == id).all()
+        user = User.query.get(id).to_dict()
+        recheeps = [*recheeps, *user['recheeps']]
         results = [*results, *result]
-    timeline = [result.to_dict() for result in results]
+    timeline = [*timeline, *[result.to_dict() for result in results]]
     timeline = [*timeline, *user['cheeps']]
+    for recheep in recheeps:
+        timeline = [*timeline, recheep['cheep']]
     timeline.sort(reverse = True, key = lambda date: maya.parse(date['updated_at']))
     return {'data': timeline}
 
