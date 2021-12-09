@@ -74,11 +74,6 @@ export default function CheepOptions({ setCheeps }) {
       const data = await res.json();
       dispatch(fetchDeleteCheep(data));
       dispatch(updateCheepCard(!cheepCardUpdate));
-
-      // dispatch(updateTimeline(!timeline));
-      // dispatch(fetchUser(user.id));
-      // dispatch(actionsMenu(false));
-      // dispatch(updateCheepCard(!updateState));
       return;
     }
     const res = await fetch(`/api/cheeps/${cheep.id}`, {
@@ -91,15 +86,10 @@ export default function CheepOptions({ setCheeps }) {
     const data = await res.json();
     dispatch(fetchDeleteCheep(data));
     dispatch(updateCheepCard(!cheepCardUpdate));
-
-    // dispatch(updateTimeline(!timeline));
-    // dispatch(fetchUser(user.id));
-    // dispatch(actionsMenu(false));
     if (location.pathname.includes("cheep")) {
       history.push("/home/home");
       return;
     }
-    // dispatch(updateCheepCard(!updateState));
     return;
   };
 

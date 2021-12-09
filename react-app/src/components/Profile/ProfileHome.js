@@ -70,7 +70,7 @@ export default function ProfileHome() {
 
       {replyModal && (
         <Modal type="edit">
-          <ReplyModal update={update} setUpdate={setUpdate} />
+          <ReplyModal  />
         </Modal>
       )}
 

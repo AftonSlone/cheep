@@ -19,10 +19,8 @@ export default function Home() {
   const editCheepModal = useSelector((state) => state.cheep.editCheep);
   const replyModal = useSelector((state) => state.reply.replyModal);
   const cheepModal = useSelector((state) => state.cheep.newCheep);
-  const updateTimeline = useSelector((state) => state.cheep.updateTimeline);
   const userModal = useSelector((state) => state.session.userModal);
   const cheeps = useSelector((state) => state.cheep.timeline);
-  const setCheeps = false;
 
   useEffect(() => {
     let mounted = true;
@@ -40,8 +38,6 @@ export default function Home() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {}, [updateTimeline]);
 
   if (loading) {
     return (
@@ -70,25 +66,25 @@ export default function Home() {
 
       {editCheepModal && (
         <Modal type="edit">
-          <EditCheep setCheeps={setCheeps} />
+          <EditCheep />
         </Modal>
       )}
 
       {actionsModal && (
         <Modal type="edit">
-          <CheepOptions setCheeps={setCheeps} />
+          <CheepOptions />
         </Modal>
       )}
 
       {replyModal && (
         <Modal type="edit">
-          <ReplyModal setCheeps={setCheeps} />
+          <ReplyModal />
         </Modal>
       )}
 
       {cheepModal && (
         <Modal type="edit">
-          <CheepModal setCheeps={setCheeps} />
+          <CheepModal />
         </Modal>
       )}
 

@@ -37,7 +37,6 @@ export default function EditCheep() {
     dispatch(setUpdateTimelineCheep(data));
     dispatch(editCheep(false));
     setErrors(null);
-    dispatch(updateTimeline(!timeline));
     dispatch(singleCheep(data));
   };
   return (

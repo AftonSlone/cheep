@@ -44,11 +44,3 @@ export function Modal({ type, children }) {
   );
 }
 
-//  export default function Modal({ component: Component, ...rest }) {
-
-//   return (
-//     <ModalContainer>
-//       <Component {...rest} />
-//     </ModalContainer>
-//   )
-//  }

@@ -45,7 +45,6 @@ export default function CheepCard({ cheepId, cheep }) {
       dispatch(setUpdateTimelineCheep(data));
       dispatch(singleCheep(data));
       dispatch(fetchUser(user.id));
-      // dispatch(update);
       return;
     }
     const res = await fetch(`/api/likes`, {
@@ -83,7 +82,6 @@ export default function CheepCard({ cheepId, cheep }) {
       dispatch(setUpdateTimelineCheep(data));
       dispatch(singleCheep(data));
       dispatch(fetchUser(user.id));
-      // dispatch(update);
       return;
     }
     const res = await fetch(`/api/recheeps`, {
