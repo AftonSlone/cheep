@@ -14,7 +14,7 @@ export const ProfileCardActions = styled.div`
     align-items: center;
     color: #1da1f2;
     font-size: 3rem;
-    width: 30%;
+    width: 50%;
     height: 3rem;
     cursor: pointer;
     margin-right: 1rem;

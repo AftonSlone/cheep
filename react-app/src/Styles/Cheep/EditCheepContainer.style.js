@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const EditCheepContainer = styled.div`
   background-color: black;
   width: 50%;
-  height: 20%;
+  /* height: 20%; */
   display: flex;
   border: 1px solid #1da1f2;
   border-radius: 1rem;
@@ -13,8 +13,8 @@ export const EditCheepContainer = styled.div`
     color: white;
     font-size: 2rem;
     position: absolute;
-    left: 1rem;
-    top: 1rem;
+    left: 0.2rem;
+    top: 0.2rem;
     cursor: pointer;
   }
 
@@ -141,7 +141,7 @@ export const EditCheepContainer = styled.div`
   }
 
   .cheepComposerErrors {
-    color: #1DA1F2;
+    color: #1da1f2;
     font-size: 1.5rem;
     margin-right: 7rem;
   }

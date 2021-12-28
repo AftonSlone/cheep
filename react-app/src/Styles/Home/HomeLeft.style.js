@@ -13,6 +13,7 @@ export const HomeLeft = styled.div`
     display: flex;
     flex-direction: column;
     width: 50%;
+    background-color: black;
     height: 100%;
   }
 

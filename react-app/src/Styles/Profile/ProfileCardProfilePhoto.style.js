@@ -7,4 +7,5 @@ export const ProfileCardProfilePhoto = styled.div`
   align-items: center;
   height: 100%;
   width: 15%;
+  padding: 1rem;
 `;

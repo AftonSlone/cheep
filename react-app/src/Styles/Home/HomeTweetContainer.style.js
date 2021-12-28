@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const HomeTweetContainer = styled.div`
   background-color: black;
   width: 100%;
-  min-height: 30%;
+  /* min-height: 30%; */
   display: flex;
   border-top: 1px solid rgba(245, 248, 250, 0.3);
   border-bottom: 1px solid rgba(245, 248, 250, 0.3);
@@ -117,6 +117,8 @@ export const HomeTweetContainer = styled.div`
     height: 7rem;
     border-radius: 50%;
     margin-top: 1rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
   }
 
   .deletePhoto {

@@ -9,7 +9,7 @@ justify-content: center;
 color: white;
 background-color: black;
 font-size: 2rem;
-width: 20%;
+width: 30%;
 height: 20%;
 border: 1px solid #1DA1F2;
 border-radius: 2rem;
