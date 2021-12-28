@@ -113,8 +113,8 @@ export const HomeTweetContainer = styled.div`
   }
 
   .avatar {
-    width: 7rem;
-    height: 7rem;
+    width: 6rem;
+    height: 6rem;
     border-radius: 50%;
     margin-top: 1rem;
     margin-right: 1rem;
