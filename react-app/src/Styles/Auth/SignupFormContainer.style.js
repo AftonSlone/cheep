@@ -8,7 +8,7 @@ export const SignupFormContainer = styled.form`
   justify-content: center;
   position: relative;
   width: 40%;
-  height: 40%;
+  /* height: 40%; */
   font-size: 1.5rem;
   border-radius: 2.5rem;
 
