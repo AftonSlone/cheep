@@ -5,6 +5,6 @@ export const CheepCardProfilePhoto = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 100%;
   width: 15%;
+  padding: 2%;
 `;

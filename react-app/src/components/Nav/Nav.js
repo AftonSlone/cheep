@@ -27,9 +27,9 @@ export default function Nav() {
         <Link to={`/home/user/${user.id}/mentions`}>
           <MdAlternateEmail className="icon" /> Mentions
         </Link>
-        <Link to="/home/home">
+        {/* <Link to="/home/home">
           <MdMailOutline className="icon" /> Messages
-        </Link>
+        </Link> */}
         <Link to={`/home/user/${user.id}`}>
           <MdPersonOutline className="icon" /> Profile
         </Link>

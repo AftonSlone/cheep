@@ -7,12 +7,11 @@ export const ProfileCardContent = styled.div`
   justify-content: center;
   color: white;
   font-size: 2rem;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   width: 100%;
   /* min-height: 30%; */
 
-
-  .cheepContentWrapper {
+  /* .cheepContentWrapper {
     width: 100%;
     margin-bottom: 2rem;
   }
@@ -26,5 +25,5 @@ export const ProfileCardContent = styled.div`
     background-color: black;
     border-radius: 2.5rem;
     margin-bottom: 2rem;
-  }
+  } */
 `;
